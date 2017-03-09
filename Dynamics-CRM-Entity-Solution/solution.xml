@@ -1,0 +1,1596 @@
+<ImportExportXml version="6.1.0003.0119" SolutionPackageVersion="6.0" languagecode="1036" generatedBy="OnPremise" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SolutionManifest>
+    <UniqueName>DSEYDOUSERVICES</UniqueName>
+    <LocalizedNames>
+      <LocalizedName description="DSEYDOU SERVICES" languagecode="1036" />
+    </LocalizedNames>
+    <Descriptions />
+    <Version>2015.08.04.1</Version>
+    <Managed>1</Managed>
+    <Publisher>
+      <UniqueName>dseydou_services</UniqueName>
+      <LocalizedNames>
+        <LocalizedName description="DSeydou_Services" languagecode="1036" />
+      </LocalizedNames>
+      <Descriptions>
+        <Description description="This solution allows us to get all developments from &quot;client&quot; environnement in order to create test crm." languagecode="1036" />
+      </Descriptions>
+      <EMailAddress xsi:nil="true"></EMailAddress>
+      <SupportingWebsiteUrl xsi:nil="true"></SupportingWebsiteUrl>
+      <CustomizationPrefix>mut</CustomizationPrefix>
+      <CustomizationOptionValuePrefix>10000</CustomizationOptionValuePrefix>
+      <Addresses>
+        <Address>
+          <AddressNumber>1</AddressNumber>
+          <AddressTypeCode>1</AddressTypeCode>
+          <City xsi:nil="true"></City>
+          <County xsi:nil="true"></County>
+          <Country xsi:nil="true"></Country>
+          <Fax xsi:nil="true"></Fax>
+          <FreightTermsCode xsi:nil="true"></FreightTermsCode>
+          <ImportSequenceNumber xsi:nil="true"></ImportSequenceNumber>
+          <Latitude xsi:nil="true"></Latitude>
+          <Line1 xsi:nil="true"></Line1>
+          <Line2 xsi:nil="true"></Line2>
+          <Line3 xsi:nil="true"></Line3>
+          <Longitude xsi:nil="true"></Longitude>
+          <Name xsi:nil="true"></Name>
+          <PostalCode xsi:nil="true"></PostalCode>
+          <PostOfficeBox xsi:nil="true"></PostOfficeBox>
+          <PrimaryContactName xsi:nil="true"></PrimaryContactName>
+          <ShippingMethodCode>1</ShippingMethodCode>
+          <StateOrProvince xsi:nil="true"></StateOrProvince>
+          <Telephone1 xsi:nil="true"></Telephone1>
+          <Telephone2 xsi:nil="true"></Telephone2>
+          <Telephone3 xsi:nil="true"></Telephone3>
+          <TimeZoneRuleVersionNumber xsi:nil="true"></TimeZoneRuleVersionNumber>
+          <UPSZone xsi:nil="true"></UPSZone>
+          <UTCOffset xsi:nil="true"></UTCOffset>
+          <UTCConversionTimeZoneCode xsi:nil="true"></UTCConversionTimeZoneCode>
+        </Address>
+        <Address>
+          <AddressNumber>2</AddressNumber>
+          <AddressTypeCode>1</AddressTypeCode>
+          <City xsi:nil="true"></City>
+          <County xsi:nil="true"></County>
+          <Country xsi:nil="true"></Country>
+          <Fax xsi:nil="true"></Fax>
+          <FreightTermsCode xsi:nil="true"></FreightTermsCode>
+          <ImportSequenceNumber xsi:nil="true"></ImportSequenceNumber>
+          <Latitude xsi:nil="true"></Latitude>
+          <Line1 xsi:nil="true"></Line1>
+          <Line2 xsi:nil="true"></Line2>
+          <Line3 xsi:nil="true"></Line3>
+          <Longitude xsi:nil="true"></Longitude>
+          <Name xsi:nil="true"></Name>
+          <PostalCode xsi:nil="true"></PostalCode>
+          <PostOfficeBox xsi:nil="true"></PostOfficeBox>
+          <PrimaryContactName xsi:nil="true"></PrimaryContactName>
+          <ShippingMethodCode>1</ShippingMethodCode>
+          <StateOrProvince xsi:nil="true"></StateOrProvince>
+          <Telephone1 xsi:nil="true"></Telephone1>
+          <Telephone2 xsi:nil="true"></Telephone2>
+          <Telephone3 xsi:nil="true"></Telephone3>
+          <TimeZoneRuleVersionNumber xsi:nil="true"></TimeZoneRuleVersionNumber>
+          <UPSZone xsi:nil="true"></UPSZone>
+          <UTCOffset xsi:nil="true"></UTCOffset>
+          <UTCConversionTimeZoneCode xsi:nil="true"></UTCConversionTimeZoneCode>
+        </Address>
+      </Addresses>
+    </Publisher>
+    <RootComponents>
+      <RootComponent type="1" schemaName="account" />
+      <RootComponent type="1" schemaName="activitymimeattachment" />
+      <RootComponent type="1" schemaName="activitypointer" />
+      <RootComponent type="1" schemaName="appointment" />
+      <RootComponent type="1" schemaName="bulkoperation" />
+      <RootComponent type="1" schemaName="businessunit" />
+      <RootComponent type="1" schemaName="campaign" />
+      <RootComponent type="1" schemaName="campaignactivity" />
+      <RootComponent type="1" schemaName="competitor" />
+      <RootComponent type="1" schemaName="competitoraddress" />
+      <RootComponent type="1" schemaName="connection" />
+      <RootComponent type="1" schemaName="contact" />
+      <RootComponent type="1" schemaName="contract" />
+      <RootComponent type="1" schemaName="contractdetail" />
+      <RootComponent type="1" schemaName="customeraddress" />
+      <RootComponent type="1" schemaName="duplicaterulecondition" />
+      <RootComponent type="1" schemaName="email" />
+      <RootComponent type="1" schemaName="emailserverprofile" />
+      <RootComponent type="1" schemaName="fieldpermission" />
+      <RootComponent type="1" schemaName="incident" />
+      <RootComponent type="1" schemaName="internaladdress" />
+      <RootComponent type="1" schemaName="invoice" />
+      <RootComponent type="1" schemaName="kbarticle" />
+      <RootComponent type="1" schemaName="lead" />
+      <RootComponent type="1" schemaName="leadaddress" />
+      <RootComponent type="1" schemaName="mailbox" />
+      <RootComponent type="1" schemaName="msdyn_postconfig" />
+      <RootComponent type="1" schemaName="msdyn_postruleconfig" />
+      <RootComponent type="1" schemaName="new_bin" />
+      <RootComponent type="1" schemaName="new_card" />
+      <RootComponent type="1" schemaName="new_category" />
+      <RootComponent type="1" schemaName="new_city" />
+      <RootComponent type="1" schemaName="new_codevisa" />
+      <RootComponent type="1" schemaName="new_contract" />
+      <RootComponent type="1" schemaName="new_country" />
+      <RootComponent type="1" schemaName="new_department" />
+      <RootComponent type="1" schemaName="new_establishment" />
+      <RootComponent type="1" schemaName="new_favoriteexcluded" />
+      <RootComponent type="1" schemaName="new_langage" />
+      <RootComponent type="1" schemaName="new_nature" />
+      <RootComponent type="1" schemaName="new_parameter" />
+      <RootComponent type="1" schemaName="new_phonecontract" />
+      <RootComponent type="1" schemaName="new_phoneschedule" />
+      <RootComponent type="1" schemaName="new_preference" />
+      <RootComponent type="1" schemaName="new_prestation" />
+      <RootComponent type="1" schemaName="new_satisfaction" />
+      <RootComponent type="1" schemaName="new_service" />
+      <RootComponent type="1" schemaName="new_subtype" />
+      <RootComponent type="1" schemaName="new_theme" />
+      <RootComponent type="1" schemaName="new_type" />
+      <RootComponent type="1" schemaName="onil_dictionary" />
+      <RootComponent type="1" schemaName="onil_log" />
+      <RootComponent type="1" schemaName="onil_rule" />
+      <RootComponent type="1" schemaName="opportunity" />
+      <RootComponent type="1" schemaName="opportunityclose" />
+      <RootComponent type="1" schemaName="opportunityproduct" />
+      <RootComponent type="1" schemaName="orderclose" />
+      <RootComponent type="1" schemaName="phonecall" />
+      <RootComponent type="1" schemaName="product" />
+      <RootComponent type="1" schemaName="productpricelevel" />
+      <RootComponent type="1" schemaName="publisher" />
+      <RootComponent type="1" schemaName="queue" />
+      <RootComponent type="1" schemaName="queueitem" />
+      <RootComponent type="1" schemaName="quote" />
+      <RootComponent type="1" schemaName="quoteclose" />
+      <RootComponent type="1" schemaName="recurringappointmentmaster" />
+      <RootComponent type="1" schemaName="report" />
+      <RootComponent type="1" schemaName="reportcategory" />
+      <RootComponent type="1" schemaName="resourcegroupexpansion" />
+      <RootComponent type="1" schemaName="rollupfield" />
+      <RootComponent type="1" schemaName="salesliterature" />
+      <RootComponent type="1" schemaName="salesorder" />
+      <RootComponent type="1" schemaName="service" />
+      <RootComponent type="1" schemaName="serviceappointment" />
+      <RootComponent type="1" schemaName="sharepointdocumentlocation" />
+      <RootComponent type="1" schemaName="sharepointsite" />
+      <RootComponent type="1" schemaName="solution" />
+      <RootComponent type="1" schemaName="systemuser" />
+      <RootComponent type="1" schemaName="task" />
+      <RootComponent type="1" schemaName="team" />
+      <RootComponent type="1" schemaName="transactioncurrency" />
+      <RootComponent type="1" schemaName="workflow" />
+      <RootComponent type="9" schemaName="budgetstatus" />
+      <RootComponent type="9" schemaName="connectionrole_category" />
+      <RootComponent type="9" schemaName="initialcommunication" />
+      <RootComponent type="9" schemaName="need" />
+      <RootComponent type="9" schemaName="new_advantagetype" />
+      <RootComponent type="9" schemaName="new_beneficiary" />
+      <RootComponent type="9" schemaName="new_cardtyp" />
+      <RootComponent type="9" schemaName="new_cause" />
+      <RootComponent type="9" schemaName="new_choice" />
+      <RootComponent type="9" schemaName="new_company" />
+      <RootComponent type="9" schemaName="new_confirmation" />
+      <RootComponent type="9" schemaName="new_day" />
+      <RootComponent type="9" schemaName="new_dueto" />
+      <RootComponent type="9" schemaName="new_hour" />
+      <RootComponent type="9" schemaName="new_intertype" />
+      <RootComponent type="9" schemaName="new_issue" />
+      <RootComponent type="9" schemaName="new_legalstatus" />
+      <RootComponent type="9" schemaName="new_listdissatisfactiontype" />
+      <RootComponent type="9" schemaName="new_listevaluation" />
+      <RootComponent type="9" schemaName="new_nivel" />
+      <RootComponent type="9" schemaName="new_origin" />
+      <RootComponent type="9" schemaName="new_payment" />
+      <RootComponent type="9" schemaName="new_phonetype" />
+      <RootComponent type="9" schemaName="new_priority" />
+      <RootComponent type="9" schemaName="new_rank" />
+      <RootComponent type="9" schemaName="new_salutation" />
+      <RootComponent type="9" schemaName="new_satisfactiontype" />
+      <RootComponent type="9" schemaName="new_secretquestion" />
+      <RootComponent type="9" schemaName="new_statusemail" />
+      <RootComponent type="9" schemaName="new_surveytyp" />
+      <RootComponent type="9" schemaName="new_territory" />
+      <RootComponent type="9" schemaName="new_typechannel" />
+      <RootComponent type="9" schemaName="new_typecontract" />
+      <RootComponent type="9" schemaName="new_typeofcontact" />
+      <RootComponent type="9" schemaName="new_typology" />
+      <RootComponent type="9" schemaName="new_vehiclecategory" />
+      <RootComponent type="9" schemaName="new_visittype" />
+      <RootComponent type="9" schemaName="new_welcomecallresult" />
+      <RootComponent type="9" schemaName="new_year" />
+      <RootComponent type="9" schemaName="processstage_category" />
+      <RootComponent type="9" schemaName="purchaseprocess" />
+      <RootComponent type="9" schemaName="purchasetimeframe" />
+      <RootComponent type="20" parentId="{119f245c-3cc8-4b62-b31c-d1a046ced15d}" />
+      <RootComponent type="61" schemaName="msdyn_/ActivityFeeds.Form.js" />
+      <RootComponent type="61" schemaName="msdyn_/RecordWall.htm" />
+      <RootComponent type="61" schemaName="msdyn_/Scripts/jqueryUI1.8.13.custom.min.js" />
+      <RootComponent type="61" schemaName="new_/XrmConciergerie/Scripts/Account/main_library.js" />
+      <RootComponent type="61" schemaName="new_/XrmConciergerie/Scripts/Account/ribbon_library.js" />
+      <RootComponent type="61" schemaName="new_/XrmConciergerie/Scripts/City/main_library" />
+      <RootComponent type="61" schemaName="new_/XrmConciergerie/Scripts/Contact/main_library.js" />
+      <RootComponent type="61" schemaName="new_/XrmConciergerie/Scripts/Contact/ribbon_library.js" />
+      <RootComponent type="61" schemaName="new_/XrmConciergerie/Scripts/Contract/main_library.js" />
+      <RootComponent type="61" schemaName="new_/XrmConciergerie/Scripts/CustomerAddress/main_library.js" />
+      <RootComponent type="61" schemaName="new_/XrmConciergerie/Scripts/Email/main_library.js" />
+      <RootComponent type="61" schemaName="new_/XrmConciergerie/Scripts/Establishment/main_library.js" />
+      <RootComponent type="61" schemaName="new_/XrmConciergerie/Scripts/FavoriteExcluded/main_library.js" />
+      <RootComponent type="61" schemaName="new_/XrmConciergerie/Scripts/Generics/global_functions.js" />
+      <RootComponent type="61" schemaName="new_/XrmConciergerie/Scripts/Generics/global_variables.js" />
+      <RootComponent type="61" schemaName="new_/XrmConciergerie/Scripts/Generics/SDK.REST.js" />
+      <RootComponent type="61" schemaName="new_/XrmConciergerie/Scripts/Incident/main_library.js" />
+      <RootComponent type="61" schemaName="new_/XrmConciergerie/Scripts/Incident/ribbon_library.js" />
+      <RootComponent type="61" schemaName="new_/XrmConciergerie/Scripts/PhoneCall/main_library.js" />
+      <RootComponent type="61" schemaName="new_/XrmConciergerie/Scripts/PhoneContract/main_library.js" />
+      <RootComponent type="61" schemaName="new_/XrmConciergerie/Scripts/PhoneSchedule/main_library.js" />
+      <RootComponent type="61" schemaName="new_/XrmConciergerie/Scripts/Prestation/main_library.js" />
+      <RootComponent type="61" schemaName="new_/XrmConciergerie/Scripts/Satisfaction/main_library.js" />
+      <RootComponent type="61" schemaName="new_/XrmConciergerie/Scripts/Service/main_library.js" />
+      <RootComponent type="61" schemaName="new_/XrmConciergerie/Scripts/TrancheBin/main_library.js" />
+      <RootComponent type="61" schemaName="new_categorie" />
+      <RootComponent type="61" schemaName="new_categorie16" />
+      <RootComponent type="61" schemaName="new_departement" />
+      <RootComponent type="61" schemaName="new_departement16" />
+      <RootComponent type="61" schemaName="new_jqueryui" />
+      <RootComponent type="61" schemaName="new_jquery_ui_1.8.21" />
+      <RootComponent type="61" schemaName="new_JSIHelper" />
+      <RootComponent type="61" schemaName="new_parameters" />
+      <RootComponent type="61" schemaName="new_parameters16" />
+      <RootComponent type="61" schemaName="new_pays_adresse" />
+      <RootComponent type="61" schemaName="new_pays_adresse16" />
+      <RootComponent type="61" schemaName="new_phonecall_ribbon_library" />
+      <RootComponent type="61" schemaName="new_sous_type" />
+      <RootComponent type="61" schemaName="new_sous_type16" />
+      <RootComponent type="61" schemaName="new_subtype_main_library" />
+      <RootComponent type="61" schemaName="new_type" />
+      <RootComponent type="61" schemaName="new_type16" />
+      <RootComponent type="61" schemaName="new_ville" />
+      <RootComponent type="61" schemaName="new_ville16" />
+      <RootComponent type="61" schemaName="onil_/batch_fr.html" />
+      <RootComponent type="61" schemaName="onil_/concat_fr.html" />
+      <RootComponent type="61" schemaName="onil_/configuration_fr.html" />
+      <RootComponent type="61" schemaName="onil_/iban_fr.html" />
+      <RootComponent type="61" schemaName="onil_/Images/Delete_16.png" />
+      <RootComponent type="61" schemaName="onil_/Images/Update.png" />
+      <RootComponent type="61" schemaName="onil_/main_fr.html" />
+      <RootComponent type="61" schemaName="onil_/phonetique_fr.html" />
+      <RootComponent type="61" schemaName="onil_/phone_fr.html" />
+      <RootComponent type="61" schemaName="onil_/replacement_fr.html" />
+      <RootComponent type="61" schemaName="onil_/Scripts/batch_library.js" />
+      <RootComponent type="61" schemaName="onil_/Scripts/concat_pqgrid_xrmsetup.js" />
+      <RootComponent type="61" schemaName="onil_/Scripts/config.js" />
+      <RootComponent type="61" schemaName="onil_/Scripts/global_variables.js" />
+      <RootComponent type="61" schemaName="onil_/Scripts/images/Refresh.gif" />
+      <RootComponent type="61" schemaName="onil_/Scripts/images/sort_asc.gif" />
+      <RootComponent type="61" schemaName="onil_/Scripts/images/sort_desc.gif" />
+      <RootComponent type="61" schemaName="onil_/Scripts/images/sprite.png" />
+      <RootComponent type="61" schemaName="onil_/Scripts/images/tick.png" />
+      <RootComponent type="61" schemaName="onil_/Scripts/images/vert_bg.png" />
+      <RootComponent type="61" schemaName="onil_/Scripts/images/vert_slider_bg.png" />
+      <RootComponent type="61" schemaName="onil_/Scripts/jquery_1.10.2.js" />
+      <RootComponent type="61" schemaName="onil_/Scripts/jquery_ui_1.10.3.custom.js" />
+      <RootComponent type="61" schemaName="onil_/Scripts/json2.js" />
+      <RootComponent type="61" schemaName="onil_/Scripts/json2xml.js" />
+      <RootComponent type="61" schemaName="onil_/Scripts/main_pqgrid_xrmactions.js" />
+      <RootComponent type="61" schemaName="onil_/Scripts/main_pqgrid_xrmfields.js" />
+      <RootComponent type="61" schemaName="onil_/Scripts/phonetique_pqgrid_xrmsetup.js" />
+      <RootComponent type="61" schemaName="onil_/Scripts/phone_pqgrid_xrmsetup.js" />
+      <RootComponent type="61" schemaName="onil_/Scripts/pqgrid.min.js" />
+      <RootComponent type="61" schemaName="onil_/Scripts/replace_pqgrid_xrmsetup.js" />
+      <RootComponent type="61" schemaName="onil_/Scripts/SDK.Metadata.js" />
+      <RootComponent type="61" schemaName="onil_/Scripts/SDK.REST.js" />
+      <RootComponent type="61" schemaName="onil_/Scripts/xml2json.js" />
+      <RootComponent type="61" schemaName="onil_/setup_fr.html" />
+      <RootComponent type="61" schemaName="onil_/siren_fr.html" />
+      <RootComponent type="61" schemaName="onil_/siret_fr.html" />
+      <RootComponent type="61" schemaName="onil_/siret_siren_iban_fr.html" />
+      <RootComponent type="61" schemaName="onil_/special_char_fr.html" />
+      <RootComponent type="61" schemaName="onil_/Styles/flick/images/animated_overlay.gif" />
+      <RootComponent type="61" schemaName="onil_/Styles/flick/images/ui_bg_flat_0_aaaaaa_40x100.png" />
+      <RootComponent type="61" schemaName="onil_/Styles/flick/images/ui_bg_flat_0_eeeeee_40x100.png" />
+      <RootComponent type="61" schemaName="onil_/Styles/flick/images/ui_bg_flat_55_ffffff_40x100.png" />
+      <RootComponent type="61" schemaName="onil_/Styles/flick/images/ui_bg_flat_75_ffffff_40x100.png" />
+      <RootComponent type="61" schemaName="onil_/Styles/flick/images/ui_bg_glass_65_ffffff_1x400.png" />
+      <RootComponent type="61" schemaName="onil_/Styles/flick/images/ui_bg_highlight_soft_100_f6f6f6_1x100.png" />
+      <RootComponent type="61" schemaName="onil_/Styles/flick/images/ui_bg_highlight_soft_25_0073ea_1x100.png" />
+      <RootComponent type="61" schemaName="onil_/Styles/flick/images/ui_bg_highlight_soft_50_dddddd_1x100.png" />
+      <RootComponent type="61" schemaName="onil_/Styles/flick/images/ui_icons_0073ea_256x240.png" />
+      <RootComponent type="61" schemaName="onil_/Styles/flick/images/ui_icons_454545_256x240.png" />
+      <RootComponent type="61" schemaName="onil_/Styles/flick/images/ui_icons_666666_256x240.png" />
+      <RootComponent type="61" schemaName="onil_/Styles/flick/images/ui_icons_ff0084_256x240.png" />
+      <RootComponent type="61" schemaName="onil_/Styles/flick/images/ui_icons_ffffff_256x240.png" />
+      <RootComponent type="61" schemaName="onil_/Styles/flick/jquery_ui_1.10.3.custom.css" />
+      <RootComponent type="61" schemaName="onil_/Styles/images/column_header_bg.png" />
+      <RootComponent type="61" schemaName="onil_/Styles/images/column_header_over_bg.gif" />
+      <RootComponent type="61" schemaName="onil_/Styles/images/cross.png" />
+      <RootComponent type="61" schemaName="onil_/Styles/images/horiz_bg.png" />
+      <RootComponent type="61" schemaName="onil_/Styles/images/horiz_slider_bg.png" />
+      <RootComponent type="61" schemaName="onil_/Styles/images/loading.gif" />
+      <RootComponent type="61" schemaName="onil_/Styles/images/page_first_gray.gif" />
+      <RootComponent type="61" schemaName="onil_/Styles/images/page_last_gray.gif" />
+      <RootComponent type="61" schemaName="onil_/Styles/images/page_next_gray.gif" />
+      <RootComponent type="61" schemaName="onil_/Styles/images/page_prev_gray.gif" />
+      <RootComponent type="61" schemaName="onil_/Styles/images/Refresh.gif" />
+      <RootComponent type="61" schemaName="onil_/Styles/images/sort_asc.gif" />
+      <RootComponent type="61" schemaName="onil_/Styles/images/sort_desc.gif" />
+      <RootComponent type="61" schemaName="onil_/Styles/images/sprite.png" />
+      <RootComponent type="61" schemaName="onil_/Styles/images/tick.png" />
+      <RootComponent type="61" schemaName="onil_/Styles/images/vert_bg.png" />
+      <RootComponent type="61" schemaName="onil_/Styles/images/vert_slider_bg.png" />
+      <RootComponent type="61" schemaName="onil_/Styles/pqgrid.min.css" />
+      <RootComponent type="61" schemaName="onil_/Styles/style.css" />
+      <RootComponent type="61" schemaName="onil_/Themes/Office/pqgrid.css" />
+      <RootComponent type="61" schemaName="onil_changelog" />
+      <RootComponent type="61" schemaName="onil_dictionary.ico" />
+      <RootComponent type="61" schemaName="onil_dictionary_16.ico" />
+      <RootComponent type="61" schemaName="onil_libphonenumber_r680.js" />
+      <RootComponent type="61" schemaName="onil_library.js" />
+      <RootComponent type="61" schemaName="onil_log.ico" />
+      <RootComponent type="61" schemaName="onil_log_16.ico" />
+      <RootComponent type="61" schemaName="onil_ribbon_library.js" />
+      <RootComponent type="61" schemaName="onil_rule.ico" />
+      <RootComponent type="61" schemaName="onil_rule_16.ico" />
+      <RootComponent type="62" />
+    </RootComponents>
+    <MissingDependencies>
+      <MissingDependency>
+        <Required key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" solution="ONIL (2.0.0.5)" />
+        <Dependent key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="1" type="1" schemaName="onil_log" displayName="Log" solution="ONIL (2.0.0.5)" />
+        <Dependent key="1" type="1" schemaName="onil_log" displayName="Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="3" type="1" schemaName="onil_rule" displayName="Règle" solution="ONIL (2.0.0.5)" />
+        <Dependent key="3" type="1" schemaName="onil_rule" displayName="Règle" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="5" type="2" schemaName="createdbyname" parentSchemaName="msdyn_postruleconfig" parentDisplayName="Configuration de la règle de publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="6" type="2" schemaName="modifiedbyname" parentSchemaName="msdyn_postruleconfig" parentDisplayName="Configuration de la règle de publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="7" type="2" schemaName="organizationid" displayName="ID d’organisation " parentSchemaName="msdyn_postruleconfig" parentDisplayName="Configuration de la règle de publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="8" type="2" schemaName="versionnumber" parentSchemaName="msdyn_postruleconfig" parentDisplayName="Configuration de la règle de publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="9" type="2" schemaName="msdyn_postconfigidname" parentSchemaName="msdyn_postruleconfig" parentDisplayName="Configuration de la règle de publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="10" type="2" schemaName="createdonbehalfby" displayName="Créé par (délégué)" parentSchemaName="msdyn_postruleconfig" parentDisplayName="Configuration de la règle de publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="11" type="2" schemaName="modifiedbyyominame" parentSchemaName="msdyn_postruleconfig" parentDisplayName="Configuration de la règle de publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="12" type="2" schemaName="modifiedonbehalfbyname" parentSchemaName="msdyn_postruleconfig" parentDisplayName="Configuration de la règle de publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="13" type="2" schemaName="modifiedonbehalfbyyominame" parentSchemaName="msdyn_postruleconfig" parentDisplayName="Configuration de la règle de publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="14" type="2" schemaName="createdonbehalfbyyominame" parentSchemaName="msdyn_postruleconfig" parentDisplayName="Configuration de la règle de publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="15" type="2" schemaName="modifiedby" displayName="Modifié par" parentSchemaName="msdyn_postruleconfig" parentDisplayName="Configuration de la règle de publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="16" type="2" schemaName="createdonbehalfbyname" parentSchemaName="msdyn_postruleconfig" parentDisplayName="Configuration de la règle de publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="17" type="2" schemaName="createdby" displayName="Créé par" parentSchemaName="msdyn_postruleconfig" parentDisplayName="Configuration de la règle de publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="18" type="2" schemaName="statecodename" parentSchemaName="msdyn_postruleconfig" parentDisplayName="Configuration de la règle de publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="19" type="2" schemaName="organizationidname" parentSchemaName="msdyn_postruleconfig" parentDisplayName="Configuration de la règle de publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="20" type="2" schemaName="statuscodename" parentSchemaName="msdyn_postruleconfig" parentDisplayName="Configuration de la règle de publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="21" type="2" schemaName="modifiedonbehalfby" displayName="Modifié par (délégué)" parentSchemaName="msdyn_postruleconfig" parentDisplayName="Configuration de la règle de publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="22" type="2" schemaName="createdbyyominame" parentSchemaName="msdyn_postruleconfig" parentDisplayName="Configuration de la règle de publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="23" type="2" schemaName="msdyn_posttoyammername" parentSchemaName="msdyn_postruleconfig" parentDisplayName="Configuration de la règle de publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="1" type="1" schemaName="onil_log" displayName="Log" solution="ONIL (2.0.0.5)" />
+        <Dependent key="24" type="2" schemaName="modifiedbyname" parentSchemaName="onil_log" parentDisplayName="Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="1" type="1" schemaName="onil_log" displayName="Log" solution="ONIL (2.0.0.5)" />
+        <Dependent key="1" type="1" schemaName="onil_log" displayName="Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="1" type="1" schemaName="onil_log" displayName="Log" solution="ONIL (2.0.0.5)" />
+        <Dependent key="1" type="1" schemaName="onil_log" displayName="Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="1" type="1" schemaName="onil_log" displayName="Log" solution="ONIL (2.0.0.5)" />
+        <Dependent key="25" type="2" schemaName="modifiedonbehalfbyname" parentSchemaName="onil_log" parentDisplayName="Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="1" type="1" schemaName="onil_log" displayName="Log" solution="ONIL (2.0.0.5)" />
+        <Dependent key="26" type="2" schemaName="createdby" displayName="Créé par" parentSchemaName="onil_log" parentDisplayName="Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="1" type="1" schemaName="onil_log" displayName="Log" solution="ONIL (2.0.0.5)" />
+        <Dependent key="27" type="2" schemaName="statuscodename" parentSchemaName="onil_log" parentDisplayName="Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="1" type="1" schemaName="onil_log" displayName="Log" solution="ONIL (2.0.0.5)" />
+        <Dependent key="28" type="2" schemaName="organizationidname" parentSchemaName="onil_log" parentDisplayName="Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="1" type="1" schemaName="onil_log" displayName="Log" solution="ONIL (2.0.0.5)" />
+        <Dependent key="29" type="2" schemaName="modifiedby" displayName="Modifié par" parentSchemaName="onil_log" parentDisplayName="Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="1" type="1" schemaName="onil_log" displayName="Log" solution="ONIL (2.0.0.5)" />
+        <Dependent key="1" type="1" schemaName="onil_log" displayName="Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="1" type="1" schemaName="onil_log" displayName="Log" solution="ONIL (2.0.0.5)" />
+        <Dependent key="1" type="1" schemaName="onil_log" displayName="Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="1" type="1" schemaName="onil_log" displayName="Log" solution="ONIL (2.0.0.5)" />
+        <Dependent key="1" type="1" schemaName="onil_log" displayName="Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="1" type="1" schemaName="onil_log" displayName="Log" solution="ONIL (2.0.0.5)" />
+        <Dependent key="1" type="1" schemaName="onil_log" displayName="Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="1" type="1" schemaName="onil_log" displayName="Log" solution="ONIL (2.0.0.5)" />
+        <Dependent key="30" type="2" schemaName="onil_rulename" parentSchemaName="onil_log" parentDisplayName="Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="1" type="1" schemaName="onil_log" displayName="Log" solution="ONIL (2.0.0.5)" />
+        <Dependent key="1" type="1" schemaName="onil_log" displayName="Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="1" type="1" schemaName="onil_log" displayName="Log" solution="ONIL (2.0.0.5)" />
+        <Dependent key="31" type="2" schemaName="createdonbehalfbyyominame" parentSchemaName="onil_log" parentDisplayName="Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="1" type="1" schemaName="onil_log" displayName="Log" solution="ONIL (2.0.0.5)" />
+        <Dependent key="32" type="2" schemaName="versionnumber" parentSchemaName="onil_log" parentDisplayName="Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="1" type="1" schemaName="onil_log" displayName="Log" solution="ONIL (2.0.0.5)" />
+        <Dependent key="1" type="1" schemaName="onil_log" displayName="Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="1" type="1" schemaName="onil_log" displayName="Log" solution="ONIL (2.0.0.5)" />
+        <Dependent key="33" type="2" schemaName="createdonbehalfbyname" parentSchemaName="onil_log" parentDisplayName="Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="1" type="1" schemaName="onil_log" displayName="Log" solution="ONIL (2.0.0.5)" />
+        <Dependent key="34" type="2" schemaName="modifiedbyyominame" parentSchemaName="onil_log" parentDisplayName="Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="1" type="1" schemaName="onil_log" displayName="Log" solution="ONIL (2.0.0.5)" />
+        <Dependent key="35" type="2" schemaName="createdbyname" parentSchemaName="onil_log" parentDisplayName="Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="1" type="1" schemaName="onil_log" displayName="Log" solution="ONIL (2.0.0.5)" />
+        <Dependent key="1" type="1" schemaName="onil_log" displayName="Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="1" type="1" schemaName="onil_log" displayName="Log" solution="ONIL (2.0.0.5)" />
+        <Dependent key="1" type="1" schemaName="onil_log" displayName="Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="1" type="1" schemaName="onil_log" displayName="Log" solution="ONIL (2.0.0.5)" />
+        <Dependent key="36" type="2" schemaName="createdbyyominame" parentSchemaName="onil_log" parentDisplayName="Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="1" type="1" schemaName="onil_log" displayName="Log" solution="ONIL (2.0.0.5)" />
+        <Dependent key="37" type="2" schemaName="organizationid" displayName="ID d'organisation " parentSchemaName="onil_log" parentDisplayName="Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="1" type="1" schemaName="onil_log" displayName="Log" solution="ONIL (2.0.0.5)" />
+        <Dependent key="38" type="2" schemaName="onil_eventname" parentSchemaName="onil_log" parentDisplayName="Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="1" type="1" schemaName="onil_log" displayName="Log" solution="ONIL (2.0.0.5)" />
+        <Dependent key="39" type="2" schemaName="createdonbehalfby" displayName="Créé par (délégué)" parentSchemaName="onil_log" parentDisplayName="Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="1" type="1" schemaName="onil_log" displayName="Log" solution="ONIL (2.0.0.5)" />
+        <Dependent key="40" type="2" schemaName="modifiedonbehalfbyyominame" parentSchemaName="onil_log" parentDisplayName="Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="1" type="1" schemaName="onil_log" displayName="Log" solution="ONIL (2.0.0.5)" />
+        <Dependent key="41" type="2" schemaName="modifiedonbehalfby" displayName="Modifié par (délégué)" parentSchemaName="onil_log" parentDisplayName="Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="1" type="1" schemaName="onil_log" displayName="Log" solution="ONIL (2.0.0.5)" />
+        <Dependent key="42" type="2" schemaName="statecodename" parentSchemaName="onil_log" parentDisplayName="Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" solution="ONIL (2.0.0.5)" />
+        <Dependent key="43" type="2" schemaName="modifiedby" displayName="Modifié par" parentSchemaName="onil_dictionary" parentDisplayName="Dictionnaire" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" solution="ONIL (2.0.0.5)" />
+        <Dependent key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" solution="ONIL (2.0.0.5)" />
+        <Dependent key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" solution="ONIL (2.0.0.5)" />
+        <Dependent key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" solution="ONIL (2.0.0.5)" />
+        <Dependent key="44" type="2" schemaName="onil_isembeddablename" parentSchemaName="onil_dictionary" parentDisplayName="Dictionnaire" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" solution="ONIL (2.0.0.5)" />
+        <Dependent key="45" type="2" schemaName="statuscodename" parentSchemaName="onil_dictionary" parentDisplayName="Dictionnaire" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" solution="ONIL (2.0.0.5)" />
+        <Dependent key="46" type="2" schemaName="createdby" displayName="Créé par" parentSchemaName="onil_dictionary" parentDisplayName="Dictionnaire" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" solution="ONIL (2.0.0.5)" />
+        <Dependent key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" solution="ONIL (2.0.0.5)" />
+        <Dependent key="47" type="2" schemaName="createdonbehalfbyname" parentSchemaName="onil_dictionary" parentDisplayName="Dictionnaire" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" solution="ONIL (2.0.0.5)" />
+        <Dependent key="48" type="2" schemaName="versionnumber" parentSchemaName="onil_dictionary" parentDisplayName="Dictionnaire" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" solution="ONIL (2.0.0.5)" />
+        <Dependent key="49" type="2" schemaName="modifiedonbehalfby" displayName="Modifié par (délégué)" parentSchemaName="onil_dictionary" parentDisplayName="Dictionnaire" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" solution="ONIL (2.0.0.5)" />
+        <Dependent key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" solution="ONIL (2.0.0.5)" />
+        <Dependent key="50" type="2" schemaName="modifiedbyyominame" parentSchemaName="onil_dictionary" parentDisplayName="Dictionnaire" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" solution="ONIL (2.0.0.5)" />
+        <Dependent key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" solution="ONIL (2.0.0.5)" />
+        <Dependent key="51" type="2" schemaName="createdonbehalfbyyominame" parentSchemaName="onil_dictionary" parentDisplayName="Dictionnaire" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" solution="ONIL (2.0.0.5)" />
+        <Dependent key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" solution="ONIL (2.0.0.5)" />
+        <Dependent key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" solution="ONIL (2.0.0.5)" />
+        <Dependent key="52" type="2" schemaName="createdbyname" parentSchemaName="onil_dictionary" parentDisplayName="Dictionnaire" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" solution="ONIL (2.0.0.5)" />
+        <Dependent key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" solution="ONIL (2.0.0.5)" />
+        <Dependent key="53" type="2" schemaName="createdonbehalfby" displayName="Créé par (délégué)" parentSchemaName="onil_dictionary" parentDisplayName="Dictionnaire" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" solution="ONIL (2.0.0.5)" />
+        <Dependent key="54" type="2" schemaName="modifiedonbehalfbyyominame" parentSchemaName="onil_dictionary" parentDisplayName="Dictionnaire" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" solution="ONIL (2.0.0.5)" />
+        <Dependent key="55" type="2" schemaName="modifiedbyname" parentSchemaName="onil_dictionary" parentDisplayName="Dictionnaire" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" solution="ONIL (2.0.0.5)" />
+        <Dependent key="56" type="2" schemaName="createdbyyominame" parentSchemaName="onil_dictionary" parentDisplayName="Dictionnaire" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" solution="ONIL (2.0.0.5)" />
+        <Dependent key="57" type="2" schemaName="onil_ismovablename" parentSchemaName="onil_dictionary" parentDisplayName="Dictionnaire" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" solution="ONIL (2.0.0.5)" />
+        <Dependent key="58" type="2" schemaName="modifiedonbehalfbyname" parentSchemaName="onil_dictionary" parentDisplayName="Dictionnaire" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" solution="ONIL (2.0.0.5)" />
+        <Dependent key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" solution="ONIL (2.0.0.5)" />
+        <Dependent key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" solution="ONIL (2.0.0.5)" />
+        <Dependent key="59" type="2" schemaName="organizationidname" parentSchemaName="onil_dictionary" parentDisplayName="Dictionnaire" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" solution="ONIL (2.0.0.5)" />
+        <Dependent key="60" type="2" schemaName="statecodename" parentSchemaName="onil_dictionary" parentDisplayName="Dictionnaire" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" solution="ONIL (2.0.0.5)" />
+        <Dependent key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="1" schemaName="onil_dictionary" displayName="Dictionnaire" solution="ONIL (2.0.0.5)" />
+        <Dependent key="61" type="2" schemaName="organizationid" displayName="ID d'organisation " parentSchemaName="onil_dictionary" parentDisplayName="Dictionnaire" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="3" type="1" schemaName="onil_rule" displayName="Règle" solution="ONIL (2.0.0.5)" />
+        <Dependent key="62" type="2" schemaName="organizationid" displayName="ID d'organisation " parentSchemaName="onil_rule" parentDisplayName="Règle" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="3" type="1" schemaName="onil_rule" displayName="Règle" solution="ONIL (2.0.0.5)" />
+        <Dependent key="63" type="2" schemaName="onil_isconfigname" parentSchemaName="onil_rule" parentDisplayName="Règle" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="3" type="1" schemaName="onil_rule" displayName="Règle" solution="ONIL (2.0.0.5)" />
+        <Dependent key="3" type="1" schemaName="onil_rule" displayName="Règle" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="3" type="1" schemaName="onil_rule" displayName="Règle" solution="ONIL (2.0.0.5)" />
+        <Dependent key="64" type="2" schemaName="modifiedbyname" parentSchemaName="onil_rule" parentDisplayName="Règle" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="3" type="1" schemaName="onil_rule" displayName="Règle" solution="ONIL (2.0.0.5)" />
+        <Dependent key="3" type="1" schemaName="onil_rule" displayName="Règle" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="3" type="1" schemaName="onil_rule" displayName="Règle" solution="ONIL (2.0.0.5)" />
+        <Dependent key="65" type="2" schemaName="modifiedby" displayName="Modifié par" parentSchemaName="onil_rule" parentDisplayName="Règle" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="3" type="1" schemaName="onil_rule" displayName="Règle" solution="ONIL (2.0.0.5)" />
+        <Dependent key="3" type="1" schemaName="onil_rule" displayName="Règle" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="3" type="1" schemaName="onil_rule" displayName="Règle" solution="ONIL (2.0.0.5)" />
+        <Dependent key="3" type="1" schemaName="onil_rule" displayName="Règle" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="3" type="1" schemaName="onil_rule" displayName="Règle" solution="ONIL (2.0.0.5)" />
+        <Dependent key="66" type="2" schemaName="createdbyname" parentSchemaName="onil_rule" parentDisplayName="Règle" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="3" type="1" schemaName="onil_rule" displayName="Règle" solution="ONIL (2.0.0.5)" />
+        <Dependent key="67" type="2" schemaName="createdbyyominame" parentSchemaName="onil_rule" parentDisplayName="Règle" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="3" type="1" schemaName="onil_rule" displayName="Règle" solution="ONIL (2.0.0.5)" />
+        <Dependent key="68" type="2" schemaName="statuscodename" parentSchemaName="onil_rule" parentDisplayName="Règle" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="3" type="1" schemaName="onil_rule" displayName="Règle" solution="ONIL (2.0.0.5)" />
+        <Dependent key="69" type="2" schemaName="modifiedbyyominame" parentSchemaName="onil_rule" parentDisplayName="Règle" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="3" type="1" schemaName="onil_rule" displayName="Règle" solution="ONIL (2.0.0.5)" />
+        <Dependent key="3" type="1" schemaName="onil_rule" displayName="Règle" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="3" type="1" schemaName="onil_rule" displayName="Règle" solution="ONIL (2.0.0.5)" />
+        <Dependent key="70" type="2" schemaName="createdby" displayName="Créé par" parentSchemaName="onil_rule" parentDisplayName="Règle" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="3" type="1" schemaName="onil_rule" displayName="Règle" solution="ONIL (2.0.0.5)" />
+        <Dependent key="3" type="1" schemaName="onil_rule" displayName="Règle" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="3" type="1" schemaName="onil_rule" displayName="Règle" solution="ONIL (2.0.0.5)" />
+        <Dependent key="3" type="1" schemaName="onil_rule" displayName="Règle" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="3" type="1" schemaName="onil_rule" displayName="Règle" solution="ONIL (2.0.0.5)" />
+        <Dependent key="71" type="2" schemaName="statecodename" parentSchemaName="onil_rule" parentDisplayName="Règle" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="3" type="1" schemaName="onil_rule" displayName="Règle" solution="ONIL (2.0.0.5)" />
+        <Dependent key="72" type="2" schemaName="versionnumber" parentSchemaName="onil_rule" parentDisplayName="Règle" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="3" type="1" schemaName="onil_rule" displayName="Règle" solution="ONIL (2.0.0.5)" />
+        <Dependent key="73" type="2" schemaName="modifiedonbehalfbyyominame" parentSchemaName="onil_rule" parentDisplayName="Règle" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="3" type="1" schemaName="onil_rule" displayName="Règle" solution="ONIL (2.0.0.5)" />
+        <Dependent key="74" type="2" schemaName="createdonbehalfby" displayName="Créé par (délégué)" parentSchemaName="onil_rule" parentDisplayName="Règle" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="3" type="1" schemaName="onil_rule" displayName="Règle" solution="ONIL (2.0.0.5)" />
+        <Dependent key="3" type="1" schemaName="onil_rule" displayName="Règle" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="3" type="1" schemaName="onil_rule" displayName="Règle" solution="ONIL (2.0.0.5)" />
+        <Dependent key="75" type="2" schemaName="modifiedonbehalfbyname" parentSchemaName="onil_rule" parentDisplayName="Règle" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="3" type="1" schemaName="onil_rule" displayName="Règle" solution="ONIL (2.0.0.5)" />
+        <Dependent key="3" type="1" schemaName="onil_rule" displayName="Règle" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="3" type="1" schemaName="onil_rule" displayName="Règle" solution="ONIL (2.0.0.5)" />
+        <Dependent key="76" type="2" schemaName="modifiedonbehalfby" displayName="Modifié par (délégué)" parentSchemaName="onil_rule" parentDisplayName="Règle" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="3" type="1" schemaName="onil_rule" displayName="Règle" solution="ONIL (2.0.0.5)" />
+        <Dependent key="77" type="2" schemaName="createdonbehalfbyname" parentSchemaName="onil_rule" parentDisplayName="Règle" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="3" type="1" schemaName="onil_rule" displayName="Règle" solution="ONIL (2.0.0.5)" />
+        <Dependent key="3" type="1" schemaName="onil_rule" displayName="Règle" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="3" type="1" schemaName="onil_rule" displayName="Règle" solution="ONIL (2.0.0.5)" />
+        <Dependent key="78" type="2" schemaName="organizationidname" parentSchemaName="onil_rule" parentDisplayName="Règle" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="3" type="1" schemaName="onil_rule" displayName="Règle" solution="ONIL (2.0.0.5)" />
+        <Dependent key="3" type="1" schemaName="onil_rule" displayName="Règle" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="3" type="1" schemaName="onil_rule" displayName="Règle" solution="ONIL (2.0.0.5)" />
+        <Dependent key="3" type="1" schemaName="onil_rule" displayName="Règle" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="3" type="1" schemaName="onil_rule" displayName="Règle" solution="ONIL (2.0.0.5)" />
+        <Dependent key="79" type="2" schemaName="createdonbehalfbyyominame" parentSchemaName="onil_rule" parentDisplayName="Règle" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="80" type="2" schemaName="organizationid" displayName="ID d’organisation " parentSchemaName="msdyn_postconfig" parentDisplayName="Configuration de la publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="81" type="2" schemaName="modifiedbyyominame" parentSchemaName="msdyn_postconfig" parentDisplayName="Configuration de la publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="82" type="2" schemaName="statecodename" parentSchemaName="msdyn_postconfig" parentDisplayName="Configuration de la publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="83" type="2" schemaName="modifiedbyname" parentSchemaName="msdyn_postconfig" parentDisplayName="Configuration de la publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="84" type="2" schemaName="versionnumber" parentSchemaName="msdyn_postconfig" parentDisplayName="Configuration de la publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="85" type="2" schemaName="createdbyname" parentSchemaName="msdyn_postconfig" parentDisplayName="Configuration de la publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="86" type="2" schemaName="createdonbehalfby" displayName="Créé par (délégué)" parentSchemaName="msdyn_postconfig" parentDisplayName="Configuration de la publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="87" type="2" schemaName="modifiedonbehalfby" displayName="Modifié par (délégué)" parentSchemaName="msdyn_postconfig" parentDisplayName="Configuration de la publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="88" type="2" schemaName="createdbyyominame" parentSchemaName="msdyn_postconfig" parentDisplayName="Configuration de la publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="89" type="2" schemaName="createdby" displayName="Créé par" parentSchemaName="msdyn_postconfig" parentDisplayName="Configuration de la publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="90" type="2" schemaName="modifiedby" displayName="Modifié par" parentSchemaName="msdyn_postconfig" parentDisplayName="Configuration de la publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="91" type="2" schemaName="modifiedonbehalfbyyominame" parentSchemaName="msdyn_postconfig" parentDisplayName="Configuration de la publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="92" type="2" schemaName="statuscodename" parentSchemaName="msdyn_postconfig" parentDisplayName="Configuration de la publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="93" type="2" schemaName="createdonbehalfbyyominame" parentSchemaName="msdyn_postconfig" parentDisplayName="Configuration de la publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="94" type="2" schemaName="modifiedonbehalfbyname" parentSchemaName="msdyn_postconfig" parentDisplayName="Configuration de la publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="95" type="2" schemaName="createdonbehalfbyname" parentSchemaName="msdyn_postconfig" parentDisplayName="Configuration de la publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="96" type="2" schemaName="organizationidname" parentSchemaName="msdyn_postconfig" parentDisplayName="Configuration de la publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="97" type="2" schemaName="msdyn_configurewallname" parentSchemaName="msdyn_postconfig" parentDisplayName="Configuration de la publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="98" type="62" id="{fbdeae16-3864-e411-80cc-00505681263d}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="2" type="1" schemaName="msdyn_postconfig" displayName="Configuration de la publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="99" type="10" schemaName="msdyn_postconfig_msdyn_postruleconfig" displayName="msdyn_postconfig_msdyn_postruleconfig" parentSchemaName="msdyn_postruleconfig" parentDisplayName="Configuration de la règle de publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="1" type="1" schemaName="onil_log" displayName="Log" solution="ONIL (2.0.0.5)" />
+        <Dependent key="100" type="10" schemaName="onil_rule_log" displayName="onil_rule_log" parentSchemaName="onil_log" parentDisplayName="Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="1" type="1" schemaName="onil_log" displayName="Log" solution="ONIL (2.0.0.5)" />
+        <Dependent key="98" type="62" id="{fbdeae16-3864-e411-80cc-00505681263d}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="3" type="1" schemaName="onil_rule" displayName="Règle" solution="ONIL (2.0.0.5)" />
+        <Dependent key="100" type="10" schemaName="onil_rule_log" displayName="onil_rule_log" parentSchemaName="onil_log" parentDisplayName="Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="3" type="1" schemaName="onil_rule" displayName="Règle" solution="ONIL (2.0.0.5)" />
+        <Dependent key="98" type="62" id="{fbdeae16-3864-e411-80cc-00505681263d}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="98" type="62" id="{fbdeae16-3864-e411-80cc-00505681263d}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="4" type="1" schemaName="msdyn_postruleconfig" displayName="Configuration de la règle de publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="99" type="10" schemaName="msdyn_postconfig_msdyn_postruleconfig" displayName="msdyn_postconfig_msdyn_postruleconfig" parentSchemaName="msdyn_postruleconfig" parentDisplayName="Configuration de la règle de publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="101" type="2" schemaName="onil_rule" displayName="Règle" parentSchemaName="onil_log" parentDisplayName="Log" solution="ONIL (2.0.0.5)" />
+        <Dependent key="100" type="10" schemaName="onil_rule_log" displayName="onil_rule_log" parentSchemaName="onil_log" parentDisplayName="Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="102" type="2" schemaName="msdyn_postconfigid" displayName="ID de l’entité de publication" parentSchemaName="msdyn_postruleconfig" parentDisplayName="Configuration de la règle de publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="99" type="10" schemaName="msdyn_postconfig_msdyn_postruleconfig" displayName="msdyn_postconfig_msdyn_postruleconfig" parentSchemaName="msdyn_postruleconfig" parentDisplayName="Configuration de la règle de publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="103" type="2" schemaName="onil_name" displayName="Nom" parentSchemaName="onil_rule" parentDisplayName="Règle" solution="ONIL (2.0.0.5)" />
+        <Dependent key="100" type="10" schemaName="onil_rule_log" displayName="onil_rule_log" parentSchemaName="onil_log" parentDisplayName="Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="104" type="2" schemaName="msdyn_postconfigid" displayName="Configuration de la publication" parentSchemaName="msdyn_postconfig" parentDisplayName="Configuration de la publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="99" type="10" schemaName="msdyn_postconfig_msdyn_postruleconfig" displayName="msdyn_postconfig_msdyn_postruleconfig" parentSchemaName="msdyn_postruleconfig" parentDisplayName="Configuration de la règle de publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="105" type="2" schemaName="msdyn_entitydisplayname" displayName="Nom complet de l’entité" parentSchemaName="msdyn_postconfig" parentDisplayName="Configuration de la publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="99" type="10" schemaName="msdyn_postconfig_msdyn_postruleconfig" displayName="msdyn_postconfig_msdyn_postruleconfig" parentSchemaName="msdyn_postruleconfig" parentDisplayName="Configuration de la règle de publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="106" type="2" schemaName="onil_ruleid" displayName="Règle" parentSchemaName="onil_rule" parentDisplayName="Règle" solution="ONIL (2.0.0.5)" />
+        <Dependent key="100" type="10" schemaName="onil_rule_log" displayName="onil_rule_log" parentSchemaName="onil_log" parentDisplayName="Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="100" type="10" schemaName="onil_rule_log" displayName="onil_rule_log" parentSchemaName="onil_log" parentDisplayName="Log" solution="ONIL (2.0.0.5)" />
+        <Dependent key="100" type="10" schemaName="onil_rule_log" displayName="onil_rule_log" parentSchemaName="onil_log" parentDisplayName="Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="99" type="10" schemaName="msdyn_postconfig_msdyn_postruleconfig" displayName="msdyn_postconfig_msdyn_postruleconfig" parentSchemaName="msdyn_postruleconfig" parentDisplayName="Configuration de la règle de publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="99" type="10" schemaName="msdyn_postconfig_msdyn_postruleconfig" displayName="msdyn_postconfig_msdyn_postruleconfig" parentSchemaName="msdyn_postruleconfig" parentDisplayName="Configuration de la règle de publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="100" type="10" schemaName="onil_rule_log" displayName="onil_rule_log" parentSchemaName="onil_log" parentDisplayName="Log" solution="ONIL (2.0.0.5)" />
+        <Dependent key="30" type="2" schemaName="onil_rulename" parentSchemaName="onil_log" parentDisplayName="Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="99" type="10" schemaName="msdyn_postconfig_msdyn_postruleconfig" displayName="msdyn_postconfig_msdyn_postruleconfig" parentSchemaName="msdyn_postruleconfig" parentDisplayName="Configuration de la règle de publication" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="9" type="2" schemaName="msdyn_postconfigidname" parentSchemaName="msdyn_postruleconfig" parentDisplayName="Configuration de la règle de publication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="107" type="61" schemaName="onil_dictionary.ico" displayName="onil_dictionary.ico" solution="ONIL (2.0.0.5)" />
+        <Dependent key="107" type="61" schemaName="onil_dictionary.ico" displayName="onil_dictionary.ico" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="108" type="61" schemaName="onil_dictionary_16.ico" displayName="onil_dictionary_16.ico" solution="ONIL (2.0.0.5)" />
+        <Dependent key="108" type="61" schemaName="onil_dictionary_16.ico" displayName="onil_dictionary_16.ico" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="109" type="61" schemaName="onil_rule.ico" displayName="onil_rule.ico" solution="ONIL (2.0.0.5)" />
+        <Dependent key="109" type="61" schemaName="onil_rule.ico" displayName="onil_rule.ico" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="110" type="61" schemaName="onil_rule_16.ico" displayName="onil_rule_16.ico" solution="ONIL (2.0.0.5)" />
+        <Dependent key="110" type="61" schemaName="onil_rule_16.ico" displayName="onil_rule_16.ico" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="111" type="61" schemaName="onil_log.ico" displayName="onil_log.ico" solution="ONIL (2.0.0.5)" />
+        <Dependent key="111" type="61" schemaName="onil_log.ico" displayName="onil_log.ico" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="112" type="61" schemaName="onil_log_16.ico" displayName="onil_log_16.ico" solution="ONIL (2.0.0.5)" />
+        <Dependent key="112" type="61" schemaName="onil_log_16.ico" displayName="onil_log_16.ico" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="113" type="61" schemaName="onil_library.js" displayName="onil_library.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="113" type="61" schemaName="onil_library.js" displayName="onil_library.js" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="114" type="61" schemaName="onil_changelog" displayName="onil_changelog" solution="ONIL (2.0.0.5)" />
+        <Dependent key="114" type="61" schemaName="onil_changelog" displayName="onil_changelog" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="115" type="61" schemaName="onil_/siret_siren_iban_fr.html" displayName="onil_/siret_siren_iban_fr.html" solution="ONIL (2.0.0.5)" />
+        <Dependent key="115" type="61" schemaName="onil_/siret_siren_iban_fr.html" displayName="onil_/siret_siren_iban_fr.html" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="116" type="61" schemaName="onil_/Scripts/images/Refresh.gif" displayName="onil_/Scripts/images/Refresh.gif" solution="ONIL (2.0.0.5)" />
+        <Dependent key="116" type="61" schemaName="onil_/Scripts/images/Refresh.gif" displayName="onil_/Scripts/images/Refresh.gif" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="117" type="61" schemaName="onil_/Scripts/images/sort_asc.gif" displayName="onil_/Scripts/images/sort_asc.gif" solution="ONIL (2.0.0.5)" />
+        <Dependent key="117" type="61" schemaName="onil_/Scripts/images/sort_asc.gif" displayName="onil_/Scripts/images/sort_asc.gif" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="118" type="61" schemaName="onil_/Scripts/images/sort_desc.gif" displayName="onil_/Scripts/images/sort_desc.gif" solution="ONIL (2.0.0.5)" />
+        <Dependent key="118" type="61" schemaName="onil_/Scripts/images/sort_desc.gif" displayName="onil_/Scripts/images/sort_desc.gif" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="119" type="61" schemaName="onil_/Scripts/images/sprite.png" displayName="onil_/Scripts/images/sprite.png" solution="ONIL (2.0.0.5)" />
+        <Dependent key="119" type="61" schemaName="onil_/Scripts/images/sprite.png" displayName="onil_/Scripts/images/sprite.png" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="120" type="61" schemaName="onil_/Scripts/images/tick.png" displayName="onil_/Scripts/images/tick.png" solution="ONIL (2.0.0.5)" />
+        <Dependent key="120" type="61" schemaName="onil_/Scripts/images/tick.png" displayName="onil_/Scripts/images/tick.png" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="121" type="61" schemaName="onil_/Scripts/images/vert_bg.png" displayName="onil_/Scripts/images/vert_bg.png" solution="ONIL (2.0.0.5)" />
+        <Dependent key="121" type="61" schemaName="onil_/Scripts/images/vert_bg.png" displayName="onil_/Scripts/images/vert_bg.png" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="122" type="61" schemaName="onil_/Scripts/images/vert_slider_bg.png" displayName="onil_/Scripts/images/vert_slider_bg.png" solution="ONIL (2.0.0.5)" />
+        <Dependent key="122" type="61" schemaName="onil_/Scripts/images/vert_slider_bg.png" displayName="onil_/Scripts/images/vert_slider_bg.png" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="123" type="61" schemaName="onil_/Styles/style.css" displayName="onil_/Styles/style.css" solution="ONIL (2.0.0.5)" />
+        <Dependent key="123" type="61" schemaName="onil_/Styles/style.css" displayName="onil_/Styles/style.css" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="124" type="61" schemaName="onil_/Scripts/SDK.Metadata.js" displayName="onil_/Scripts/SDK.Metadata.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="124" type="61" schemaName="onil_/Scripts/SDK.Metadata.js" displayName="onil_/Scripts/SDK.Metadata.js" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="125" type="61" schemaName="onil_/Scripts/SDK.REST.js" displayName="onil_/Scripts/SDK.REST.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="125" type="61" schemaName="onil_/Scripts/SDK.REST.js" displayName="onil_/Scripts/SDK.REST.js" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="126" type="61" schemaName="onil_/Scripts/global_variables.js" displayName="onil_/Scripts/global_variables.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="126" type="61" schemaName="onil_/Scripts/global_variables.js" displayName="onil_/Scripts/global_variables.js" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="127" type="61" schemaName="onil_/Scripts/main_pqgrid_xrmfields.js" displayName="onil_/Scripts/main_pqgrid_xrmfields.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="127" type="61" schemaName="onil_/Scripts/main_pqgrid_xrmfields.js" displayName="onil_/Scripts/main_pqgrid_xrmfields.js" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="128" type="61" schemaName="onil_/Scripts/main_pqgrid_xrmactions.js" displayName="onil_/Scripts/main_pqgrid_xrmactions.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="128" type="61" schemaName="onil_/Scripts/main_pqgrid_xrmactions.js" displayName="onil_/Scripts/main_pqgrid_xrmactions.js" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="129" type="61" schemaName="onil_/iban_fr.html" displayName="onil_/iban_fr.html" solution="ONIL (2.0.0.5)" />
+        <Dependent key="129" type="61" schemaName="onil_/iban_fr.html" displayName="onil_/iban_fr.html" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="130" type="61" schemaName="onil_/siren_fr.html" displayName="onil_/siren_fr.html" solution="ONIL (2.0.0.5)" />
+        <Dependent key="130" type="61" schemaName="onil_/siren_fr.html" displayName="onil_/siren_fr.html" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="131" type="61" schemaName="onil_/siret_fr.html" displayName="onil_/siret_fr.html" solution="ONIL (2.0.0.5)" />
+        <Dependent key="131" type="61" schemaName="onil_/siret_fr.html" displayName="onil_/siret_fr.html" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="132" type="61" schemaName="onil_/phone_fr.html" displayName="onil_/phone_fr.html" solution="ONIL (2.0.0.5)" />
+        <Dependent key="132" type="61" schemaName="onil_/phone_fr.html" displayName="onil_/phone_fr.html" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="133" type="61" schemaName="onil_/Scripts/phonetique_pqgrid_xrmsetup.js" displayName="onil_/Scripts/phonetique_pqgrid_xrmsetup.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="133" type="61" schemaName="onil_/Scripts/phonetique_pqgrid_xrmsetup.js" displayName="onil_/Scripts/phonetique_pqgrid_xrmsetup.js" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="134" type="61" schemaName="onil_/Scripts/replace_pqgrid_xrmsetup.js" displayName="onil_/Scripts/replace_pqgrid_xrmsetup.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="134" type="61" schemaName="onil_/Scripts/replace_pqgrid_xrmsetup.js" displayName="onil_/Scripts/replace_pqgrid_xrmsetup.js" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="135" type="61" schemaName="onil_/concat_fr.html" displayName="onil_/concat_fr.html" solution="ONIL (2.0.0.5)" />
+        <Dependent key="135" type="61" schemaName="onil_/concat_fr.html" displayName="onil_/concat_fr.html" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="136" type="61" schemaName="onil_/Scripts/concat_pqgrid_xrmsetup.js" displayName="onil_/Scripts/concat_pqgrid_xrmsetup.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="136" type="61" schemaName="onil_/Scripts/concat_pqgrid_xrmsetup.js" displayName="onil_/Scripts/concat_pqgrid_xrmsetup.js" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="137" type="61" schemaName="onil_ribbon_library.js" displayName="onil_ribbon_library.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="137" type="61" schemaName="onil_ribbon_library.js" displayName="onil_ribbon_library.js" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="138" type="61" schemaName="onil_/Scripts/phone_pqgrid_xrmsetup.js" displayName="onil_/Scripts/phone_pqgrid_xrmsetup.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="138" type="61" schemaName="onil_/Scripts/phone_pqgrid_xrmsetup.js" displayName="onil_/Scripts/phone_pqgrid_xrmsetup.js" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="139" type="61" schemaName="onil_libphonenumber_r680.js" displayName="onil_libphonenumber_r680.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="139" type="61" schemaName="onil_libphonenumber_r680.js" displayName="onil_libphonenumber_r680.js" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="140" type="61" schemaName="onil_/Scripts/config.js" displayName="onil_/Scripts/config.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="140" type="61" schemaName="onil_/Scripts/config.js" displayName="onil_/Scripts/config.js" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="141" type="61" schemaName="onil_/setup_fr.html" displayName="onil_/setup_fr.html" solution="ONIL (2.0.0.5)" />
+        <Dependent key="141" type="61" schemaName="onil_/setup_fr.html" displayName="onil_/setup_fr.html" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="142" type="61" schemaName="onil_/configuration_fr.html" displayName="onil_/configuration_fr.html" solution="ONIL (2.0.0.5)" />
+        <Dependent key="142" type="61" schemaName="onil_/configuration_fr.html" displayName="onil_/configuration_fr.html" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="143" type="61" schemaName="onil_/batch_fr.html" displayName="onil_/batch_fr.html" solution="ONIL (2.0.0.5)" />
+        <Dependent key="143" type="61" schemaName="onil_/batch_fr.html" displayName="onil_/batch_fr.html" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="144" type="61" schemaName="onil_/Scripts/batch_library.js" displayName="onil_/Scripts/batch_library.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="144" type="61" schemaName="onil_/Scripts/batch_library.js" displayName="onil_/Scripts/batch_library.js" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="145" type="61" schemaName="onil_/Scripts/jquery_1.10.2.js" displayName="onil_/Scripts/jquery_1.10.2.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="145" type="61" schemaName="onil_/Scripts/jquery_1.10.2.js" displayName="onil_/Scripts/jquery_1.10.2.js" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="146" type="61" schemaName="onil_/Scripts/json2.js" displayName="onil_/Scripts/json2.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="146" type="61" schemaName="onil_/Scripts/json2.js" displayName="onil_/Scripts/json2.js" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="147" type="61" schemaName="onil_/Scripts/pqgrid.min.js" displayName="onil_/Scripts/pqgrid.min.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="147" type="61" schemaName="onil_/Scripts/pqgrid.min.js" displayName="onil_/Scripts/pqgrid.min.js" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="148" type="61" schemaName="onil_/Scripts/jquery_ui_1.10.3.custom.js" displayName="onil_/Scripts/jquery_ui_1.10.3.custom.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="148" type="61" schemaName="onil_/Scripts/jquery_ui_1.10.3.custom.js" displayName="onil_/Scripts/jquery_ui_1.10.3.custom.js" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="149" type="61" schemaName="onil_/Styles/pqgrid.min.css" displayName="onil_/Styles/pqgrid.min.css" solution="ONIL (2.0.0.5)" />
+        <Dependent key="149" type="61" schemaName="onil_/Styles/pqgrid.min.css" displayName="onil_/Styles/pqgrid.min.css" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="150" type="61" schemaName="onil_/Styles/flick/jquery_ui_1.10.3.custom.css" displayName="onil_/Styles/flick/jquery_ui_1.10.3.custom.css" solution="ONIL (2.0.0.5)" />
+        <Dependent key="150" type="61" schemaName="onil_/Styles/flick/jquery_ui_1.10.3.custom.css" displayName="onil_/Styles/flick/jquery_ui_1.10.3.custom.css" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="151" type="61" schemaName="onil_/main_fr.html" displayName="onil_/main_fr.html" solution="ONIL (2.0.0.5)" />
+        <Dependent key="151" type="61" schemaName="onil_/main_fr.html" displayName="onil_/main_fr.html" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="152" type="61" schemaName="onil_/Themes/Office/pqgrid.css" displayName="onil_/Themes/Office/pqgrid.css" solution="ONIL (2.0.0.5)" />
+        <Dependent key="152" type="61" schemaName="onil_/Themes/Office/pqgrid.css" displayName="onil_/Themes/Office/pqgrid.css" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="153" type="61" schemaName="onil_/Styles/images/cross.png" displayName="onil_/Styles/images/cross.png" solution="ONIL (2.0.0.5)" />
+        <Dependent key="153" type="61" schemaName="onil_/Styles/images/cross.png" displayName="onil_/Styles/images/cross.png" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="154" type="61" schemaName="onil_/Styles/images/loading.gif" displayName="onil_/Styles/images/loading.gif" solution="ONIL (2.0.0.5)" />
+        <Dependent key="154" type="61" schemaName="onil_/Styles/images/loading.gif" displayName="onil_/Styles/images/loading.gif" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="155" type="61" schemaName="onil_/Styles/images/Refresh.gif" displayName="onil_/Styles/images/Refresh.gif" solution="ONIL (2.0.0.5)" />
+        <Dependent key="155" type="61" schemaName="onil_/Styles/images/Refresh.gif" displayName="onil_/Styles/images/Refresh.gif" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="156" type="61" schemaName="onil_/Styles/images/sort_asc.gif" displayName="onil_/Styles/images/sort_asc.gif" solution="ONIL (2.0.0.5)" />
+        <Dependent key="156" type="61" schemaName="onil_/Styles/images/sort_asc.gif" displayName="onil_/Styles/images/sort_asc.gif" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="157" type="61" schemaName="onil_/Styles/images/sort_desc.gif" displayName="onil_/Styles/images/sort_desc.gif" solution="ONIL (2.0.0.5)" />
+        <Dependent key="157" type="61" schemaName="onil_/Styles/images/sort_desc.gif" displayName="onil_/Styles/images/sort_desc.gif" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="158" type="61" schemaName="onil_/Styles/images/sprite.png" displayName="onil_/Styles/images/sprite.png" solution="ONIL (2.0.0.5)" />
+        <Dependent key="158" type="61" schemaName="onil_/Styles/images/sprite.png" displayName="onil_/Styles/images/sprite.png" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="159" type="61" schemaName="onil_/Styles/images/tick.png" displayName="onil_/Styles/images/tick.png" solution="ONIL (2.0.0.5)" />
+        <Dependent key="159" type="61" schemaName="onil_/Styles/images/tick.png" displayName="onil_/Styles/images/tick.png" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="160" type="61" schemaName="onil_/Styles/images/column_header_bg.png" displayName="onil_/Styles/images/column_header_bg.png" solution="ONIL (2.0.0.5)" />
+        <Dependent key="160" type="61" schemaName="onil_/Styles/images/column_header_bg.png" displayName="onil_/Styles/images/column_header_bg.png" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="161" type="61" schemaName="onil_/Styles/images/column_header_over_bg.gif" displayName="onil_/Styles/images/column_header_over_bg.gif" solution="ONIL (2.0.0.5)" />
+        <Dependent key="161" type="61" schemaName="onil_/Styles/images/column_header_over_bg.gif" displayName="onil_/Styles/images/column_header_over_bg.gif" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="162" type="61" schemaName="onil_/Styles/images/horiz_bg.png" displayName="onil_/Styles/images/horiz_bg.png" solution="ONIL (2.0.0.5)" />
+        <Dependent key="162" type="61" schemaName="onil_/Styles/images/horiz_bg.png" displayName="onil_/Styles/images/horiz_bg.png" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="163" type="61" schemaName="onil_/Styles/images/horiz_slider_bg.png" displayName="onil_/Styles/images/horiz_slider_bg.png" solution="ONIL (2.0.0.5)" />
+        <Dependent key="163" type="61" schemaName="onil_/Styles/images/horiz_slider_bg.png" displayName="onil_/Styles/images/horiz_slider_bg.png" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="164" type="61" schemaName="onil_/Styles/images/page_first_gray.gif" displayName="onil_/Styles/images/page_first_gray.gif" solution="ONIL (2.0.0.5)" />
+        <Dependent key="164" type="61" schemaName="onil_/Styles/images/page_first_gray.gif" displayName="onil_/Styles/images/page_first_gray.gif" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="165" type="61" schemaName="onil_/Styles/images/page_last_gray.gif" displayName="onil_/Styles/images/page_last_gray.gif" solution="ONIL (2.0.0.5)" />
+        <Dependent key="165" type="61" schemaName="onil_/Styles/images/page_last_gray.gif" displayName="onil_/Styles/images/page_last_gray.gif" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="166" type="61" schemaName="onil_/Styles/images/page_next_gray.gif" displayName="onil_/Styles/images/page_next_gray.gif" solution="ONIL (2.0.0.5)" />
+        <Dependent key="166" type="61" schemaName="onil_/Styles/images/page_next_gray.gif" displayName="onil_/Styles/images/page_next_gray.gif" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="167" type="61" schemaName="onil_/Styles/images/page_prev_gray.gif" displayName="onil_/Styles/images/page_prev_gray.gif" solution="ONIL (2.0.0.5)" />
+        <Dependent key="167" type="61" schemaName="onil_/Styles/images/page_prev_gray.gif" displayName="onil_/Styles/images/page_prev_gray.gif" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="168" type="61" schemaName="onil_/Styles/images/vert_bg.png" displayName="onil_/Styles/images/vert_bg.png" solution="ONIL (2.0.0.5)" />
+        <Dependent key="168" type="61" schemaName="onil_/Styles/images/vert_bg.png" displayName="onil_/Styles/images/vert_bg.png" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="169" type="61" schemaName="onil_/Styles/images/vert_slider_bg.png" displayName="onil_/Styles/images/vert_slider_bg.png" solution="ONIL (2.0.0.5)" />
+        <Dependent key="169" type="61" schemaName="onil_/Styles/images/vert_slider_bg.png" displayName="onil_/Styles/images/vert_slider_bg.png" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="170" type="61" schemaName="onil_/Styles/flick/images/animated_overlay.gif" displayName="onil_/Styles/flick/images/animated_overlay.gif" solution="ONIL (2.0.0.5)" />
+        <Dependent key="170" type="61" schemaName="onil_/Styles/flick/images/animated_overlay.gif" displayName="onil_/Styles/flick/images/animated_overlay.gif" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="171" type="61" schemaName="onil_/Styles/flick/images/ui_bg_flat_0_aaaaaa_40x100.png" displayName="onil_/Styles/flick/images/ui_bg_flat_0_aaaaaa_40x100.png" solution="ONIL (2.0.0.5)" />
+        <Dependent key="171" type="61" schemaName="onil_/Styles/flick/images/ui_bg_flat_0_aaaaaa_40x100.png" displayName="onil_/Styles/flick/images/ui_bg_flat_0_aaaaaa_40x100.png" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="172" type="61" schemaName="onil_/Styles/flick/images/ui_bg_flat_0_eeeeee_40x100.png" displayName="onil_/Styles/flick/images/ui_bg_flat_0_eeeeee_40x100.png" solution="ONIL (2.0.0.5)" />
+        <Dependent key="172" type="61" schemaName="onil_/Styles/flick/images/ui_bg_flat_0_eeeeee_40x100.png" displayName="onil_/Styles/flick/images/ui_bg_flat_0_eeeeee_40x100.png" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="173" type="61" schemaName="onil_/Styles/flick/images/ui_bg_flat_55_ffffff_40x100.png" displayName="onil_/Styles/flick/images/ui_bg_flat_55_ffffff_40x100.png" solution="ONIL (2.0.0.5)" />
+        <Dependent key="173" type="61" schemaName="onil_/Styles/flick/images/ui_bg_flat_55_ffffff_40x100.png" displayName="onil_/Styles/flick/images/ui_bg_flat_55_ffffff_40x100.png" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="174" type="61" schemaName="onil_/Styles/flick/images/ui_bg_flat_75_ffffff_40x100.png" displayName="onil_/Styles/flick/images/ui_bg_flat_75_ffffff_40x100.png" solution="ONIL (2.0.0.5)" />
+        <Dependent key="174" type="61" schemaName="onil_/Styles/flick/images/ui_bg_flat_75_ffffff_40x100.png" displayName="onil_/Styles/flick/images/ui_bg_flat_75_ffffff_40x100.png" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="175" type="61" schemaName="onil_/Styles/flick/images/ui_bg_glass_65_ffffff_1x400.png" displayName="onil_/Styles/flick/images/ui_bg_glass_65_ffffff_1x400.png" solution="ONIL (2.0.0.5)" />
+        <Dependent key="175" type="61" schemaName="onil_/Styles/flick/images/ui_bg_glass_65_ffffff_1x400.png" displayName="onil_/Styles/flick/images/ui_bg_glass_65_ffffff_1x400.png" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="176" type="61" schemaName="onil_/Styles/flick/images/ui_bg_highlight_soft_100_f6f6f6_1x100.png" displayName="onil_/Styles/flick/images/ui_bg_highlight_soft_100_f6f6f6_1x100.png" solution="ONIL (2.0.0.5)" />
+        <Dependent key="176" type="61" schemaName="onil_/Styles/flick/images/ui_bg_highlight_soft_100_f6f6f6_1x100.png" displayName="onil_/Styles/flick/images/ui_bg_highlight_soft_100_f6f6f6_1x100.png" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="177" type="61" schemaName="onil_/Styles/flick/images/ui_bg_highlight_soft_25_0073ea_1x100.png" displayName="onil_/Styles/flick/images/ui_bg_highlight_soft_25_0073ea_1x100.png" solution="ONIL (2.0.0.5)" />
+        <Dependent key="177" type="61" schemaName="onil_/Styles/flick/images/ui_bg_highlight_soft_25_0073ea_1x100.png" displayName="onil_/Styles/flick/images/ui_bg_highlight_soft_25_0073ea_1x100.png" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="178" type="61" schemaName="onil_/Styles/flick/images/ui_bg_highlight_soft_50_dddddd_1x100.png" displayName="onil_/Styles/flick/images/ui_bg_highlight_soft_50_dddddd_1x100.png" solution="ONIL (2.0.0.5)" />
+        <Dependent key="178" type="61" schemaName="onil_/Styles/flick/images/ui_bg_highlight_soft_50_dddddd_1x100.png" displayName="onil_/Styles/flick/images/ui_bg_highlight_soft_50_dddddd_1x100.png" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="179" type="61" schemaName="onil_/Styles/flick/images/ui_icons_0073ea_256x240.png" displayName="onil_/Styles/flick/images/ui_icons_0073ea_256x240.png" solution="ONIL (2.0.0.5)" />
+        <Dependent key="179" type="61" schemaName="onil_/Styles/flick/images/ui_icons_0073ea_256x240.png" displayName="onil_/Styles/flick/images/ui_icons_0073ea_256x240.png" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="180" type="61" schemaName="onil_/Styles/flick/images/ui_icons_454545_256x240.png" displayName="onil_/Styles/flick/images/ui_icons_454545_256x240.png" solution="ONIL (2.0.0.5)" />
+        <Dependent key="180" type="61" schemaName="onil_/Styles/flick/images/ui_icons_454545_256x240.png" displayName="onil_/Styles/flick/images/ui_icons_454545_256x240.png" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="181" type="61" schemaName="onil_/Styles/flick/images/ui_icons_666666_256x240.png" displayName="onil_/Styles/flick/images/ui_icons_666666_256x240.png" solution="ONIL (2.0.0.5)" />
+        <Dependent key="181" type="61" schemaName="onil_/Styles/flick/images/ui_icons_666666_256x240.png" displayName="onil_/Styles/flick/images/ui_icons_666666_256x240.png" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="182" type="61" schemaName="onil_/Styles/flick/images/ui_icons_ff0084_256x240.png" displayName="onil_/Styles/flick/images/ui_icons_ff0084_256x240.png" solution="ONIL (2.0.0.5)" />
+        <Dependent key="182" type="61" schemaName="onil_/Styles/flick/images/ui_icons_ff0084_256x240.png" displayName="onil_/Styles/flick/images/ui_icons_ff0084_256x240.png" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="183" type="61" schemaName="onil_/Styles/flick/images/ui_icons_ffffff_256x240.png" displayName="onil_/Styles/flick/images/ui_icons_ffffff_256x240.png" solution="ONIL (2.0.0.5)" />
+        <Dependent key="183" type="61" schemaName="onil_/Styles/flick/images/ui_icons_ffffff_256x240.png" displayName="onil_/Styles/flick/images/ui_icons_ffffff_256x240.png" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="184" type="61" schemaName="onil_/phonetique_fr.html" displayName="onil_/phonetique_fr.html" solution="ONIL (2.0.0.5)" />
+        <Dependent key="184" type="61" schemaName="onil_/phonetique_fr.html" displayName="onil_/phonetique_fr.html" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="185" type="61" schemaName="onil_/replacement_fr.html" displayName="onil_/replacement_fr.html" solution="ONIL (2.0.0.5)" />
+        <Dependent key="185" type="61" schemaName="onil_/replacement_fr.html" displayName="onil_/replacement_fr.html" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="186" type="61" schemaName="onil_/special_char_fr.html" displayName="onil_/special_char_fr.html" solution="ONIL (2.0.0.5)" />
+        <Dependent key="186" type="61" schemaName="onil_/special_char_fr.html" displayName="onil_/special_char_fr.html" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="187" type="61" schemaName="onil_/Images/Update.png" displayName="onil_/Images/Update.png" solution="ONIL (2.0.0.5)" />
+        <Dependent key="187" type="61" schemaName="onil_/Images/Update.png" displayName="onil_/Images/Update.png" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="188" type="61" schemaName="onil_/Scripts/xml2json.js" displayName="onil_/Scripts/xml2json.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="188" type="61" schemaName="onil_/Scripts/xml2json.js" displayName="onil_/Scripts/xml2json.js" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="189" type="61" schemaName="onil_/Scripts/json2xml.js" displayName="onil_/Scripts/json2xml.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="189" type="61" schemaName="onil_/Scripts/json2xml.js" displayName="onil_/Scripts/json2xml.js" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="190" type="61" schemaName="onil_/Images/Delete_16.png" displayName="onil_/Images/Delete_16.png" solution="ONIL (2.0.0.5)" />
+        <Dependent key="190" type="61" schemaName="onil_/Images/Delete_16.png" displayName="onil_/Images/Delete_16.png" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="191" type="61" schemaName="msdyn_/Scripts/jqueryUI1.8.13.custom.min.js" displayName="msdyn_/Scripts/jqueryUI1.8.13.custom.min.js" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="191" type="61" schemaName="msdyn_/Scripts/jqueryUI1.8.13.custom.min.js" displayName="msdyn_/Scripts/jqueryUI1.8.13.custom.min.js" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="192" type="61" schemaName="msdyn_/RecordWall.htm" displayName="msdyn_/RecordWall.htm" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="192" type="61" schemaName="msdyn_/RecordWall.htm" displayName="msdyn_/RecordWall.htm" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="193" type="61" schemaName="msdyn_/ActivityFeeds.Form.js" displayName="msdyn_/ActivityFeeds.Form.js" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="193" type="61" schemaName="msdyn_/ActivityFeeds.Form.js" displayName="msdyn_/ActivityFeeds.Form.js" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="192" type="61" schemaName="msdyn_/RecordWall.htm" displayName="msdyn_/RecordWall.htm" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="194" type="60" displayName="Informations" parentDisplayName="Prospect" id="{9886ead0-4fcc-4747-9a18-08e7a9a6de71}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="192" type="61" schemaName="msdyn_/RecordWall.htm" displayName="msdyn_/RecordWall.htm" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="195" type="60" displayName="Informations" parentDisplayName="Opportunité" id="{a2a56263-ec37-4991-a3b0-e7b37a71d818}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="192" type="61" schemaName="msdyn_/RecordWall.htm" displayName="msdyn_/RecordWall.htm" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="196" type="60" displayName="Informations" parentDisplayName="Concurrent" id="{b81139b0-9849-4def-836b-75c4a0f0b03a}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="192" type="61" schemaName="msdyn_/RecordWall.htm" displayName="msdyn_/RecordWall.htm" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="197" type="60" displayName="Informations" parentDisplayName="Contact" id="{894cc46a-b0cb-4ab0-8bf6-200544e46a2d}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="192" type="61" schemaName="msdyn_/RecordWall.htm" displayName="msdyn_/RecordWall.htm" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="198" type="60" displayName="Informations" parentDisplayName="Demande" id="{f658c846-f74c-459b-b591-b97558958106}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="192" type="61" schemaName="msdyn_/RecordWall.htm" displayName="msdyn_/RecordWall.htm" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="199" type="60" displayName="Informations" parentDisplayName="Compte" id="{b053a39a-041a-4356-acef-ddf00182762b}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="192" type="61" schemaName="msdyn_/RecordWall.htm" displayName="msdyn_/RecordWall.htm" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="200" type="60" displayName="Informations" parentDisplayName="Utilisateur" id="{c0d7d7dd-afd0-4675-85fe-1cc5a48be6df}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="139" type="61" schemaName="onil_libphonenumber_r680.js" displayName="onil_libphonenumber_r680.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="201" type="60" displayName="Informations" parentDisplayName="Contrat" id="{3cb84cf5-b332-407b-8030-7568418d8569}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="139" type="61" schemaName="onil_libphonenumber_r680.js" displayName="onil_libphonenumber_r680.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="202" type="60" displayName="Informations" parentDisplayName="Ville" id="{7b81d06d-32db-4171-8cc9-1e8789a777f8}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="139" type="61" schemaName="onil_libphonenumber_r680.js" displayName="onil_libphonenumber_r680.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="198" type="60" displayName="Informations" parentDisplayName="Demande" id="{f658c846-f74c-459b-b591-b97558958106}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="139" type="61" schemaName="onil_libphonenumber_r680.js" displayName="onil_libphonenumber_r680.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="197" type="60" displayName="Informations" parentDisplayName="Contact" id="{894cc46a-b0cb-4ab0-8bf6-200544e46a2d}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="139" type="61" schemaName="onil_libphonenumber_r680.js" displayName="onil_libphonenumber_r680.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="203" type="60" displayName="Compte" parentDisplayName="Compte" id="{8448b78f-8f42-454e-8e2a-f8196b0419af}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="139" type="61" schemaName="onil_libphonenumber_r680.js" displayName="onil_libphonenumber_r680.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="199" type="60" displayName="Informations" parentDisplayName="Compte" id="{b053a39a-041a-4356-acef-ddf00182762b}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="139" type="61" schemaName="onil_libphonenumber_r680.js" displayName="onil_libphonenumber_r680.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="204" type="60" displayName="Informations" parentDisplayName="Département" id="{25446256-dc5a-49b0-981b-55c657ca6a64}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="139" type="61" schemaName="onil_libphonenumber_r680.js" displayName="onil_libphonenumber_r680.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="205" type="60" displayName="Informations" parentDisplayName="Téléphone / Horaire" id="{fa57a304-d84c-4637-a266-458cbec29f16}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="139" type="61" schemaName="onil_libphonenumber_r680.js" displayName="onil_libphonenumber_r680.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="206" type="60" displayName="Informations" parentDisplayName="Adresse" id="{df5bef3a-9237-40bd-a27c-2cd7fd434706}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="139" type="61" schemaName="onil_libphonenumber_r680.js" displayName="onil_libphonenumber_r680.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="207" type="60" displayName="Demande" parentDisplayName="Demande" id="{4a63c8d1-6c1e-48ec-9db4-3e6c7155334c}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="139" type="61" schemaName="onil_libphonenumber_r680.js" displayName="onil_libphonenumber_r680.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="208" type="60" displayName="Informations" parentDisplayName="Prestation" id="{0c54ec04-5258-4686-b595-59c64f0df890}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="139" type="61" schemaName="onil_libphonenumber_r680.js" displayName="onil_libphonenumber_r680.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="209" type="60" displayName="Contact" parentDisplayName="Contact" id="{1fed44d1-ae68-4a41-bd2b-f13acac4acfa}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="139" type="61" schemaName="onil_libphonenumber_r680.js" displayName="onil_libphonenumber_r680.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="210" type="60" displayName="Informations" parentDisplayName="Téléphone / Contrat" id="{633c3eb5-52f1-446d-aad1-8890a0c5d9ef}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="139" type="61" schemaName="onil_libphonenumber_r680.js" displayName="onil_libphonenumber_r680.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="211" type="60" displayName="Informations" parentDisplayName="Pays" id="{852351a1-f65a-4780-92d1-120957a76f78}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="191" type="61" schemaName="msdyn_/Scripts/jqueryUI1.8.13.custom.min.js" displayName="msdyn_/Scripts/jqueryUI1.8.13.custom.min.js" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="206" type="60" displayName="Informations" parentDisplayName="Adresse" id="{df5bef3a-9237-40bd-a27c-2cd7fd434706}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="113" type="61" schemaName="onil_library.js" displayName="onil_library.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="207" type="60" displayName="Demande" parentDisplayName="Demande" id="{4a63c8d1-6c1e-48ec-9db4-3e6c7155334c}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="113" type="61" schemaName="onil_library.js" displayName="onil_library.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="206" type="60" displayName="Informations" parentDisplayName="Adresse" id="{df5bef3a-9237-40bd-a27c-2cd7fd434706}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="113" type="61" schemaName="onil_library.js" displayName="onil_library.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="205" type="60" displayName="Informations" parentDisplayName="Téléphone / Horaire" id="{fa57a304-d84c-4637-a266-458cbec29f16}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="113" type="61" schemaName="onil_library.js" displayName="onil_library.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="208" type="60" displayName="Informations" parentDisplayName="Prestation" id="{0c54ec04-5258-4686-b595-59c64f0df890}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="113" type="61" schemaName="onil_library.js" displayName="onil_library.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="209" type="60" displayName="Contact" parentDisplayName="Contact" id="{1fed44d1-ae68-4a41-bd2b-f13acac4acfa}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="113" type="61" schemaName="onil_library.js" displayName="onil_library.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="202" type="60" displayName="Informations" parentDisplayName="Ville" id="{7b81d06d-32db-4171-8cc9-1e8789a777f8}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="113" type="61" schemaName="onil_library.js" displayName="onil_library.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="201" type="60" displayName="Informations" parentDisplayName="Contrat" id="{3cb84cf5-b332-407b-8030-7568418d8569}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="113" type="61" schemaName="onil_library.js" displayName="onil_library.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="198" type="60" displayName="Informations" parentDisplayName="Demande" id="{f658c846-f74c-459b-b591-b97558958106}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="113" type="61" schemaName="onil_library.js" displayName="onil_library.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="197" type="60" displayName="Informations" parentDisplayName="Contact" id="{894cc46a-b0cb-4ab0-8bf6-200544e46a2d}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="113" type="61" schemaName="onil_library.js" displayName="onil_library.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="204" type="60" displayName="Informations" parentDisplayName="Département" id="{25446256-dc5a-49b0-981b-55c657ca6a64}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="113" type="61" schemaName="onil_library.js" displayName="onil_library.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="199" type="60" displayName="Informations" parentDisplayName="Compte" id="{b053a39a-041a-4356-acef-ddf00182762b}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="113" type="61" schemaName="onil_library.js" displayName="onil_library.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="203" type="60" displayName="Compte" parentDisplayName="Compte" id="{8448b78f-8f42-454e-8e2a-f8196b0419af}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="113" type="61" schemaName="onil_library.js" displayName="onil_library.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="210" type="60" displayName="Informations" parentDisplayName="Téléphone / Contrat" id="{633c3eb5-52f1-446d-aad1-8890a0c5d9ef}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="113" type="61" schemaName="onil_library.js" displayName="onil_library.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="211" type="60" displayName="Informations" parentDisplayName="Pays" id="{852351a1-f65a-4780-92d1-120957a76f78}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="188" type="61" schemaName="onil_/Scripts/xml2json.js" displayName="onil_/Scripts/xml2json.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="208" type="60" displayName="Informations" parentDisplayName="Prestation" id="{0c54ec04-5258-4686-b595-59c64f0df890}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="188" type="61" schemaName="onil_/Scripts/xml2json.js" displayName="onil_/Scripts/xml2json.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="209" type="60" displayName="Contact" parentDisplayName="Contact" id="{1fed44d1-ae68-4a41-bd2b-f13acac4acfa}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="188" type="61" schemaName="onil_/Scripts/xml2json.js" displayName="onil_/Scripts/xml2json.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="207" type="60" displayName="Demande" parentDisplayName="Demande" id="{4a63c8d1-6c1e-48ec-9db4-3e6c7155334c}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="188" type="61" schemaName="onil_/Scripts/xml2json.js" displayName="onil_/Scripts/xml2json.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="206" type="60" displayName="Informations" parentDisplayName="Adresse" id="{df5bef3a-9237-40bd-a27c-2cd7fd434706}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="188" type="61" schemaName="onil_/Scripts/xml2json.js" displayName="onil_/Scripts/xml2json.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="205" type="60" displayName="Informations" parentDisplayName="Téléphone / Horaire" id="{fa57a304-d84c-4637-a266-458cbec29f16}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="188" type="61" schemaName="onil_/Scripts/xml2json.js" displayName="onil_/Scripts/xml2json.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="204" type="60" displayName="Informations" parentDisplayName="Département" id="{25446256-dc5a-49b0-981b-55c657ca6a64}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="188" type="61" schemaName="onil_/Scripts/xml2json.js" displayName="onil_/Scripts/xml2json.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="203" type="60" displayName="Compte" parentDisplayName="Compte" id="{8448b78f-8f42-454e-8e2a-f8196b0419af}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="188" type="61" schemaName="onil_/Scripts/xml2json.js" displayName="onil_/Scripts/xml2json.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="199" type="60" displayName="Informations" parentDisplayName="Compte" id="{b053a39a-041a-4356-acef-ddf00182762b}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="188" type="61" schemaName="onil_/Scripts/xml2json.js" displayName="onil_/Scripts/xml2json.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="201" type="60" displayName="Informations" parentDisplayName="Contrat" id="{3cb84cf5-b332-407b-8030-7568418d8569}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="188" type="61" schemaName="onil_/Scripts/xml2json.js" displayName="onil_/Scripts/xml2json.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="202" type="60" displayName="Informations" parentDisplayName="Ville" id="{7b81d06d-32db-4171-8cc9-1e8789a777f8}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="188" type="61" schemaName="onil_/Scripts/xml2json.js" displayName="onil_/Scripts/xml2json.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="197" type="60" displayName="Informations" parentDisplayName="Contact" id="{894cc46a-b0cb-4ab0-8bf6-200544e46a2d}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="188" type="61" schemaName="onil_/Scripts/xml2json.js" displayName="onil_/Scripts/xml2json.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="198" type="60" displayName="Informations" parentDisplayName="Demande" id="{f658c846-f74c-459b-b591-b97558958106}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="188" type="61" schemaName="onil_/Scripts/xml2json.js" displayName="onil_/Scripts/xml2json.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="211" type="60" displayName="Informations" parentDisplayName="Pays" id="{852351a1-f65a-4780-92d1-120957a76f78}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="188" type="61" schemaName="onil_/Scripts/xml2json.js" displayName="onil_/Scripts/xml2json.js" solution="ONIL (2.0.0.5)" />
+        <Dependent key="210" type="60" displayName="Informations" parentDisplayName="Téléphone / Contrat" id="{633c3eb5-52f1-446d-aad1-8890a0c5d9ef}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="193" type="61" schemaName="msdyn_/ActivityFeeds.Form.js" displayName="msdyn_/ActivityFeeds.Form.js" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="195" type="60" displayName="Informations" parentDisplayName="Opportunité" id="{a2a56263-ec37-4991-a3b0-e7b37a71d818}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="193" type="61" schemaName="msdyn_/ActivityFeeds.Form.js" displayName="msdyn_/ActivityFeeds.Form.js" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="194" type="60" displayName="Informations" parentDisplayName="Prospect" id="{9886ead0-4fcc-4747-9a18-08e7a9a6de71}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="193" type="61" schemaName="msdyn_/ActivityFeeds.Form.js" displayName="msdyn_/ActivityFeeds.Form.js" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="199" type="60" displayName="Informations" parentDisplayName="Compte" id="{b053a39a-041a-4356-acef-ddf00182762b}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="193" type="61" schemaName="msdyn_/ActivityFeeds.Form.js" displayName="msdyn_/ActivityFeeds.Form.js" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="196" type="60" displayName="Informations" parentDisplayName="Concurrent" id="{b81139b0-9849-4def-836b-75c4a0f0b03a}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="193" type="61" schemaName="msdyn_/ActivityFeeds.Form.js" displayName="msdyn_/ActivityFeeds.Form.js" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="197" type="60" displayName="Informations" parentDisplayName="Contact" id="{894cc46a-b0cb-4ab0-8bf6-200544e46a2d}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="193" type="61" schemaName="msdyn_/ActivityFeeds.Form.js" displayName="msdyn_/ActivityFeeds.Form.js" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="198" type="60" displayName="Informations" parentDisplayName="Demande" id="{f658c846-f74c-459b-b591-b97558958106}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="193" type="61" schemaName="msdyn_/ActivityFeeds.Form.js" displayName="msdyn_/ActivityFeeds.Form.js" solution="ActivityFeedsCore (6.1.2.112)" />
+        <Dependent key="200" type="60" displayName="Informations" parentDisplayName="Utilisateur" id="{c0d7d7dd-afd0-4675-85fe-1cc5a48be6df}" />
+      </MissingDependency>
+    </MissingDependencies>
+  </SolutionManifest>
+</ImportExportXml>

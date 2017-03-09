@@ -1,0 +1,6 @@
+C:\Users\susmit.patel\Desktop\MutuaideWCF\MutuaideWCF\MutuaideWCF\bin\MutuaideWCF.XML
+C:\Users\susmit.patel\Desktop\MutuaideWCF\MutuaideWCF\MutuaideWCF\bin\MutuaideWCF.dll
+C:\Users\susmit.patel\Desktop\MutuaideWCF\MutuaideWCF\MutuaideWCF\bin\MutuaideWCF.pdb
+C:\Users\susmit.patel\Desktop\MutuaideWCF\MutuaideWCF\MutuaideWCF\obj\Debug\MutuaideWCF.csprojResolveAssemblyReference.cache
+C:\Users\susmit.patel\Desktop\MutuaideWCF\MutuaideWCF\MutuaideWCF\obj\Debug\MutuaideWCF.dll
+C:\Users\susmit.patel\Desktop\MutuaideWCF\MutuaideWCF\MutuaideWCF\obj\Debug\MutuaideWCF.pdb

@@ -1,0 +1,6 @@
+C:\Users\susmit.patel\Desktop\MutuaideWCF\MutuaideWCF\WcfTestApplication\bin\Debug\WcfTestApplication.exe.config
+C:\Users\susmit.patel\Desktop\MutuaideWCF\MutuaideWCF\WcfTestApplication\bin\Debug\WcfTestApplication.exe
+C:\Users\susmit.patel\Desktop\MutuaideWCF\MutuaideWCF\WcfTestApplication\bin\Debug\WcfTestApplication.pdb
+C:\Users\susmit.patel\Desktop\MutuaideWCF\MutuaideWCF\WcfTestApplication\obj\Debug\WcfTestApplication.csprojResolveAssemblyReference.cache
+C:\Users\susmit.patel\Desktop\MutuaideWCF\MutuaideWCF\WcfTestApplication\obj\Debug\WcfTestApplication.exe
+C:\Users\susmit.patel\Desktop\MutuaideWCF\MutuaideWCF\WcfTestApplication\obj\Debug\WcfTestApplication.pdb

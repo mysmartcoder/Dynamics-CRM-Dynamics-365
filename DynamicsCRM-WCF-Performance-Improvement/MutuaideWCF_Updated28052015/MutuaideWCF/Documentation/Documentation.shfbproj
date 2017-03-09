@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <!-- The configuration and platform will be used to determine which assemblies to include from solution and
+				 project documentation sources -->
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7a9e2809-4d38-498e-ad5c-946a9f8869fb}</ProjectGuid>
+    <SHFBSchemaVersion>1.9.9.0</SHFBSchemaVersion>
+    <!-- AssemblyName, Name, and RootNamespace are not used by SHFB but Visual Studio adds them anyway -->
+    <AssemblyName>Documentation</AssemblyName>
+    <RootNamespace>Documentation</RootNamespace>
+    <Name>Documentation</Name>
+    <!-- SHFB properties -->
+    <FrameworkVersion>.NET Framework 4.0</FrameworkVersion>
+    <OutputPath>.\Help\</OutputPath>
+    <HtmlHelpName>Documentation WebServices</HtmlHelpName>
+    <Language>en-US</Language>
+    <DocumentationSources>
+      <DocumentationSource sourceFile="..\bin\MutuaideWCF.XML" xmlns="" />
+      <DocumentationSource sourceFile="..\bin\MutuaideWCF.dll" xmlns="" />
+    </DocumentationSources>
+    <MaximumGroupParts>2</MaximumGroupParts>
+    <NamespaceGrouping>False</NamespaceGrouping>
+    <SyntaxFilters>C#</SyntaxFilters>
+    <SdkLinkTarget>Blank</SdkLinkTarget>
+    <RootNamespaceContainer>False</RootNamespaceContainer>
+    <PresentationStyle>VS2005</PresentationStyle>
+    <Preliminary>False</Preliminary>
+    <NamingMethod>Guid</NamingMethod>
+    <HelpTitle>MUTUAIDE Web Services reference</HelpTitle>
+    <ContentPlacement>AboveNamespaces</ContentPlacement>
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+    <FooterText>Version 1.0.1.6</FooterText>
+    <BuildAssemblerVerbosity>OnlyWarningsAndErrors</BuildAssemblerVerbosity>
+    <HelpFileFormat>HtmlHelp1</HelpFileFormat>
+    <IndentHtml>False</IndentHtml>
+    <KeepLogFile>True</KeepLogFile>
+    <DisableCodeBlockComponent>False</DisableCodeBlockComponent>
+    <CppCommentsFixup>False</CppCommentsFixup>
+    <CleanIntermediates>True</CleanIntermediates>
+    <ProjectSummary>
+    </ProjectSummary>
+    <NamespaceSummaries>
+      <NamespaceSummaryItem name="MutuaideWCF" isDocumented="True" xmlns="">Documentation des Web Services mis à disposition de MUTUAIDE dans le cadre du projet conciergerie, permettant d'accéder à la CRM.</NamespaceSummaryItem>
+    </NamespaceSummaries>
+    <ApiFilter>
+      <Filter entryType="Namespace" fullName="MutuaideWCF" isExposed="False">
+  <Filter entryType="Enumeration" fullName="MutuaideWCF.CustomReturnCode" filterName="CustomReturnCode" isExposed="True" />
+  <Filter entryType="Interface" fullName="MutuaideWCF.IMutuaideService" filterName="IMutuaideService" isExposed="True" />
+</Filter>
+<Filter entryType="Namespace" fullName="MutuaideWCF.DAL" isExposed="False" />
+<Filter entryType="Namespace" fullName="MutuaideWCF.Log" isExposed="False" />
+<Filter entryType="Namespace" fullName="MutuaideWCF.XRM" isExposed="False" /></ApiFilter>
+    <VisibleItems>InheritedMembers, InheritedFrameworkMembers, Protected, ProtectedInternalAsProtected</VisibleItems>
+  </PropertyGroup>
+  <!-- There are no properties for these groups.  AnyCPU needs to appear in order for Visual Studio to perform
+			 the build.  The others are optional common platform types that may appear. -->
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Win32' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Win32' ">
+  </PropertyGroup>
+  <!-- Import the SHFB build targets -->
+  <Import Project="$(SHFBROOT)\SandcastleHelpFileBuilder.targets" />
+</Project>

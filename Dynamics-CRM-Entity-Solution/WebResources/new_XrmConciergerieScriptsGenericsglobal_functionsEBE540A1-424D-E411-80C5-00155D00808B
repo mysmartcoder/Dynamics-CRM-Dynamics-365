@@ -1,0 +1,421 @@
+﻿//Créateur : Nom
+//Date : xx/xx/xxxx
+//Fichier JS contenant les fonctionnalités permettant de … 
+//…
+//
+
+//On utilisera les namespaces pour avoir plus d'organisation dans le code
+if (typeof (XrmConciergerie) == "undefined")
+{ XrmConciergerie = { __namespace: true }; }
+if (typeof (XrmConciergerie.Scripts) == "undefined")
+{ XrmConciergerie.Scripts = { __namespace: true }; }
+
+//On crée le namespace du fichier
+XrmConciergerie.Scripts.Generics = {
+
+
+    //RG003;RG013
+    //A la saisie d'un code postal, la ville remontera automatiquement
+    //Paramètre : rien
+    //Retour : rien
+    SetCity: function() {
+
+        var zip = JSIHelper.GetAttributeValue("address1_postalcode");
+
+        if (zip != null) {
+            SDK.REST.retrieveMultipleRecords(
+                "new_city",
+                "$select=new_cityname,new_cityId&"
+                + "$filter=new_zip eq '" + zip + "'",
+                function(results) {
+
+                    if (results && results.length == 1) {
+                        var city = results[0];
+                        if (JSIHelper.GetAttributeValue("new_cityid") == null)
+                            Xrm.Page.getAttribute("new_cityid").setValue(Lookup(city.new_cityId, city.new_cityname, "new_city"));
+                    } else {
+                        Xrm.Page.getAttribute("new_cityid").setValue(null);
+                    }
+                },
+                function(error) {
+                    Xrm.Page.ui.setFormNotification(error, "ERROR", "ERROR_ODATA_CITY");
+                },
+                function() {
+                }
+            );
+        }
+    },
+
+
+//RG026;RG012 >> Idem MK002
+    //A la saisie de la ville, le code postal remontera
+    //Paramètre : rien
+    //Retour : rien
+    SetZipCode: function() {
+        //Pas besoin de tester si le pays est France car, new_cityid est affiché uniquement si le pays est France
+        //MK002
+        if (JSIHelper.GetAttributeValue("address1_postalcode") == null)
+            JSIHelper.GetParentAttribute("new_cityid", "new_zip", "address1_postalcode");
+    },
+
+
+//RG004;RG014
+    //A la création le champ pays est alimenté par la valeur France
+    //Paramètre : rien
+    //Retour : rien
+    SetDefaultCountry: function() {
+
+        SDK.REST.retrieveMultipleRecordsSync(
+            "new_country",
+            "$select=new_countryname,new_countrycode,new_countryId&"
+            + "$filter=new_countryname eq '" + DEFAULT_COUNTRYNAME + "' and new_countrycode eq '" + DEFAULT_COUNTRYCODE + "'",
+            function(results) {
+
+                if (results && results.length == 1) {
+                    var country = results[0];
+                    Xrm.Page.getAttribute("new_countryid").setValue(Lookup(country.new_countryId, country.new_countryname, "new_country"));
+                } else {
+                    Xrm.Page.getAttribute("new_countryid").setValue(null);
+                }
+            },
+            function(error) {
+                Xrm.Page.ui.setFormNotification(error, "ERROR", "ERROR_ODATA_CITY");
+            },
+            function() {
+                // OnComplete handler
+            }
+        );
+
+    },
+
+
+//RG027;RG006
+    //Si le pays est égal à France alors la ville française est affichée et la ville étrangère est masquée
+    //Si le pays est différent de France alors la ville française est masquée et la ville étrangère est affichée
+    //Paramètre : rien
+    //Retour : rien
+    SetCitiesVisibility: function(countryAttributeName, frenchCityAttributeName, foreignCityAttributeName, postalCodeAttributeName, isOnChange) {
+
+        var pays = (Xrm.Page.getAttribute(countryAttributeName).getValue() == null) ? null : Xrm.Page.getAttribute(countryAttributeName).getValue()[0].name;
+        if (pays != null && pays.toLowerCase() == DEFAULT_COUNTRYNAME.toLowerCase()) {
+            Xrm.Page.getControl(frenchCityAttributeName).setVisible(true);
+            JSIHelper.SetAttributeValue(foreignCityAttributeName, null);
+            Xrm.Page.getControl(foreignCityAttributeName).setVisible(false);
+        } else {
+            JSIHelper.SetAttributeValue(frenchCityAttributeName, null);
+            Xrm.Page.getControl(frenchCityAttributeName).setVisible(false);
+            Xrm.Page.getControl(foreignCityAttributeName).setVisible(true);
+        }
+        if (isOnChange)
+            JSIHelper.SetAttributeValue(postalCodeAttributeName, null);
+
+    },
+
+
+    doSubTypeOnChange: true,
+    // Lorsque l'on change le type
+    //RG100 et RG037
+    onChangeType: function() {
+        //alert(2);
+        var doSubTypeOnChange = XrmConciergerie.Scripts.Generics.doSubTypeOnChange; // keep the variable value because it's async
+        if (Xrm.Page.getAttribute("new_typeid").getValue() != null) {
+            SDK.REST.retrieveRecord(
+                Xrm.Page.getAttribute("new_typeid").getValue()[0].id,
+                "new_type",
+                "new_typeId,new_categoryid",
+                null,
+                function(result) {
+                    if (result != null && result.new_categoryid != null) {
+                        // Ne provoque pas de onChange() sur la catégorie
+                        Xrm.Page.getAttribute("new_categoryid").setValue(new Lookup(result.new_categoryid.Id, result.new_categoryid.Name, result.new_categoryid.LogicalName));
+
+
+                        if (doSubTypeOnChange) {
+                            Xrm.Page.getAttribute("new_subtypeid").removeOnChange(XrmConciergerie.Scripts.Generics.onChangeSubType);
+                            Xrm.Page.getAttribute("new_subtypeid").setRequiredLevel("none");
+                            Xrm.Page.getAttribute("new_subtypeid").setValue(null);
+                            Xrm.Page.getAttribute("new_subtypeid").setRequiredLevel("required");
+                            Xrm.Page.getAttribute("new_subtypeid").addOnChange(XrmConciergerie.Scripts.Generics.onChangeSubType);
+
+                            // S'il n'y a qu'un seul type, on sélectionne ce type par défaut
+                            var filter = new Array();
+                            filter[0] = {
+                                Attribute: "new_typeid/Id",
+                                ConditionOperator: "eq",
+                                Value: "(guid'" + Xrm.Page.getAttribute('new_typeid').getValue()[0].id + "')"
+                            };
+
+                            var subtype = XrmConciergerie.Scripts.Generics.RetrieveEntityField("new_subtype", null, "new_subtypeId,new_subtype", null, filter);
+                            if (subtype != null && subtype.results.length == 1)
+                                Xrm.Page.getAttribute('new_subtypeid').setValue([{ id: subtype.results[0].new_subtypeId, name: subtype.results[0].new_subtype, entityType: "new_subtype" }]);
+                        }
+                    }
+                },
+                function(error) {
+                },
+                function() {
+                }
+            );
+        } else {
+            if (doSubTypeOnChange) {
+                Xrm.Page.getAttribute("new_subtypeid").removeOnChange(XrmConciergerie.Scripts.Generics.onChangeSubType);
+                Xrm.Page.getAttribute("new_subtypeid").setRequiredLevel("none");
+                Xrm.Page.getAttribute("new_subtypeid").setValue(null);
+                Xrm.Page.getAttribute("new_subtypeid").setRequiredLevel("required");
+                Xrm.Page.getAttribute("new_subtypeid").addOnChange(XrmConciergerie.Scripts.Generics.onChangeSubType);
+            }
+        }
+    },
+
+    // Lorsque l'on change le sous-type
+    //RG100 et RG037
+    onChangeSubType: function() {
+        //alert(3);
+
+        if (Xrm.Page.getAttribute("new_subtypeid").getValue() != null) {
+            SDK.REST.retrieveRecord(
+                Xrm.Page.getAttribute("new_subtypeid").getValue()[0].id,
+                "new_subtype",
+                "new_subtypeId,new_typeid",
+                null,
+                function(result) {
+                    if (result != null && result.new_typeid != null) {
+                        XrmConciergerie.Scripts.Generics.doSubTypeOnChange = false;
+                        // Ne provoque pas de onChange() sur le type
+                        Xrm.Page.getAttribute("new_typeid").setValue(new Lookup(result.new_typeid.Id, result.new_typeid.Name, result.new_typeid.LogicalName));
+                        // Provoque un onChange() sur le type
+                        XrmConciergerie.Scripts.Generics.onChangeType();
+                        XrmConciergerie.Scripts.Generics.doSubTypeOnChange = true;
+                    }
+                },
+                function(error) {
+                },
+                function() {
+                }
+            );
+        }
+    },
+
+    //RG008
+    // Permet de vérifier le domaine d'une adresse email
+    MailValidation: function(AttributeName) {
+        try {
+            var email = Xrm.Page.getAttribute(AttributeName).getValue();
+            var urlWs = JSIHelper.GetCRMParamterValue("BaseUrlWS") + "MailValidation/" + email;
+            if (email != null) {
+
+                $.ajax({
+                    dataType: "xml",
+                    async: false,
+                    url: urlWs,
+                    success: function(data) {
+                        try {
+                            if (data.all[0].textContent == "false") {
+
+                                Xrm.Page.getControl(AttributeName).setNotification(MAILVALIDATION, "MAILVALIDATION");
+
+                            } else {
+                                Xrm.Page.getControl(AttributeName).clearNotification("MAILVALIDATION");
+                            }
+
+
+                        } catch (e) {
+                            throw e;
+                        }
+                    },
+                    error: function(e) {
+                        throw e;
+                    }
+                });
+
+
+            } else {
+                Xrm.Page.getControl(AttributeName).clearNotification("MAILVALIDATION");
+            }
+
+        } catch (e) {
+            throw e;
+        }
+
+    },
+
+
+    UserHasRole: function(nameOfRole) {
+
+        var serverUrl = location.protocol + "//" + location.host + "/" + Xrm.Page.context.getOrgUniqueName();
+        var odataSelect = serverUrl + "/XRMServices/2011/OrganizationData.svc" + "/" + "RoleSet?$top=1&$filter=Name eq '" + nameOfRole + "'";
+        var roleId = null;
+        $.ajax(
+            {
+                type: "GET",
+                async: false,
+                contentType: "application/json; charset=utf-8",
+                datatype: "json",
+                url: odataSelect,
+                beforeSend: function(XMLHttpRequest) { XMLHttpRequest.setRequestHeader("Accept", "application/json"); },
+                success: function(data, textStatus, XmlHttpRequest) {
+                    if (data.d.results.length > 0)
+                        roleId = data.d.results[0].RoleId;
+                },
+                error: function(XmlHttpRequest, textStatus, errorThrown) { alert('OData Select Failed: ' + textStatus + errorThrown + odataSelect); }
+            }
+        );
+
+        var roles = Xrm.Page.context.getUserRoles();
+        if ($.inArray(roleId, roles) != -1)
+            return true;
+        else
+            return false;
+    },
+
+    disableFormFields: function(onOff) {
+        Xrm.Page.ui.controls.forEach(function(control, index) {
+            if (XrmConciergerie.Scripts.Generics.doesControlHaveAttribute(control)) {
+                control.setDisabled(onOff);
+            }
+        });
+    },
+
+    doesControlHaveAttribute: function(control) {
+        var controlType = control.getControlType();
+        return controlType != "iframe" && controlType != "webresource" && controlType != "subgrid";
+    },
+
+    /*****************Odata*************/
+
+    RetrieveEntityField: function(entity, fieldId, fieldName, expand, filter, order) {
+        var request = location.protocol + "//" + location.host + "/" + Xrm.Page.context.getOrgUniqueName() + "/XRMServices/2011/OrganizationData.svc/" + entity + "Set";
+
+        if (fieldId != null) {
+
+            request += "(guid'" + fieldId + "')";
+
+        }
+
+        if (fieldName == null) {
+
+            fieldName = "*";
+        }
+        request += "/?$select=" + fieldName;
+
+        if (filter != null) {
+
+            request += "&$filter=";
+            for (var i = 0; i < filter.length; i++) {
+                var filterValue = filter[i];
+                if (i > 0) {
+                    request += " " + filterValue.Operator + " ";
+                }
+                request += filterValue.Attribute + " " + filterValue.ConditionOperator + " " + filterValue.Value;
+            }
+
+        }
+
+        if (order != null)
+            request += "&$orderby=" + order;
+
+        if (expand != null)
+            request += "&$expand=" + expand;
+
+
+        var retrieveRequest = new XMLHttpRequest();
+        retrieveRequest.open("GET", request, false);
+        retrieveRequest.setRequestHeader("Accept", "application/json");
+        retrieveRequest.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+        retrieveRequest.send();
+
+        //var resultXml = retrieveRequest.responseXML;
+        var result = JSON.parse(retrieveRequest.responseText).d;
+        return result;
+    },
+
+
+    //filtre de la lookup new_cityid en fonction du code postal
+    preFilterLookupCity: function(cityFieldname_, postalcodeFieldname_) {
+        Xrm.Page.getControl(cityFieldname_).addPreSearch(function () { addLookupFilterCityHandler(cityFieldname_, postalcodeFieldname_); });  
+    },
+
+    // filtre les sous-types en fonction du type ou catégorie
+    preFilterLookupSubtype: function ()
+    {
+        Xrm.Page.getControl("new_subtypeid").addPreSearch(function () { addLookupFilterSubtypeHandler(); });
+    },
+
+    _namespace: true,
+
+};
+
+var addLookupFilterCityHandler = function(cityFieldname_, postalcodeFieldname_) {
+    var postalcode = Xrm.Page.getAttribute(postalcodeFieldname_).getValue();
+    if (postalcode != null) {
+        fetchXml = "<filter type='and'><condition attribute='new_zip' operator='eq' value='" + postalcode + "' /></filter>";
+        Xrm.Page.getControl(cityFieldname_).addCustomFilter(fetchXml);
+    }
+};
+
+
+var addLookupFilterSubtypeHandler = function ()
+{
+    var type = Xrm.Page.getAttribute("new_typeid").getValue();
+    var category = Xrm.Page.getAttribute("new_categoryid").getValue();
+    
+    if (type != null)
+    {
+        fetchXml = "<filter type='and'><condition attribute='new_typeid' operator='eq' value='" + type[0].id + "' /></filter>";
+        Xrm.Page.getControl("new_subtypeid").addCustomFilter(fetchXml);
+    }
+
+    else if (category != null)
+    {
+        // Adresses principale et secondaires du client
+        $.ajax({
+            dataType: "json",
+            async: false,
+            url: Xrm.Page.context.getClientUrl() + "/XRMServices/2011/OrganizationData.svc/new_typeSet?$filter=new_categoryid/Id eq (guid'" + category[0].id + "')&$select=new_typeId,new_type",
+            success: function (data)
+            {
+                try {
+                    var filter = "<filter type='and'>";
+                    filter += "<condition attribute='new_typeid' operator='in'>";
+
+                    $.each(data.d.results, function (index, item)
+                    {
+                        //filter += "<value uiname='" + item.new_type + "' uitype='new_type'>" + item.new_typeId + "</value>";
+                        filter += "<value uitype='new_type'>" + item.new_typeId + "</value>";
+                    });
+                    filter += "</condition>";
+                    filter += "</filter>";
+                    //fetchXml = "<filter type='and'><condition attribute='new_typeid' operator='eq' value='" + category[0].id + "' /></filter>";
+                    Xrm.Page.getControl("new_subtypeid").addCustomFilter(filter);
+                } catch (e)
+                {
+                    throw e;
+                }
+            },
+            error: function (e)
+            {
+                throw e;
+            }
+        });
+    }
+};
+
+/*
+Fonction de formatage de string avec arguments comme en .NET String.Format(str, replaceArgs)
+Nommée format2 car String.format est déclarée par MS Dynamics dans les scripts de l'outil (et qui est appelée a l'ouverture des formulaires QuickCreate notamment)
+*/
+if (!String.format2) {
+    String.format2 = function () {
+        // The string containing the format items (e.g. "{0}") will and always has to be the first argument.
+        var theString = arguments[0];
+
+        // start with the second argument (i = 1)
+        for (var i = 1; i < arguments.length; i++) {
+            // "gm" = RegEx options for Global search (more than one instance) and for Multiline search
+            var regEx = new RegExp("\\{" + (i - 1) + "\\}", "gm");
+            theString = theString.replace(regEx, arguments[i]);
+        }
+
+        return theString;
+    };
+}

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DiscoveryClientResultsFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Results>
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="https://devcrmmutuaide.jsi-groupe.com/MutuaideService.svc?xsd=xsd1" filename="MutuaideService.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.DiscoveryDocumentReference" url="https://devcrmmutuaide.jsi-groupe.com/MutuaideService.svc?disco" filename="MutuaideService.disco" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="https://devcrmmutuaide.jsi-groupe.com/MutuaideService.svc?xsd=xsd0" filename="MutuaideService0.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="https://devcrmmutuaide.jsi-groupe.com/MutuaideService.svc?xsd=xsd2" filename="MutuaideService1.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="https://devcrmmutuaide.jsi-groupe.com/MutuaideService.svc?wsdl" filename="MutuaideService.wsdl" />
+  </Results>
+</DiscoveryClientResultsFile>

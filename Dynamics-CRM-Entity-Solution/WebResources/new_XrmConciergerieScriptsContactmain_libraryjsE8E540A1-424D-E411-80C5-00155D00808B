@@ -1,0 +1,939 @@
+﻿//Créateur : Zagdoun David
+//Date : 02/10/2014
+//Fichier JS contenant les fonctionnalités permettant de gérer les contacts
+
+//On référence la bibliotheque Generics
+/// <reference path="../Generics/global_functions.js" />
+/// <reference path="../Generics/SDK.REST.js" />
+/// <reference path="../Generics/global_variables.js" />
+/// <reference path="../Generics/JSIHelper.js" />
+
+//On utilisera les namespaces pour avoir plus d'organisation dans le code
+if (typeof (XrmConciergerie) == "undefined")
+{ XrmConciergerie = { __namespace: true }; }
+if (typeof (XrmConciergerie.Scripts) == "undefined")
+{ XrmConciergerie.Scripts = { __namespace: true }; }
+
+//On crée le namespace du fichier
+//Pour le fichier Geneic le namespace sera XrmConciergerie.Scripts.Generics
+XrmConciergerie.Scripts.FormContact = {
+
+    Form_OnLoad: function () {
+        
+        //forcer parentcustomerid a uniquement des comptes        
+        document.getElementById("parentcustomerid_i").setAttribute("defaulttype", "1");
+        document.getElementById("parentcustomerid_i").setAttribute("lookuptypes", "1");
+        //filtre en fonction du type de contact
+        XrmConciergerie.Scripts.FormContact.preFilterLookup();
+        JSIHelper.GetAttribute("new_typeofcontactlist").addOnChange(XrmConciergerie.Scripts.FormContact.preFilterLookup);
+
+        //RG001;RG116;RG144
+        XrmConciergerie.Scripts.FormContact.CheckTypeAccount();
+        Xrm.Page.getAttribute("parentcustomerid").addOnChange(XrmConciergerie.Scripts.FormContact.CheckTypeAccount);
+
+
+        //RG147
+        XrmConciergerie.Scripts.FormContact.SetBankPhone();
+
+
+        //Visibilité des onglets
+        //RG178
+        XrmConciergerie.Scripts.FormContact.SetTabVisibilityIdentiteCBT();
+        JSIHelper.GetAttribute("new_typeofcontactlist").addOnChange(XrmConciergerie.Scripts.FormContact.SetTabVisibilityIdentiteCBT);
+
+        //RG179
+        XrmConciergerie.Scripts.FormContact.SetTabVisibilityIdentitePCDI();
+        JSIHelper.GetAttribute("new_typeofcontactlist").addOnChange(XrmConciergerie.Scripts.FormContact.SetTabVisibilityIdentitePCDI);
+
+        //RG112
+        XrmConciergerie.Scripts.FormContact.SetTabVisibilityInformationsCDOContrat();
+        JSIHelper.GetAttribute("new_typeofcontactlist").addOnChange(XrmConciergerie.Scripts.FormContact.SetTabVisibilityInformationsCDOContrat);
+        
+        //RG180
+        XrmConciergerie.Scripts.FormContact.SetTabVisibilityCommunicationClient();
+        JSIHelper.GetAttribute("new_typeofcontactlist").addOnChange(XrmConciergerie.Scripts.FormContact.SetTabVisibilityCommunicationClient);
+
+        //RG129
+        XrmConciergerie.Scripts.FormContact.SetTabVisibilityPreferences();
+        JSIHelper.GetAttribute("new_typeofcontactlist").addOnChange(XrmConciergerie.Scripts.FormContact.SetTabVisibilityPreferences);
+
+        //RG134
+        XrmConciergerie.Scripts.FormContact.SetSectionVisibilityInformationsConfidentielles();
+        JSIHelper.GetAttribute("new_typeofcontactlist").addOnChange(XrmConciergerie.Scripts.FormContact.SetSectionVisibilityInformationsConfidentielles);
+
+        //RG135
+        XrmConciergerie.Scripts.FormContact.SetTabVisibilityReferencesUtiles();
+        JSIHelper.GetAttribute("new_typeofcontactlist").addOnChange(XrmConciergerie.Scripts.FormContact.SetTabVisibilityReferencesUtiles);
+
+        //RG136
+        XrmConciergerie.Scripts.FormContact.SetTabVisibilityContactsAssocies();
+        JSIHelper.GetAttribute("new_typeofcontactlist").addOnChange(XrmConciergerie.Scripts.FormContact.SetTabVisibilityContactsAssocies);
+
+        //RG150
+        XrmConciergerie.Scripts.FormContact.SetTabVisibilityFavorisExclus();
+        JSIHelper.GetAttribute("new_typeofcontactlist").addOnChange(XrmConciergerie.Scripts.FormContact.SetTabVisibilityFavorisExclus);
+
+        //RG?
+        XrmConciergerie.Scripts.FormContact.SetTabVisibilityContratsGeres();
+        JSIHelper.GetAttribute("new_typeofcontactlist").addOnChange(XrmConciergerie.Scripts.FormContact.SetTabVisibilityContratsGeres);
+        //Fin visibilité des onglets
+
+
+        //RG026
+        JSIHelper.GetAttribute("new_cityid").addOnChange(XrmConciergerie.Scripts.Generics.SetZipCode);
+
+
+        //RG003
+        JSIHelper.GetAttribute("address1_postalcode").addOnChange(XrmConciergerie.Scripts.Generics.SetCity);
+
+
+        //RG067
+        //Si le contact est de type client, le champ Etat est affiché et on appelle la fonction pour faire le traitement de la RG
+        if (JSIHelper.GetAttributeValue("new_typeofcontactlist") == CONTACT_TYPEOFCONTACT_CLIENT) {
+            // Si consommateur
+            if (JSIHelper.GetAttributeValue("statuscode") == CONTACT_TYPEOFSTATE_CONSOMMATEUR)
+                Xrm.Page.getControl("statuscode").setDisabled(true);
+
+                //On rattache la fonction aussi sur l'événement onchange
+            else
+                JSIHelper.GetAttribute("statuscode").addOnChange(XrmConciergerie.Scripts.FormContact.SetClientStatut, true);
+        }
+        
+
+
+        //RG167;RG168
+        JSIHelper.GetAttribute("new_communication").addOnChange(XrmConciergerie.Scripts.FormContact.SetEnvoiComFields);
+        JSIHelper.GetAttribute("new_survey").addOnChange(XrmConciergerie.Scripts.FormContact.SetEnvoiSurveyFields);
+
+        // RGI001
+        JSIHelper.HackPhones();
+        JSIHelper.HackPhonesGrid("new_gridtelephones2");
+
+        //RG127
+        Xrm.Page.data.entity.addOnSave(XrmConciergerie.Scripts.FormContact.CheckDuplicateContact_ContratMail);
+        
+        //RG066
+        if (Xrm.Page.ui.getFormType() == FORM_TYPE_UPDATE) {
+            Xrm.Page.data.entity.addOnSave(XrmConciergerie.Scripts.FormContact.TestPhoneScheduleExist);
+        }
+
+        //RG008
+        //Xrm.Page.getAttribute("emailaddress1").addOnChange(function () { XrmConciergerie.Scripts.Generics.MailValidation("emailaddress1"); });
+        //Xrm.Page.getAttribute("emailaddress2").addOnChange(function () { XrmConciergerie.Scripts.Generics.MailValidation("emailaddress2"); });
+
+        //role de securite
+        XrmConciergerie.Scripts.FormContact.CheckRole();
+        
+        //RG165
+        XrmConciergerie.Scripts.FormContact.SetContratToReadOnlyIfNotNul();
+
+        //masque la navigation
+        var type = Xrm.Page.getAttribute("new_typeofcontactlist").getValue();
+        if (type != CONTACT_TYPEOFCONTACT_BENEFICIAIRE && type != CONTACT_TYPEOFCONTACT_CLIENT && type != CONTACT_TYPEOFCONTACT_TIERS) {
+            Xrm.Page.ui.navigation.items.forEach(function (item, index) {
+                var itemLabel = item.getId();
+                if (itemLabel.toLowerCase() == "navservice" || itemLabel.toLowerCase() == "nav_new_contact_satisfaction" || itemLabel.toLowerCase() == "nav_new_contact_new_favoriteexcluded_porteurid") {
+                    item.setVisible(false);
+                }
+            });
+        }
+
+
+        // Affiche le champ "nom de jeune fille" en fonction de la civilité
+        JSIHelper.GetAttribute("new_salutationlist").addOnChange(XrmConciergerie.Scripts.FormContact.SetMaidenNameVisibility);
+        XrmConciergerie.Scripts.FormContact.SetMaidenNameVisibility();
+
+
+        // A la création, on efface le distributeur
+        if (Xrm.Page.ui.getFormType() == FORM_TYPE_CREATE) {
+            JSIHelper.SetAttributeValue("new_bankid", null);
+            Xrm.Page.getAttribute("new_bankid").setSubmitMode("always");
+        }
+
+        // A la création, on set la ville comme celle du compte parent
+        if (Xrm.Page.ui.getFormType() == FORM_TYPE_CREATE) {
+            XrmConciergerie.Scripts.FormContact.SetCityInit();
+        }
+        
+        //RG027
+        XrmConciergerie.Scripts.Generics.SetCitiesVisibility("new_countryid", "new_cityid", "new_foreigncity", "address1_postalcode", false);
+        Xrm.Page.getAttribute("new_countryid").addOnChange(function () { XrmConciergerie.Scripts.Generics.SetCitiesVisibility("new_countryid", "new_cityid", "new_foreigncity", "address1_postalcode", true); });
+
+
+        // RG?: En fonction du type de client, on affiche/cache certains champs du header
+        XrmConciergerie.Scripts.FormContact.CleanHeader();
+        JSIHelper.GetAttribute("new_typeofcontactlist").addOnChange(XrmConciergerie.Scripts.FormContact.CleanHeader);
+
+        
+        // filtre les villes en fonction du code postal
+        XrmConciergerie.Scripts.Generics.preFilterLookupCity("new_cityid", "address1_postalcode");
+
+        // A la sauvegarde, on copie le nom de la ville fr/étrangère dans le champ ville natif
+        Xrm.Page.data.entity.addOnSave(XrmConciergerie.Scripts.FormContact.Form_OnSave);
+
+        //RG?
+        //CCR : Mettre à jour la date du prochain anniversaire afin d'être utilisée dans la vue des anniversaires dans les 72 heures
+        //XrmConciergerie.Scripts.FormContact.SetAnniversary();
+        Xrm.Page.data.entity.addOnSave(XrmConciergerie.Scripts.FormContact.SetAnniversary);
+    },
+
+
+    // Form save
+    Form_OnSave: function () {
+        var pays = (Xrm.Page.getAttribute("new_countryid").getValue() == null) ? null : Xrm.Page.getAttribute("new_countryid").getValue()[0].name;
+        var ville = null;
+        //Si le pays est égal a France alors code postale obligatoire
+        if ((pays != null) && (pays.toLowerCase() == DEFAULT_COUNTRYNAME.toLowerCase()))
+            ville = (Xrm.Page.getAttribute("new_cityid").getValue() == null) ? null : Xrm.Page.getAttribute("new_cityid").getValue()[0].name;
+        else
+            ville = Xrm.Page.getAttribute("new_foreigncity").getValue();
+
+
+        JSIHelper.SetAttributeValue("address1_country", pays);
+        Xrm.Page.getAttribute("address1_country").setSubmitMode("always");
+        JSIHelper.SetAttributeValue("address1_city", ville);
+        Xrm.Page.getAttribute("address1_city").setSubmitMode("always");
+    },
+
+
+
+    //RG001;RG116;RG144
+    //
+    //RG001;RG144 : Si le compte lié au contact est un compte de type Prestaire/CDO/Distributeur/Intermédiaire, On modifie 
+    //le type de contact correspondant a Prestaire/CDO/Distributeur/Intermédiaire et on le met en lecture seule
+    //
+    //RG116 : Le champ passe en lecture seule après enregistrement
+    //Paramètre : rien
+    //Retour : rien
+    CheckTypeAccount: function () {
+        //RG001;RG144
+        if (Xrm.Page.getAttribute("parentcustomerid").getValue() != null) {
+            SDK.REST.retrieveRecordSync(
+                        Xrm.Page.getAttribute("parentcustomerid").getValue()[0].id,
+                        "Account",
+                        "AccountId,new_accounttype",
+                        null,
+                        function (result) {
+                            if (result != null) {
+
+                                switch (result.new_accounttype.Value) {
+
+                                    case 100000000: // Prestataire
+                                        Xrm.Page.getAttribute("new_typeofcontactlist").setValue(100000005);
+                                        break;
+                                    case 100000001: // CDO
+                                        Xrm.Page.getAttribute("new_typeofcontactlist").setValue(100000001);
+                                        break;
+                                    case 100000002: // Dsitributeur
+                                        Xrm.Page.getAttribute("new_typeofcontactlist").setValue(100000003);
+                                        break;
+                                    case 100000003: // Intermédiaire
+                                        Xrm.Page.getAttribute("new_typeofcontactlist").setValue(100000004);
+                                        break;
+                                }
+                                Xrm.Page.getControl("new_typeofcontactlist").setDisabled(true);
+
+                            }
+                        },
+                        function (error) {
+
+
+                        },
+                        function () {
+                        }
+                    );
+        }
+            //RG116
+        else {
+            if (Xrm.Page.ui.getFormType() == FORM_TYPE_CREATE) {
+                Xrm.Page.getAttribute("new_typeofcontactlist").setValue(100000002)
+                Xrm.Page.getControl("new_typeofcontactlist").setDisabled(false);
+            }
+            else {
+                Xrm.Page.getControl("new_typeofcontactlist").setDisabled(true);
+            }
+        }
+    },
+
+
+
+
+    //RG147
+    //Alimenter le tél distibuteur avec le tél du distributeur associé
+    //Paramètre : rien
+    //Retour : rien
+    SetBankPhone: function () {
+        var bankPhone = JSIHelper.GetParentAttribute("new_bankid", "Telephone1");
+        if (Xrm.Page.getAttribute("new_bankphone").getValue() != bankPhone) {
+            Xrm.Page.getAttribute("new_bankphone").setValue(bankPhone);
+            Xrm.Page.getAttribute("new_bankphone").setSubmitMode("always");
+        }
+    },
+
+
+
+    //----------------------------------------------------------
+    //Visibilités des onglets
+    //RG178
+    //Afficher l'onglet Identité pour les CBT
+    //Paramètre : rien
+    //Retour : rien
+    SetTabVisibilityIdentiteCBT: function () {
+        if (JSIHelper.GetAttributeValue("new_typeofcontactlist") == CONTACT_TYPEOFCONTACT_CLIENT ||
+            JSIHelper.GetAttributeValue("new_typeofcontactlist") == CONTACT_TYPEOFCONTACT_BENEFICIAIRE ||
+            JSIHelper.GetAttributeValue("new_typeofcontactlist") == CONTACT_TYPEOFCONTACT_TIERS) {
+            JSIHelper.SetTabVisibility("tab_3", "new_typeofcontactlist", "!=", 0);
+        }
+        else {
+            JSIHelper.SetTabVisibility("tab_3", "new_typeofcontactlist", "==", 0);
+        }
+    },
+
+
+    //RG179
+    //Afficher l'onglet Identité pour les PCDI
+    //Paramètre : rien
+    //Retour : rien
+    SetTabVisibilityIdentitePCDI: function () {
+
+
+        if (JSIHelper.GetAttributeValue("new_typeofcontactlist") == CONTACT_TYPEOFCONTACT_PRESTATAIRE ||
+            JSIHelper.GetAttributeValue("new_typeofcontactlist") == CONTACT_TYPEOFCONTACT_CDO ||
+            JSIHelper.GetAttributeValue("new_typeofcontactlist") == CONTACT_TYPEOFCONTACT_DISTRIBUTEUR ||
+            JSIHelper.GetAttributeValue("new_typeofcontactlist") == CONTACT_TYPEOFCONTACT_INTERMEDIAIRE) {
+            JSIHelper.SetTabVisibility("tab_4", "new_typeofcontactlist", "!=", 0);
+        }
+        else {
+            JSIHelper.SetTabVisibility("tab_4", "new_typeofcontactlist", "==", 0);
+        }
+    },
+
+
+    //RG112
+    //Afficher l'onglet Informations CDO/Contrat si contact client
+    //Paramètre : rien
+    //Retour : rien
+    SetTabVisibilityInformationsCDOContrat: function () {
+        JSIHelper.SetTabVisibility("tab_6", "new_typeofcontactlist", "==", CONTACT_TYPEOFCONTACT_CLIENT);
+    },
+
+
+    //RG180
+    //Afficher l'onglet Communication client si contact CBT
+    //Paramètre : rien
+    //Retour : rien
+    SetTabVisibilityCommunicationClient: function () {
+        if (JSIHelper.GetAttributeValue("new_typeofcontactlist") == CONTACT_TYPEOFCONTACT_CLIENT ||
+            JSIHelper.GetAttributeValue("new_typeofcontactlist") == CONTACT_TYPEOFCONTACT_BENEFICIAIRE ||
+            JSIHelper.GetAttributeValue("new_typeofcontactlist") == CONTACT_TYPEOFCONTACT_TIERS) {
+            JSIHelper.SetTabVisibility("tab_7", "new_typeofcontactlist", "!=", 0);//Always true
+        }
+        else {
+            JSIHelper.SetTabVisibility("tab_7", "new_typeofcontactlist", "==", 0);//Always false
+        }
+    },
+
+
+    //RG129
+    //Afficher l'onglet Préférences si contact client ou bénéficiaire
+    //Paramètre : rien
+    //Retour : rien
+    SetTabVisibilityPreferences: function () {
+        if (JSIHelper.GetAttributeValue("new_typeofcontactlist") == CONTACT_TYPEOFCONTACT_CLIENT ||
+            JSIHelper.GetAttributeValue("new_typeofcontactlist") == CONTACT_TYPEOFCONTACT_BENEFICIAIRE) {
+            JSIHelper.SetTabVisibility("tab_8", "new_typeofcontactlist", "!=", 0);
+        }
+        else {
+            JSIHelper.SetTabVisibility("tab_8", "new_typeofcontactlist", "==", 0);
+        }
+    },
+
+
+    //RG134
+    //Afficher la section Informations confidentielles si contact client
+    //Paramètre : rien
+    //Retour : rien
+    SetSectionVisibilityInformationsConfidentielles: function () {
+        JSIHelper.SetSectionVisibility("tab_3_section_3", "new_typeofcontactlist", "==", CONTACT_TYPEOFCONTACT_CLIENT);
+    },
+
+
+    //RG135
+    //Afficher l'onglet Références utiles si contact client ou bénéficiaire
+    //Paramètre : rien
+    //Retour : rien
+    SetTabVisibilityReferencesUtiles: function () {
+        if (JSIHelper.GetAttributeValue("new_typeofcontactlist") == CONTACT_TYPEOFCONTACT_CLIENT ||
+            JSIHelper.GetAttributeValue("new_typeofcontactlist") == CONTACT_TYPEOFCONTACT_BENEFICIAIRE) {
+            JSIHelper.SetTabVisibility("tab_10", "new_typeofcontactlist", "!=", 0);
+        }
+        else {
+            JSIHelper.SetTabVisibility("tab_10", "new_typeofcontactlist", "==", 0);
+        }
+    },
+
+
+    //RG136
+    //Afficher l'onglet Contacts associés si contact client
+    //Paramètre : rien
+    //Retour : rien
+    SetTabVisibilityContactsAssocies: function () {
+        JSIHelper.SetTabVisibility("tab_11", "new_typeofcontactlist", "==", CONTACT_TYPEOFCONTACT_CLIENT);
+    },
+
+
+    //RG150
+    //Afficher l'onglet Favoris/Exclus utiles si contact client ou bénéficiaire
+    //Paramètre : rien
+    //Retour : rien
+    SetTabVisibilityFavorisExclus: function () {
+        if (JSIHelper.GetAttributeValue("new_typeofcontactlist") == CONTACT_TYPEOFCONTACT_CLIENT ||
+            JSIHelper.GetAttributeValue("new_typeofcontactlist") == CONTACT_TYPEOFCONTACT_BENEFICIAIRE) {
+            JSIHelper.SetTabVisibility("tab_9", "new_typeofcontactlist", "!=", 0);
+        }
+        else {
+            JSIHelper.SetTabVisibility("tab_9", "new_typeofcontactlist", "==", 0);
+        }
+    },
+
+    //RG?
+    //Afficher l'onglet Contrats gérés si contact distributeur
+    //Paramètre : rien
+    //Retour : rien
+    SetTabVisibilityContratsGeres: function () {
+        if (JSIHelper.GetAttributeValue("new_typeofcontactlist") == CONTACT_TYPEOFCONTACT_DISTRIBUTEUR)
+            JSIHelper.SetTabVisibility("tab_15", "new_typeofcontactlist", "!=", 0);
+        else
+            JSIHelper.SetTabVisibility("tab_15", "new_typeofcontactlist", "==", 0);
+    },
+
+    //Fin visibilité des onglets
+    //----------------------------------------------------------
+
+
+
+    //RG067
+    //Gère le champ Etat
+    //Paramètre : rien
+    //Retour : rien
+    SetClientStatut: function (isOnchange) {
+
+        var previousState = XrmConciergerie.Scripts.FormContact.GetPreviousState();
+        if (previousState != null) {
+            var newState = JSIHelper.GetAttributeValue("statuscode");
+            if (newState == previousState)
+                return;
+            //Si le client est consommateur, le champ est en lecture seule
+            /* if (previousState == CONTACT_TYPEOFSTATE_CONSOMMATEUR)
+                 Xrm.Page.getControl("statuscode").setDisabled(true);
+             else {*/
+            if (isOnchange) {
+                switch (previousState) {
+
+                    case CONTACT_TYPEOFSTATE_ENREGISTRE:
+                        //Si anciennce valeur Enregistre : Nouvelle valeur acceptée Non Interesse
+                        if (newState != CONTACT_TYPEOFSTATE_NONINTERESSE) {
+                            alert(CONTACT_TYPEOFSTATE_ERROR_MESSAGE1);
+                            JSIHelper.SetAttributeValue("statuscode", previousState);
+                        }
+                        break;
+
+                    case CONTACT_TYPEOFSTATE_NONINTERESSE:
+                        //Si anciennce valeur Non Interesse : Nouvelle valeur acceptée Enregistre
+                        if (newState != CONTACT_TYPEOFSTATE_ENREGISTRE) {
+                            alert(CONTACT_TYPEOFSTATE_ERROR_MESSAGE2);
+                            JSIHelper.SetAttributeValue("statuscode", previousState);
+                        }
+                        break;
+
+                    case CONTACT_TYPEOFSTATE_DORMANT:
+                        //Si anciennce valeur Dormant : Nouvelle valeur acceptée Enregistre ou Non Interesse
+                        if (newState != CONTACT_TYPEOFSTATE_NONINTERESSE && newState != CONTACT_TYPEOFSTATE_ENREGISTRE) {
+                            alert(CONTACT_TYPEOFSTATE_ERROR_MESSAGE3);
+                            JSIHelper.SetAttributeValue("statuscode", previousState);
+                        }
+                        break;
+                }
+                // }
+            }
+        }
+    },
+
+
+
+    //Fonction appelé par la fonction SetClientStatut
+    //Si le formulaire est en création la valeur initiale est la valeur par défaut
+    //Sinon on fait un appelle odata pour savoir l'ancienne valeur enregistré
+    //Paramètre : rien
+    //Retour : l'ancienne valeur avant changement de l'Etat
+    GetPreviousState: function () {
+        var resultFunction;
+        if (Xrm.Page.ui.getFormType() == FORM_TYPE_CREATE)
+            return CONTACT_TYPEOFSTATE_ENREGISTRE;
+        else {
+
+            SDK.REST.retrieveRecordSync(
+                Xrm.Page.data.entity.getId(),
+                "Contact",
+                "StatusCode",
+                null,
+                function (result) {
+                    if (result != null) {
+                        resultFunction = result.StatusCode.Value;
+                    }
+                },
+                function (error) {
+                },
+                function () {
+                }
+            );
+
+            return resultFunction;
+        }
+
+    },
+
+
+
+
+    //RG167 part 1
+    //Configure les champs Envoi com 
+    //Paramètre : rien
+    //Retour : rien
+    SetEnvoiComFields: function () {
+
+        var contactCommunication = JSIHelper.GetAttributeValue("new_communication");
+        var contractCommunication = JSIHelper.GetParentAttribute("new_contractid", "new_communication");
+
+        if (typeof (contractCommunication) != "undefined") {
+
+            if (contractCommunication == CONTRACT_COMMUNICATION_OPTIN && contactCommunication == CONTACT_COMMUNICATION_OPTIN)
+                JSIHelper.SetAttributeValue("new_sendcom", true);
+            else
+                JSIHelper.SetAttributeValue("new_sendcom", false);
+
+            JSIHelper.GetAttribute("new_sendcom").setSubmitMode("always");
+            Xrm.Page.data.entity.save();
+
+        }
+    },
+
+
+    //RG167 part 2
+    //Configure les champs Envoi enquete
+    //Paramètre : rien
+    //Retour : rien
+    SetEnvoiSurveyFields: function () {
+
+        var contactSurvey = JSIHelper.GetAttributeValue("new_survey");
+        var contractSurvey = JSIHelper.GetParentAttribute("new_contractid", "new_surveyis");
+
+        if (typeof (contractSurvey) != "undefined") {
+
+            if (contractSurvey == CONTRACT_SURVEY_OPTIN && contactSurvey == CONTACT_SURVEY_OPTIN)
+                JSIHelper.SetAttributeValue("new_sendsurvey", true);
+            else
+                JSIHelper.SetAttributeValue("new_sendsurvey", false);
+
+            JSIHelper.GetAttribute("new_sendsurvey").setSubmitMode("always");
+            Xrm.Page.data.entity.save();
+
+        }
+    },
+
+
+
+    //RG127
+    //Empêche la création d'un contact si un contact existe avec le même couple Email/Contrat
+    //Paramètre : rien
+    //Retour : rien
+    CheckDuplicateContact_ContratMail: function (ExecutionContextObj) {
+        //On récupère le type de contact
+        var typeOfContact = JSIHelper.GetAttributeValue("new_typeofcontactlist");
+
+        if (typeOfContact == CONTACT_TYPEOFCONTACT_CLIENT) {
+            //On récupère les variables
+            var email = JSIHelper.GetAttributeValue("emailaddress1");
+            var contractid = JSIHelper.GetLookupValue("new_contractid");
+            var contactid = Xrm.Page.data.entity.getId();
+
+            //Si on est en création on met une valeur bidon pour ne pas que ça plante lors du test dans la requête
+            if (Xrm.Page.ui.getFormType() == FORM_TYPE_CREATE){
+                contactid = '{00000000-0000-0000-0000-000000000000}';
+            }
+
+            //Si on est en créa, il doit pas y avoir d'enregistrements avec le couple Email/Contrat
+            //Si on est en ma-j, il doit y avoir un seul enregistrement, c'est l'enregistrement actuel
+            var nbMax = 0;
+            //if (Xrm.Page.ui.getFormType() != FORM_TYPE_CREATE)
+            //    nbMax = 1;
+            if (email != null && contractid != null) {
+                //On fait une requête OData pour vérifier l'existence de contact avec le même couple
+                SDK.REST.retrieveMultipleRecordsSync(
+                    "Contact",
+                    "$select=ContactId&" +
+                    "$filter=EMailAddress1 eq '" + email + "' and new_contractid/Id eq (guid'" + contractid + "') and ContactId ne (guid'" + contactid + "') and StateCode/Value eq 0",
+                    function (results) {
+                        if (results && results.length > nbMax){
+                            //Il y'a au moins un contact avec le même couple Email/Contrat >> Empêcher l'enregistrement
+                            Xrm.Page.ui.clearFormNotification("CONTACT_DUPLICATE_CONTACT_CONTRACT_EMAIL");
+                            Xrm.Page.ui.setFormNotification(CONTACT_DUPLICATE_CONTACT_CONTRACT_EMAIL, "ERROR", "CONTACT_DUPLICATE_CONTACT_CONTRACT_EMAIL");
+
+                            ExecutionContextObj.getEventArgs().preventDefault();
+                        }
+                        else
+                            Xrm.Page.ui.clearFormNotification("CONTACT_DUPLICATE_CONTACT_CONTRACT_EMAIL");
+                    },
+                    function (error) {
+                        Xrm.Page.ui.setFormNotification(error, "ERROR", "ERROR_ODATA_CONTACT");
+                    },
+                    function () {
+                        // OnComplete handler
+                    }
+                    );
+            }
+        }
+
+    },
+
+    //RG066
+    // CCR - 14/10/2014 : Téléphone obligatoire : au moins un numéro de téléphone devra être associé au contact lors de la modification
+    //Parametre : rien
+    //Retour : rien
+    TestPhoneScheduleExist: function (ExecutionContextObj) {
+
+        var contractid = Xrm.Page.data.entity.getId();
+
+        SDK.REST.retrieveMultipleRecordsSync(
+            "new_phoneschedule",
+            "$select=new_contactid&"
+            + "$filter=new_contactid/Id eq (guid'" + contractid + "')",
+        function (results) {
+            if (results && results.length == 0) {
+                //Le contact n'a pas de téléphone
+                Xrm.Page.ui.clearFormNotification("CONTACT_PHONESCEDULE_ERROR_MESSAGE1");
+                Xrm.Page.ui.setFormNotification(CONTACT_PHONESCEDULE_ERROR_MESSAGE1, "ERROR", "CONTACT_PHONESCEDULE_ERROR_MESSAGE1");
+
+                ExecutionContextObj.getEventArgs().preventDefault();
+            } else {
+                Xrm.Page.ui.clearFormNotification("CONTACT_PHONESCEDULE_ERROR_MESSAGE1");
+            }
+        },
+        function (error) {
+            Xrm.Page.ui.setFormNotification(error, "ERROR", "ERROR_ODATA_CITY");
+        },
+        function () {
+            // OnComplete handler
+        }
+
+    );
+
+    },
+
+    CheckRole: function () {
+        if (XrmConciergerie.Scripts.Generics.UserHasRole("Concierge") || XrmConciergerie.Scripts.Generics.UserHasRole("Expert concierge")) {
+            if (Xrm.Page.ui.getFormType() == FORM_TYPE_UPDATE) {
+                if (Xrm.Page.getAttribute("new_typeofcontactlist").getValue() == CONTACT_TYPEOFCONTACT_CDO || Xrm.Page.getAttribute("new_typeofcontactlist").getValue() == CONTACT_TYPEOFCONTACT_DISTRIBUTEUR || Xrm.Page.getAttribute("new_typeofcontactlist").getValue() == CONTACT_TYPEOFCONTACT_INTERMEDIAIRE || (Xrm.Page.getAttribute("new_typeofcontactlist").getValue() == CONTACT_TYPEOFCONTACT_PRESTATAIRE && JSIHelper.GetParentAttribute("parentcustomerid", "new_typology").Value != ACCOUNT_TYPOLOGIE_PONCTUEL)) {
+                    XrmConciergerie.Scripts.Generics.disableFormFields(true);
+                    XrmConciergerie.Scripts.FormContact.DisableNav();
+                    XrmConciergerie.Scripts.FormContact.HideAllSubgrid();
+                }
+            }
+            else if (Xrm.Page.ui.getFormType() == FORM_TYPE_CREATE) {
+                Xrm.Page.getControl("new_typeofcontactlist").removeOption(CONTACT_TYPEOFCONTACT_CDO);
+                Xrm.Page.getControl("new_typeofcontactlist").removeOption(CONTACT_TYPEOFCONTACT_DISTRIBUTEUR);
+                Xrm.Page.getControl("new_typeofcontactlist").removeOption(CONTACT_TYPEOFCONTACT_INTERMEDIAIRE);
+            }
+        }
+        else if (XrmConciergerie.Scripts.Generics.UserHasRole("Direction conciergerie") || XrmConciergerie.Scripts.Generics.UserHasRole("Superviseur")) {
+            if (Xrm.Page.ui.getFormType() == FORM_TYPE_UPDATE) {
+                if (Xrm.Page.getAttribute("new_typeofcontactlist").getValue() == CONTACT_TYPEOFCONTACT_CDO || Xrm.Page.getAttribute("new_typeofcontactlist").getValue() == CONTACT_TYPEOFCONTACT_DISTRIBUTEUR || Xrm.Page.getAttribute("new_typeofcontactlist").getValue() == CONTACT_TYPEOFCONTACT_INTERMEDIAIRE) {
+                    XrmConciergerie.Scripts.Generics.disableFormFields(true);
+                    XrmConciergerie.Scripts.FormContact.DisableNav();
+                    XrmConciergerie.Scripts.FormContact.HideAllSubgrid();                
+                }
+            }
+            else if (Xrm.Page.ui.getFormType() == FORM_TYPE_CREATE) {
+                Xrm.Page.getControl("new_typeofcontactlist").removeOption(CONTACT_TYPEOFCONTACT_CDO);
+                Xrm.Page.getControl("new_typeofcontactlist").removeOption(CONTACT_TYPEOFCONTACT_DISTRIBUTEUR);
+                Xrm.Page.getControl("new_typeofcontactlist").removeOption(CONTACT_TYPEOFCONTACT_INTERMEDIAIRE);
+            }
+
+            // Cache l'ajout des notes+activités
+            $("#notescontrolactivityContainer_notescontrol div:first").hide();
+        }
+        else if (XrmConciergerie.Scripts.Generics.UserHasRole("Gestionnaire du reseau")) {
+            if (Xrm.Page.ui.getFormType() == FORM_TYPE_UPDATE) {
+                if (Xrm.Page.getAttribute("new_typeofcontactlist").getValue() != CONTACT_TYPEOFCONTACT_PRESTATAIRE){
+                    XrmConciergerie.Scripts.Generics.disableFormFields(true);
+                    XrmConciergerie.Scripts.FormContact.DisableNav();
+                    XrmConciergerie.Scripts.FormContact.HideAllSubgrid();
+                }
+            }
+            else if (Xrm.Page.ui.getFormType() == FORM_TYPE_CREATE) {
+                Xrm.Page.getAttribute("new_typeofcontactlist").setValue(CONTACT_TYPEOFCONTACT_PRESTATAIRE);
+                Xrm.Page.getControl("new_typeofcontactlist").setDisabled(true);
+            }
+        }
+        else if (XrmConciergerie.Scripts.Generics.UserHasRole("Developpement")) {
+            if (Xrm.Page.ui.getFormType() == FORM_TYPE_UPDATE) {
+                if (Xrm.Page.getAttribute("new_typeofcontactlist").getValue() == CONTACT_TYPEOFCONTACT_CLIENT || Xrm.Page.getAttribute("new_typeofcontactlist").getValue() == CONTACT_TYPEOFCONTACT_TIERS || Xrm.Page.getAttribute("new_typeofcontactlist").getValue() == CONTACT_TYPEOFCONTACT_BENEFICIAIRE || Xrm.Page.getAttribute("new_typeofcontactlist").getValue() == CONTACT_TYPEOFCONTACT_PRESTATAIRE){
+                    XrmConciergerie.Scripts.Generics.disableFormFields(true);
+                    // MK: 14/01/2015, on ne cache pas la navigation
+                    //XrmConciergerie.Scripts.FormContact.DisableNav();
+                    XrmConciergerie.Scripts.FormContact.HideAllSubgrid();
+                }
+            }
+            else if (Xrm.Page.ui.getFormType() == FORM_TYPE_CREATE) {
+                Xrm.Page.getControl("new_typeofcontactlist").removeOption(CONTACT_TYPEOFCONTACT_CLIENT);
+                Xrm.Page.getControl("new_typeofcontactlist").removeOption(CONTACT_TYPEOFCONTACT_TIERS);
+                Xrm.Page.getControl("new_typeofcontactlist").removeOption(CONTACT_TYPEOFCONTACT_BENEFICIAIRE);
+                Xrm.Page.getControl("new_typeofcontactlist").removeOption(CONTACT_TYPEOFCONTACT_PRESTATAIRE);
+            }
+        }
+    },
+
+    HideAllSubgrid: function () {
+        XrmConciergerie.Scripts.FormContact.SubgridHideButtonAdd("new_gridtelephones2");
+        XrmConciergerie.Scripts.FormContact.SubgridHideButtonAdd("new_gridpreferences");
+        XrmConciergerie.Scripts.FormContact.SubgridHideButtonAdd("new_gridfavorisexclus");
+        XrmConciergerie.Scripts.FormContact.SubgridHideButtonAdd("new_gridcontactsassocies");
+        XrmConciergerie.Scripts.FormContact.SubgridHideButtonAdd("new_gridcontratsgeres");
+    },
+
+    DisableNav: function () {
+        Xrm.Page.ui.navigation.items.forEach(function (item, index) {                        
+                item.setVisible(false);            
+        });
+    },
+
+    // Cache le bouton "+" d'une sous-grille
+    SubgridHideButtonAdd: function (gridname_) {
+        if ($("#" + gridname_).length == 0) {
+            setTimeout("XrmConciergerie.Scripts.FormContact.SubgridHideButtonAdd('" + gridname_ + "')", 1000);
+            return;
+        }
+        $("#" + gridname_ + "_addImageButton").hide();
+    },
+
+
+    //RG165
+    //Le champ contrat passe en lecture seule s'il est renseigné ou si le champ bin est renseigné
+    //Paramètre : rien
+    //Retour : rien
+    SetContratToReadOnlyIfNotNul: function () {
+
+        if (JSIHelper.GetAttribute("new_contractid").getValue() != null || JSIHelper.GetAttribute("new_bin").getValue() != null) {
+            Xrm.Page.getControl("new_contractid").setDisabled(true);
+        }
+    },
+
+    //filtre de la lookup customerid
+    preFilterLookup: function () {
+        Xrm.Page.getControl("parentcustomerid").removePreSearch(XrmConciergerie.Scripts.FormContact.addLookupFilter);
+        var type = Xrm.Page.getAttribute("new_typeofcontactlist").getValue();
+        var filterType = "";
+        if (type == CONTACT_TYPEOFCONTACT_CDO)
+            filterType = ACCOUNT_TYPEOFACCOUNT_CDO;
+        else if (type == CONTACT_TYPEOFCONTACT_DISTRIBUTEUR)
+            filterType = ACCOUNT_TYPEOFACCOUNT_DISTRIBUTEUR;
+        else if (type == CONTACT_TYPEOFCONTACT_INTERMEDIAIRE)
+            filterType = ACCOUNT_TYPEOFACCOUNT_INTERMEDIAIRE;
+        else if (type == CONTACT_TYPEOFCONTACT_PRESTATAIRE)
+            filterType = ACCOUNT_TYPEOFACCOUNT_PRESTATAIRE;
+        if (filterType != "") {
+            Xrm.Page.getControl("parentcustomerid").addPreSearch(XrmConciergerie.Scripts.FormContact.addLookupFilter);
+        }
+    },
+
+    addLookupFilter: function () {
+        var type = Xrm.Page.getAttribute("new_typeofcontactlist").getValue();
+        var filterType = "";
+        if (type == CONTACT_TYPEOFCONTACT_CDO)
+            filterType = ACCOUNT_TYPEOFACCOUNT_CDO;
+        else if (type == CONTACT_TYPEOFCONTACT_DISTRIBUTEUR)
+            filterType = ACCOUNT_TYPEOFACCOUNT_DISTRIBUTEUR;
+        else if (type == CONTACT_TYPEOFCONTACT_INTERMEDIAIRE)
+            filterType = ACCOUNT_TYPEOFACCOUNT_INTERMEDIAIRE;
+        else if (type == CONTACT_TYPEOFCONTACT_PRESTATAIRE)
+            filterType = ACCOUNT_TYPEOFACCOUNT_PRESTATAIRE;
+        //fetchXml = "<filter type='and'><condition attribute='new_contacttype' operator='eq' value='" + filterType + "' /></filter>";
+        fetchXml = "<filter type='and'><condition attribute='new_accounttype' operator='eq' value='" + filterType + "' /></filter>";
+        Xrm.Page.getControl("parentcustomerid").addCustomFilter(fetchXml);
+    },
+
+
+    // Affiche le champ "nom de jeune fille" en fonction de la civilité
+    SetMaidenNameVisibility: function () {
+        JSIHelper.SetControlVisibility("new_maidenname", "new_salutationlist", "!=", "100000001");
+    },
+
+
+    // Au chargement, on copie la ville du compte parent
+    SetCityInit: function () {
+
+        var parentEntityLookupField = "parentcustomerid";
+        var parentForeignCityLookupField = "new_othercity";
+
+        //Tester si on crée le contact à partir d'un compte ou d'un contact (parentcustomer retourne toujours un compte, donc ça ne marche pas si on crée le contact depuis un contact parent)
+        if (Xrm.Page.getAttribute("parentcustomerid").getValue() != null && Xrm.Page.getAttribute("parentcustomerid").getValue()[0].entityType == "contact") {            
+                parentEntityLookupField = "new_contactcustomerid";
+                parentForeignCityLookupField = "new_foreigncity";
+        }
+
+        // RG004: Get parent account country and set "france" if empty
+        JSIHelper.GetParentLookup(parentEntityLookupField, "new_countryid", "new_countryid");
+        if (JSIHelper.GetLookupValue("new_countryid") == null)
+            XrmConciergerie.Scripts.Generics.SetDefaultCountry();
+
+            // France
+        else if (Xrm.Page.getAttribute("new_countryid").getValue()[0].name.toLowerCase() == DEFAULT_COUNTRYNAME.toLowerCase())
+            JSIHelper.GetParentLookup(parentEntityLookupField, "new_cityid", "new_cityid");
+
+            // Foreign country
+        else
+            JSIHelper.GetParentAttribute(parentEntityLookupField, parentForeignCityLookupField, "new_foreigncity");
+
+        /*var pays = (Xrm.Page.getAttribute("new_countryid").getValue() == null) ? null : Xrm.Page.getAttribute("new_countryid").getValue()[0].name;
+        if ((pays != null) && (pays.toLowerCase() == DEFAULT_COUNTRYNAME.toLowerCase())) {
+            JSIHelper.GetParentLookup("parentcustomerid", "new_cityid", "new_cityid");
+        }
+        else {
+            JSIHelper.GetParentAttribute("parentcustomerid", "new_othercity", "new_foreigncity");
+        }*/
+    },
+
+
+    // Affiche/Cache les champs du header en fonction du type de client
+    CleanHeader: function () {
+        var new_typeofcontactlist = JSIHelper.GetAttributeValue("new_typeofcontactlist");
+        // "Distributeur" visible que si contact client
+        if (new_typeofcontactlist == CONTACT_TYPEOFCONTACT_DISTRIBUTEUR)
+            $("#header_new_bankid_c").parent().css("display", "block");
+        else
+            $("#header_new_bankid_c").parent().css("display", "none");
+
+
+        // "Compte parent" visible que si contact CDO/distributeur/intermédiaire
+        if ((new_typeofcontactlist == CONTACT_TYPEOFCONTACT_CDO) || (new_typeofcontactlist == CONTACT_TYPEOFCONTACT_DISTRIBUTEUR) || (new_typeofcontactlist == CONTACT_TYPEOFCONTACT_INTERMEDIAIRE))
+            $("#header_parentcustomerid_c").parent().css("display", "block");
+        else
+            $("#header_parentcustomerid_c").parent().css("display", "none");
+
+        // Réajuste la taille du div parent
+        $(".ms-crm-HeaderTileElement ").css("width", "180px");
+
+        $(".ms-crm-HeaderTilesWrapperElement").css("min-width", "");
+    },
+
+
+
+
+
+    // Filte les contacts associés (bénéficiaires + tiers)
+    //filters an add existing lookup view (N:N)
+    /*addExistingFromSubGridCustom: function (gridTypeCode, gridControl, context, fetch, layout, viewName)
+    {
+        var viewId = "{1DFB2B35-B07C-44D1-868D-258DEEAB88E3}"; // a dummy view ID
+        var relName = gridControl.GetParameter("relName");
+        var roleOrd = gridControl.GetParameter("roleOrd");
+ 
+        //creates the custom view object
+        var customView = {
+            fetchXml: fetch,
+            id: viewId,
+            layoutXml: layout,
+            name: viewName,
+            recordType: gridTypeCode,
+            Type: 0
+        };
+ 
+        var parent = GetParentObject(null, 0);
+        var parameters = [gridTypeCode, "", relName, roleOrd, parent];
+        var callbackRef = Mscrm.Utilities.createCallbackFunctionObject("locAssocObjAction", context, parameters, false);
+ 
+        //pops the lookup window with our view injected
+        LookupObjectsWithCallback(callbackRef, null, "multi", gridTypeCode, 0, null, "", null, null, null, null, null, null, viewId, [customView], null, null, null, null, null, null, 1);
+    },
+ 
+    
+    //filters the Contact N:N lookup view from contact
+    filterAddExistingContact: function (gridTypeCode, gridControl, primaryEntity)
+    {
+        if (primaryEntity != "contact") {
+            Mscrm.GridRibbonActions.addExistingFromSubGridAssociated(gridTypeCode, gridControl); //default button click function
+            return;
+        }
+ 
+        var contacttype = JSIHelper.GetAttributeValue("new_typeofcontactlist"); //field to filter by 
+        if (contacttype == null)
+            return;
+
+        //fetch to retrieve filtered data
+        var fetchXml = "<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>";
+        fetchXml += "<entity name='contact'>";
+        fetchXml += "<attribute name='contactid' />";
+        fetchXml += "<attribute name='firstname' />";
+        fetchXml += "<attribute name='lastname' />";
+        fetchXml += "<attribute name='address1_postalcode' />";
+        fetchXml += "<attribute name='new_cityid' />";
+        fetchXml += "<attribute name='new_countryid' />";
+        fetchXml += "<attribute name='new_typeofcontactlist' />";
+
+        fetchXml += "<filter type='and'>";
+        fetchXml += "<condition attribute='statecode' operator='eq' value='0' />";
+
+        // Si client
+        if (contacttype == CONTACT_TYPEOFCONTACT_CLIENT)
+        {
+            fetchXml += "<filter type='or'>";
+            fetchXml += "<condition attribute='new_typeofcontactlist' operator='eq' value='" + CONTACT_TYPEOFCONTACT_BENEFICIAIRE + "' />";
+            fetchXml += "<condition attribute='new_typeofcontactlist' operator='eq' value='" + CONTACT_TYPEOFCONTACT_TIERS + "' />";
+            fetchXml += "</filter>";
+        }
+
+        fetchXml += "</filter>";
+        fetchXml += "</entity>";
+        fetchXml += "</fetch>";
+ 
+        //columns to display in the custom view (make sure to include these in the fetch query)
+        var layout = "<grid name='resultset' object='1' jump='contactid' select='1' icon='0' preview='1'>" +
+            "  <row name='result' id='contactid'>" +
+            "    <cell name='firstname' width='125' />" +
+            "    <cell name='lastname' width='125' />" +
+            "    <cell name='address1_postalcode' width='100' />" +
+            "    <cell name='new_cityid' width='150' />" +
+            "    <cell name='new_countryid' width='125' />" +
+            "    <cell name='new_typeofcontactlist' width='125' />" +
+            "  </row>" +
+            "</grid>";
+ 
+        XrmConciergerie.Scripts.FormContact.addExistingFromSubGridCustom(gridTypeCode, gridControl, this, fetchXml, layout, "Contacts associés");
+    },*/
+
+    //RG?
+    //CCR : Mettre à jour la date du prochain anniversaire afin d'être utilisée dans la vue des anniversaires dans les 72 heures
+    //Paramètre : rien
+    //Retour : rien
+    SetAnniversary: function () {
+        var birthDate = JSIHelper.GetAttribute("birthdate").getValue();
+
+        if (birthDate != null) {
+            var dayDate = new Date();
+
+            var anniversary = new Date(dayDate.getFullYear(), birthDate.getMonth(), birthDate.getDate());
+
+            // Si l'anniversaire est déjà passé cette année, le prochain anniversaire sera l'année prochaine
+            if (anniversary < dayDate)
+                anniversary.setFullYear(dayDate.getFullYear() + 1);
+
+            JSIHelper.SetAttributeValue("anniversary", anniversary);
+        } else {
+            JSIHelper.SetAttributeValue("anniversary", null);
+        }
+    },
+
+
+    _namespace: true,
+}
+

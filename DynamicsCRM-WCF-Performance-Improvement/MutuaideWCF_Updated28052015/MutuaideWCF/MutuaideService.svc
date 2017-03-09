@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="MutuaideWCF.MutuaideService" CodeBehind="MutuaideService.svc.cs" %>

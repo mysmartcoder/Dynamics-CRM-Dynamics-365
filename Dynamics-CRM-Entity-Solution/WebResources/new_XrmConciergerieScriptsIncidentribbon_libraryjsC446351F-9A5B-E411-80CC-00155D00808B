@@ -1,0 +1,86 @@
+﻿//Créateur : TM
+//Date : 01/10/2014
+//Fichier JS contenant les fonctionnalités permettant de gérer le ruban de l'entité contact
+
+//On référence les bibliothèques nécessaires
+/// <reference path="../Generics/global_functions.js" />
+
+//On utilisera les namespaces pour avoir plus d'organisation dans le code
+if (typeof (XrmConciergerie) == "undefined")
+{ XrmConciergerie = { __namespace: true }; }
+if (typeof (XrmConciergerie.Scripts) == "undefined")
+{ XrmConciergerie.Scripts = { __namespace: true }; }
+
+//On crée le namespace du fichier 
+XrmConciergerie.Scripts.RibbonIncident = {
+
+
+    //RG023 
+    //Paramètre : Rien
+    //Retour : Rien
+    OpenPCIDSS_OnClick: function () {
+
+
+        //  Mantis 1195
+        //  L'url doit être  de type : 
+        //  pcidss://HOMOL ASSURE_SAI_BIN 6fef0eb4-1951-40fa-901b-5ce1396416d8 136542499 dfjdhf-dfkdjfkd-dfkjdfjd-df
+        //  pcidss://arg1=PCIDSS_ENV arg2=PCIDSS_REQ arg3=GUID arg4=contactId arg5=demandId
+
+        //Récupération de la demande
+        var pci_demandId = Xrm.Page.data.entity.getId();
+
+        if (pci_demandId != null) {
+
+            ////Récupération du contact
+            //var pci_contactId = JSIHelper.GetParentAttribute("customerid", "new_idcrm");
+
+            //Récupération du type
+            var type = PCIDSS_PAY;
+
+            //Récupération du PCIDSS_ENV
+            var pci_PCIDSS_ENV = JSIHelper.GetCRMParamterValue("PCIDSS_ENV");
+
+
+            //Récupération du PCIDSS_REQ
+            var pci_PCIDSS_REQ = JSIHelper.GetCRMParamterValue("PCIDSS_REQ");
+
+
+            //Génération d'un GUID
+            var pci_GUID = JSIHelper.GenerateGUID();
+
+            //Récupération de l'orga CRM
+            var pci_orgaCRM = JSIHelper.GetCRMParamterValue("BaseUrlWS");
+
+
+            //var url = "pcidss://" + " " + "arg1=" + type + " " + "arg2=" + contactId + " " + "arg3=" + pci_demandId;
+
+            var url = "pcidss://" + pci_PCIDSS_ENV + " " + pci_PCIDSS_REQ + " " + pci_GUID + " " + pci_demandId + " " + pci_orgaCRM;
+
+            myWidow = window.open(url);
+            var timer = setInterval(function () { if (myWidow != null) { myWidow.close(); clearInterval(timer); } }, 50);
+            
+
+        }
+    },
+
+
+    //RG035 
+    //CCR : 31/11/2011 : Si l'utilisateur clique sur résoudre la demande et que la case à cocher annuler la demande est cochée
+    //                   alors on décoche la case et supprime le motif d'annulation
+    //Paramètre : Rien
+    //Retour : Rien
+    ResolveIncident: function () {
+
+        if (JSIHelper.GetAttributeValue("new_cancelincident") == true) {
+            JSIHelper.SetAttributeValue("new_cancelincident", false);
+            JSIHelper.GetAttribute("new_cancellationreason").setRequiredLevel("none");
+            JSIHelper.SetAttributeValue("new_cancellationreason", null);
+            //On met le focus sur un autre champ pour pouvoir masqué le motif d'annulation
+            Xrm.Page.getControl("new_paymentid").setFocus();
+            JSIHelper.GetControl("new_cancellationreason").setVisible(false);
+        }
+    },
+
+    _namespace: true,
+
+}

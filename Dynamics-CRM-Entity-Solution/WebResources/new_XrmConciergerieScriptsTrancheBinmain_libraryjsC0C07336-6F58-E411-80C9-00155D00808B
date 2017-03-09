@@ -1,0 +1,178 @@
+﻿//Créateur : Zagdoun David
+//Date : 20/10/2014
+//Fichier JS contenant les fonctionnalités permettant de gérer les tranches de bin
+
+//On référence la bibliotheque Generics
+/// <reference path="../Generics/global_functions.js" />
+/// <reference path="../Generics/SDK.REST.js" />
+/// <reference path="../Generics/global_variables.js" />
+
+//On utilisera les namespaces pour avoir plus d'organisation dans le code
+if (typeof (XrmConciergerie) == "undefined")
+{ XrmConciergerie = { __namespace: true }; }
+if (typeof (XrmConciergerie.Scripts) == "undefined")
+{ XrmConciergerie.Scripts = { __namespace: true }; }
+
+//On crée le namespace du fichier
+//Pour le fichier Geneic le namespace sera XrmConciergerie.Scripts.Generics
+XrmConciergerie.Scripts.FormBin = {
+
+    Form_OnLoad: function () {
+
+        //RG110
+        //La valeur du champ « Fin tranche BIN » doit être supérieure ou égal à la valeur du champ « Début tranche BIN » 
+        XrmConciergerie.Scripts.FormBin.CheckTranche();
+        Xrm.Page.getAttribute("new_beginbin").addOnChange(XrmConciergerie.Scripts.FormBin.CheckTranche);
+        Xrm.Page.getAttribute("new_endbin").addOnChange(XrmConciergerie.Scripts.FormBin.CheckTranche);
+
+        //RG082
+        // Le champ distributeur sera automatiquement alimenté en fonction de l’établissement renseigné
+        XrmConciergerie.Scripts.FormBin.SetLookupDistributeurAndCDO();
+        Xrm.Page.getAttribute("new_contratid").addOnChange(XrmConciergerie.Scripts.FormBin.SetLookupDistributeurAndCDO);
+
+        ////RG083
+        //// Le champ distributeur sera automatiquement alimenté en fonction de l’établissement renseigné
+        //XrmConciergerie.Scripts.FormBin.SetLookupCDO();
+        //Xrm.Page.getAttribute("new_contratid").addOnChange(XrmConciergerie.Scripts.FormBin.SetLookupCDO);
+
+        //RG121
+        Xrm.Page.data.entity.addOnSave(XrmConciergerie.Scripts.FormBin.ValidateTranche_onSave);
+
+    },
+    //RG121
+    ValidateTranche_onSave: function (ExecutionContextObj) {
+        XrmConciergerie.Scripts.FormBin.IsConflit = false;
+        XrmConciergerie.Scripts.FormBin.Bins = new Array();
+        //Xrm.Page.getControl("new_beginbin").clearNotification("TRANCHEBIN_ENDBIN_ERROR_MESSAGE2");
+        var url = Xrm.Page.context.getClientUrl() + "/XRMServices/2011/OrganizationData.svc/new_binSet?$select=new_beginbin,new_endbin,new_binId";
+        XrmConciergerie.Scripts.FormBin.GetRecords(url);
+        if (XrmConciergerie.Scripts.FormBin.IsConflit) {
+            Xrm.Page.getControl("new_beginbin").setNotification(TRANCHEBIN_ENDBIN_ERROR_MESSAGE2, "TRANCHEBIN_ENDBIN_ERROR_MESSAGE2");
+            ExecutionContextObj.getEventArgs().preventDefault();
+            setTimeout(function () {
+                Xrm.Page.getControl("new_beginbin").clearNotification("TRANCHEBIN_ENDBIN_ERROR_MESSAGE2");
+            }, 5000);
+        }
+    },
+
+    //RG110
+    //La valeur du champ « Fin tranche BIN » doit être supérieure ou égal à la valeur du champ « Début tranche BIN » 
+    //Paramètre : rien
+    //Retour : rien
+    CheckTranche: function () {
+
+        var beginBin = Xrm.Page.getAttribute("new_beginbin").getValue();
+        var endBin = Xrm.Page.getAttribute("new_endbin").getValue();
+
+        if (beginBin != null && endBin != null) {
+
+            if (beginBin > endBin) {
+                Xrm.Page.getControl("new_endbin").setNotification(TRANCHEBIN_ENDBIN_ERROR_MESSAGE1, "TRANCHEBIN_ENDBIN_ERROR_MESSAGE1");
+            }
+            else {
+                Xrm.Page.getControl("new_endbin").clearNotification("TRANCHEBIN_ENDBIN_ERROR_MESSAGE1");
+            }
+        }
+    },
+
+    //RG082
+    // Le champ distributeur sera automatiquement alimenté en fonction du contrat renseigné
+    //Paramètre : rien
+    //Retour : rien
+    SetLookupDistributeurAndCDO: function () {
+
+        JSIHelper.GetParentLookup("new_contratid", "new_accountid", "new_distributorid");
+        JSIHelper.GetParentLookup("new_distributorid", "ParentAccountId", "new_cdoid");
+        Xrm.Page.getAttribute("new_distributorid").setSubmitMode("always");
+        Xrm.Page.getAttribute("new_cdoid").setSubmitMode("always");
+    },
+
+    ////RG083
+    //// Le champ CDO sera automatiquement alimenté en fonction du contrat renseigné
+    ////Paramètre : rien
+    ////Retour : rien
+    //SetLookupCDO: function () {
+
+    //    JSIHelper.GetParentLookup("new_contratid", "new_accountid", "new_cdoid");
+    //    Xrm.Page.getAttribute("new_cdoid").setSubmitMode("always");
+    //},
+
+    //RG121
+    //Les tranches de bin ne peuvent se recouper ni se couvrir, ni partiellement, ni totalement. Une vérification lors de la création
+    //d’une tranche permettra de s’assurer qu’aucun des numéros de la nouvelle tranche ne se trouve dans une autre tranche de BIN existante. 
+    IsConflit: false,
+    Bins: new Array(),
+    GetRecords: function (url) {
+
+        var beginBin = Xrm.Page.getAttribute("new_beginbin").getValue();
+        var endBin = Xrm.Page.getAttribute("new_endbin").getValue();
+        var isConflict = false;
+
+        if (beginBin != null && endBin != null) {
+
+            jQuery.ajax({
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                datatype: "json",
+                url: url,
+                async: false,
+                beforeSend: function (XMLHttpRequest) {
+                    XMLHttpRequest.setRequestHeader("Accept", "application/json");
+                },
+                success: function (data, textStatus, XmlHttpRequest) {
+
+                    if (data && data.d != null && data.d.results != null) {
+
+                        for (var i = 0; i < data.d.results.length; i++) {
+                            //On insére l'ensemble des enrengistrements dans un tableau
+                            XrmConciergerie.Scripts.FormBin.Bins.push(data.d.results[i]);
+                        }
+
+                        XrmConciergerie.Scripts.FormBin.FetchRecordsCallBack(data.d);
+                        //on récupére le nombre total d'enrengistrement
+                        var totalRecords = XrmConciergerie.Scripts.FormBin.Bins.length;
+
+                        if (data.d.__next == null) {
+                            var currentCaseId = Xrm.Page.data.entity.getId().substring(1, 37).toLowerCase();
+                            //On parcour l'ensemble des tranches
+                            for (var i = 0; i < totalRecords; i++) {
+
+                                //enrengistrement courant
+                                if (currentCaseId == XrmConciergerie.Scripts.FormBin.Bins[i].new_binId)
+                                { continue; }
+
+                                var begin = XrmConciergerie.Scripts.FormBin.Bins[i].new_beginbin;
+                                var end = XrmConciergerie.Scripts.FormBin.Bins[i].new_endbin;
+
+                                //On vérifie que la tranche n'est pas en conflit
+                                if ((beginBin <= end) && (endBin >= begin)) {
+
+                                    isConflict = true;
+                                    break;
+                                }
+                            }
+                            XrmConciergerie.Scripts.FormBin.IsConflit = isConflict;
+                        }
+                    }
+                },
+                error: function (XmlHttpRequest, textStatus, errorThrown) {
+                    alert("Error :  has occured during retrieval of the records ");
+                }
+            });
+        }
+    },
+
+    //RG121 suite
+    // On récupére l'ensemble des enrengistrement présent dans chaque page
+    FetchRecordsCallBack: function (records) {
+        if (records.__next != null) {
+            var url = records.__next;
+
+            XrmConciergerie.Scripts.FormBin.GetRecords(url);
+
+
+        }
+    },
+
+    _namespace: true,
+}

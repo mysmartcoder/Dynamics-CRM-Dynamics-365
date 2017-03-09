@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="MutuaideService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:53996/MutuaideService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:53996/MutuaideService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IMutuaideService_GetEmailByExchangeId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmailByExchangeId" />
+  </wsdl:message>
+  <wsdl:message name="IMutuaideService_GetEmailByExchangeId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmailByExchangeIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMutuaideService_UpdateEmailByExchangeId_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateEmailByExchangeId" />
+  </wsdl:message>
+  <wsdl:message name="IMutuaideService_UpdateEmailByExchangeId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateEmailByExchangeIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMutuaideService_GetRequestByPhoneNumber_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetRequestByPhoneNumber" />
+  </wsdl:message>
+  <wsdl:message name="IMutuaideService_GetRequestByPhoneNumber_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetRequestByPhoneNumberResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMutuaideService_WelcomeCall_InputMessage">
+    <wsdl:part name="parameters" element="tns:WelcomeCall" />
+  </wsdl:message>
+  <wsdl:message name="IMutuaideService_WelcomeCall_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WelcomeCallResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMutuaideService_GetContractByBin_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetContractByBin" />
+  </wsdl:message>
+  <wsdl:message name="IMutuaideService_GetContractByBin_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetContractByBinResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMutuaideService_UpdateCustomerBin_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateCustomerBin" />
+  </wsdl:message>
+  <wsdl:message name="IMutuaideService_UpdateCustomerBin_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateCustomerBinResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMutuaideService_UpdatePaymentMethod_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePaymentMethod" />
+  </wsdl:message>
+  <wsdl:message name="IMutuaideService_UpdatePaymentMethod_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePaymentMethodResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMutuaideService_RetrieveCustomer_InputMessage">
+    <wsdl:part name="parameters" element="tns:RetrieveCustomer" />
+  </wsdl:message>
+  <wsdl:message name="IMutuaideService_RetrieveCustomer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RetrieveCustomerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMutuaideService_IsCustomerActive_InputMessage">
+    <wsdl:part name="parameters" element="tns:IsCustomerActive" />
+  </wsdl:message>
+  <wsdl:message name="IMutuaideService_IsCustomerActive_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IsCustomerActiveResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMutuaideService_GetLastRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLastRequest" />
+  </wsdl:message>
+  <wsdl:message name="IMutuaideService_GetLastRequest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetLastRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMutuaideService_MailValidation_InputMessage">
+    <wsdl:part name="parameters" element="tns:MailValidation" />
+  </wsdl:message>
+  <wsdl:message name="IMutuaideService_MailValidation_OutputMessage">
+    <wsdl:part name="parameters" element="tns:MailValidationResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IMutuaideService">
+    <wsdl:operation name="GetEmailByExchangeId">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMutuaideService/GetEmailByExchangeId" message="tns:IMutuaideService_GetEmailByExchangeId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMutuaideService/GetEmailByExchangeIdResponse" message="tns:IMutuaideService_GetEmailByExchangeId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateEmailByExchangeId">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMutuaideService/UpdateEmailByExchangeId" message="tns:IMutuaideService_UpdateEmailByExchangeId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMutuaideService/UpdateEmailByExchangeIdResponse" message="tns:IMutuaideService_UpdateEmailByExchangeId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRequestByPhoneNumber">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMutuaideService/GetRequestByPhoneNumber" message="tns:IMutuaideService_GetRequestByPhoneNumber_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMutuaideService/GetRequestByPhoneNumberResponse" message="tns:IMutuaideService_GetRequestByPhoneNumber_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WelcomeCall">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMutuaideService/WelcomeCall" message="tns:IMutuaideService_WelcomeCall_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMutuaideService/WelcomeCallResponse" message="tns:IMutuaideService_WelcomeCall_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetContractByBin">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMutuaideService/GetContractByBin" message="tns:IMutuaideService_GetContractByBin_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMutuaideService/GetContractByBinResponse" message="tns:IMutuaideService_GetContractByBin_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCustomerBin">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMutuaideService/UpdateCustomerBin" message="tns:IMutuaideService_UpdateCustomerBin_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMutuaideService/UpdateCustomerBinResponse" message="tns:IMutuaideService_UpdateCustomerBin_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePaymentMethod">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMutuaideService/UpdatePaymentMethod" message="tns:IMutuaideService_UpdatePaymentMethod_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMutuaideService/UpdatePaymentMethodResponse" message="tns:IMutuaideService_UpdatePaymentMethod_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveCustomer">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMutuaideService/RetrieveCustomer" message="tns:IMutuaideService_RetrieveCustomer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMutuaideService/RetrieveCustomerResponse" message="tns:IMutuaideService_RetrieveCustomer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="IsCustomerActive">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMutuaideService/IsCustomerActive" message="tns:IMutuaideService_IsCustomerActive_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMutuaideService/IsCustomerActiveResponse" message="tns:IMutuaideService_IsCustomerActive_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLastRequest">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMutuaideService/GetLastRequest" message="tns:IMutuaideService_GetLastRequest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMutuaideService/GetLastRequestResponse" message="tns:IMutuaideService_GetLastRequest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="MailValidation">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMutuaideService/MailValidation" message="tns:IMutuaideService_MailValidation_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMutuaideService/MailValidationResponse" message="tns:IMutuaideService_MailValidation_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:service name="MutuaideService" />
+</wsdl:definitions>

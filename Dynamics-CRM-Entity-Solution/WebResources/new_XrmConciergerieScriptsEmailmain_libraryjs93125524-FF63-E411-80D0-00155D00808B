@@ -1,0 +1,117 @@
+﻿//Créateur : LB
+//Date : 31/10/2014
+//Fichier JS contenant les fonctionnalités permettant de gérer l'entité Courrier electronique
+
+//On référence les bibliothèques nécessaires
+/// <reference path="../Generics/global_variables.js" />
+/// <reference path="../Generics/global_functions.js" />
+/// <reference path="../Generics/JSIHelper.js" />
+
+//On utilisera les namespaces pour avoir plus d'organisation dans le code
+if (typeof (XrmConciergerie) == "undefined")
+{ XrmConciergerie = { __namespace: true }; }
+if (typeof (XrmConciergerie.Scripts) == "undefined")
+{ XrmConciergerie.Scripts = { __namespace: true }; }
+
+//On crée le namespace du fichier 
+XrmConciergerie.Scripts.FormEmail = {
+
+    //Fonction qui sera appelé au chargement du formulaire
+    Form_OnLoad: function () {
+        Xrm.Page.getControl("new_status").setDisabled(false);
+        Xrm.Page.data.entity.addOnSave(XrmConciergerie.Scripts.FormEmail.OpenBandeau);
+        if (Xrm.Page.ui.getFormType() == FORM_TYPE_CREATE)
+            XrmConciergerie.Scripts.FormEmail.modifyExp();
+        Xrm.Page.getAttribute("to").addOnChange(XrmConciergerie.Scripts.FormEmail.modifyExp);
+    },
+
+
+    //RG148
+    //Paramètre : Rien
+    //Retour : Rien
+    OpenBandeau: function () {
+        if (Xrm.Page.getAttribute("new_status").getIsDirty() && JSIHelper.GetAttributeValue("new_status") == EMAIL_STATUT_REJETE || JSIHelper.GetAttributeValue("new_status") == EMAIL_STATUT_TRAITE) {
+
+            var statut = JSIHelper.GetAttributeValue("new_status");
+            var state;
+            if (statut == EMAIL_STATUT_REJETE)
+                state = 2;
+            else if (statut == EMAIL_STATUT_TRAITE)
+                state = 1;
+
+            var msgId = XrmConciergerie.Scripts.Generics.RetrieveEntityField("Email", Xrm.Page.data.entity.getId(), "MessageId").MessageId;
+            if (msgId != null) {
+                //var url = "MutuaidebandeauMulticanal://" + " " + "arg1=Mail arg2=" + state + " " + "arg3=" + msgId;
+                var url = "MutuaidebandeauMulticanal:// Mail " + state + " " + msgId;
+                myWidow = window.open(url);
+                var timer = setInterval(function () { if (myWidow != null) { myWidow.close(); clearInterval(timer); } }, 50);
+            }
+
+        }
+    },
+
+    //RG072 et RG022
+    modifyExp: function () {        
+        var to = Xrm.Page.getAttribute("to").getValue();
+        if (to != null && to[0].entityType == "contact") {
+            var typeOfContact = JSIHelper.GetParentAttribute("to", "new_typeofcontactlist");
+            var name;
+            if (typeOfContact.Value == CONTACT_TYPEOFCONTACT_CLIENT)
+                name = XrmConciergerie.Scripts.FormEmail.getQueueContratName(to[0].id);
+            else if (typeOfContact.Value == CONTACT_TYPEOFCONTACT_BENEFICIAIRE || typeOfContact.Value == CONTACT_TYPEOFCONTACT_TIERS)
+                name = XrmConciergerie.Scripts.FormEmail.getQueueContratName(JSIHelper.GetParentAttribute("to", "new_contactcustomerid").Id);
+            else
+                name = XrmConciergerie.Scripts.FormEmail.getDivisionName();
+            var queue = XrmConciergerie.Scripts.FormEmail.getQueueByName(name);
+            if (queue != null)
+                Xrm.Page.getAttribute("from").setValue([{ id: queue.QueueId, name: queue.Name, entityType: "queue" }]);
+            //dans le cas ou le contrat ne contient pas de file d'attente associe on recuperer la file d'attente de la division du user
+            else
+            {
+                queue = XrmConciergerie.Scripts.FormEmail.getQueueByName(XrmConciergerie.Scripts.FormEmail.getDivisionName());
+                if (queue != null)
+                    Xrm.Page.getAttribute("from").setValue([{ id: queue.QueueId, name: queue.Name, entityType: "queue" }]);
+            }
+        }
+    },
+
+    getQueueContratName: function (clientId) {
+        var contrat;
+        contrat = XrmConciergerie.Scripts.Generics.RetrieveEntityField("Contact", clientId, "new_new_contract_contact_contractid", "new_new_contract_contact_contractid");
+        var name = "";
+        if (contrat != null && contrat.new_new_contract_contact_contractid != null)
+            name = contrat.new_new_contract_contact_contractid.new_contractname + "_" + contrat.new_new_contract_contact_contractid.new_contractnumber + "_ExpGroupe";
+        else
+            name = XrmConciergerie.Scripts.FormEmail.getDivisionName();
+        return name;        
+    },
+
+    getDivisionName: function () {
+        var users = XrmConciergerie.Scripts.Generics.RetrieveEntityField("SystemUser", Xrm.Page.context.getUserId(), "business_unit_system_users", "business_unit_system_users");
+        return users.business_unit_system_users.Name;         
+    },
+
+    getQueueByName: function (name) {
+        var filter = new Array();
+        filter[0] = {
+            Attribute: "Name",
+            ConditionOperator: "eq",
+            Value: "'"+name+"'"
+        };
+        filter[1] = {
+            Attribute: "Name",
+            ConditionOperator: "eq",
+            Value: "'<" + name + ">'",
+            Operator: "or"
+        };
+        var queue = XrmConciergerie.Scripts.Generics.RetrieveEntityField("Queue", null, "Name,QueueId",null, filter);
+
+        if (queue != null && queue.results.length > 0)
+            return queue.results[0];
+        else
+            return null;
+    },
+
+    _namespace: true,
+
+}

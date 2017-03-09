@@ -1,0 +1,1185 @@
+﻿//Créateur : CC
+//Date : 16/10/2014
+//Fichier JS contenant les fonctionnalités permettant de gérer l'entité Appel téléphonique 
+
+//On référence les bibliothèques nécessaires
+/// <reference path="../Generics/global_functions.js" />
+/// <reference path="../Generics/SDK.REST.js" />
+/// <reference path="../Generics/global_variables.js" />
+/// <reference path="../Generics/JSIHelper.js" />
+
+//On utilisera les namespaces pour avoir plus d'organisation dans le code
+if (typeof (XrmConciergerie) == "undefined")
+{ XrmConciergerie = { __namespace: true }; }
+if (typeof (XrmConciergerie.Scripts) == "undefined")
+{ XrmConciergerie.Scripts = { __namespace: true }; }
+
+//On crée le namespace du fichier 
+XrmConciergerie.Scripts.FormPrestation = {
+
+    //COM - JS - 01
+    RetrieveErrorLog: "Une erreur est survenue et a empêché la récupération : {0}",
+    NoStartingWithLog: "Aucune réponse trouvée commençant par '{0}'",
+    NoStartingWith: "Aucune réponse trouvée, veuillez vérifier votre saisie ou ajouter l'enregistrement dans la liste.",
+    NoneOrMoreThanOneRecordFor: "0 ou plusieurs enregistrement trouvé pour {0}",
+    PleaseSelectFromList: "Merci de sélectionner un enregistrement depuis la liste de suggestions.",
+
+    //Fonction qui sera appelé au chargement du formulaire
+    Form_OnLoad: function() {
+        // RGI001
+        JSIHelper.HackPhones();
+
+        //RG045-RG053-RG054-RG057-RG062
+        XrmConciergerie.Scripts.FormPrestation.SetVisibilitySectionForType(null);
+        JSIHelper.GetAttribute("new_typeid").addOnChange(function() { XrmConciergerie.Scripts.FormPrestation.SetVisibilitySectionForType(null); });
+
+        //RG058-RG062
+        XrmConciergerie.Scripts.FormPrestation.SetVisibilitySectionForSSType();
+        JSIHelper.GetAttribute("new_subtypeid").addOnChange(XrmConciergerie.Scripts.FormPrestation.SetVisibilitySectionForSSType);
+
+        //RG036
+        XrmConciergerie.Scripts.FormPrestation.SetCategorie();
+
+        //RG043
+        //Mis en commentaire suite au Mantis 1172
+        //XrmConciergerie.Scripts.FormPrestation.SetSectionVisibilityInformations();
+
+        //RG047-RG048-RG049
+        JSIHelper.GetAttribute("new_subtypeid").addOnChange(XrmConciergerie.Scripts.FormPrestation.SetTransportFieldsVisibilityBasedOnSubType);
+
+        //RG055
+        XrmConciergerie.Scripts.FormPrestation.SetNumbreTotalPlaces();
+        JSIHelper.GetAttribute("new_numberadults").addOnChange(XrmConciergerie.Scripts.FormPrestation.SetNumbreTotalPlaces);
+        JSIHelper.GetAttribute("new_numbersenior").addOnChange(XrmConciergerie.Scripts.FormPrestation.SetNumbreTotalPlaces);
+        JSIHelper.GetAttribute("new_numberchildren").addOnChange(XrmConciergerie.Scripts.FormPrestation.SetNumbreTotalPlaces);
+
+
+        //RG038
+        Xrm.Page.getAttribute("new_typeid").addOnChange(XrmConciergerie.Scripts.Generics.onChangeType);
+        //Et mettre le champ en lecture seule après l'enregistrement
+        if (Xrm.Page.ui.getFormType() != FORM_TYPE_CREATE) {
+            Xrm.Page.getControl("new_typeid").setDisabled(true);
+        }
+
+        //RG037
+        Xrm.Page.getAttribute("new_subtypeid").addOnChange(XrmConciergerie.Scripts.Generics.onChangeSubType);
+        //Et mettre le champ en lecture seule après l'enregistrement
+        if (Xrm.Page.ui.getFormType() != FORM_TYPE_CREATE) {
+            Xrm.Page.getControl("new_subtypeid").setDisabled(true);
+        }
+
+        //RG056
+        XrmConciergerie.Scripts.FormPrestation.SetRecipientTel();
+        JSIHelper.GetAttribute("new_recipientname").addOnChange(XrmConciergerie.Scripts.FormPrestation.SetRecipientTel);
+
+
+        //RG050
+        XrmConciergerie.Scripts.FormPrestation.SetBeneficiaryContactLookUp();
+        JSIHelper.GetAttribute("new_beneficiaryis").addOnChange(XrmConciergerie.Scripts.FormPrestation.SetBeneficiaryContactLookUp);
+
+
+        //RG052
+        XrmConciergerie.Scripts.FormPrestation.SetBeneficiaryDoB();
+        JSIHelper.GetAttribute("new_beneficiaryid").addOnChange(XrmConciergerie.Scripts.FormPrestation.SetBeneficiaryDoB);
+        //Et mettre le champ en lecture seule après l'enregistrement
+        if (Xrm.Page.ui.getFormType() != FORM_TYPE_CREATE) {
+            Xrm.Page.getControl("new_beneficiaryid").setDisabled(true);
+        }
+
+        //RG039
+        if (Xrm.Page.ui.getFormType() == FORM_TYPE_CREATE) {
+            Xrm.Page.data.entity.addOnSave(XrmConciergerie.Scripts.FormPrestation.SetPrestation);
+        }
+
+        //RG064
+        XrmConciergerie.Scripts.FormPrestation.SetCitiesVisibility();
+        JSIHelper.GetControl("apercuprestataire_apercuprestataire_account_new_countryid").getAttribute().addOnChange(XrmConciergerie.Scripts.FormPrestation.SetCitiesVisibility);
+
+        // RG075
+        XrmConciergerie.Scripts.FormPrestation.BuildServiceButton();
+
+        //RG064
+        JSIHelper.GetAttribute("new_selectedserviceid").addOnChange(XrmConciergerie.Scripts.FormPrestation.SetPrestataireSection);
+        Xrm.Page.getAttribute("new_selectedserviceid").setSubmitMode("always"); //
+
+        // RG046
+        XrmConciergerie.Scripts.FormPrestation.BuildAddressButton();
+
+
+        JSIHelper.GetAttribute("new_country").addOnChange(function() { JSIHelper.SetAttributeValue("new_zipcode", null); });
+
+        //autocomplete sur les champs city et country
+        //$('head').append('<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.3/themes/redmond/jquery-ui.css" type="text/css" />');
+        $("#new_country1_i").keyup(XrmConciergerie.Scripts.FormPrestation.OnTypeCountry);
+        $("#new_city1_i").keyup(XrmConciergerie.Scripts.FormPrestation.OnTypeCity);
+        $("#new_city1_i").attr("autocomplete", "off");
+        $("#new_country1_i").attr("autocomplete", "off");
+        //COM - JS - 02
+        Xrm.Page.getAttribute("new_zipcode").addOnChange(XrmConciergerie.Scripts.FormPrestation.SetCity);
+
+        //CCR
+        //RG0133 : Récupérer les code pays en fonction du pays
+        XrmConciergerie.Scripts.FormPrestation.SetCountryCode();
+        Xrm.Page.getAttribute("new_country").addOnChange(XrmConciergerie.Scripts.FormPrestation.SetCountryCode);
+
+        // Améliore le header
+        XrmConciergerie.Scripts.FormPrestation.CleanHeader();
+
+        // filtre les sous-types en fonction du type ou catégorie
+        XrmConciergerie.Scripts.Generics.preFilterLookupSubtype();
+    },
+
+
+    //RG045-RG053-RG054-RG057
+    // CCR - 16/10/2014 : RG045 : Section « Transport » : cette section s’affichera uniquement si le type est égal à « Transport » 
+    //                    RG053 : Section « Billetterie » : cette section s’affichera uniquement si le type est égal à « Billetterie » 
+    //                    RG054 : Section « Livraison » : cette section s’affichera uniquement si le type est égal à « Livraison » 
+    //                    RG057 : Section « Gastronomie » : cette section s’affichera uniquement si le type est égal à « Gastronomie » 
+    //                    RG058 : Section « Voyages » : cette section s’affichera uniquement si le type est égal à « Voyages » (Mantis 1124) 
+    //Parametre : rien
+    //Retour : rien
+    SetVisibilitySectionForType: function(typeId) {
+
+        if (typeId == null) {
+            var typeId = JSIHelper.GetAttributeValue("new_typeid");
+        }
+
+        JSIHelper.SetSectionVisibility("tab_1_section_3", "new_typeid", "==", 0);
+        JSIHelper.SetSectionVisibility("tab_1_section_4", "new_typeid", "==", 0);
+        JSIHelper.SetSectionVisibility("tab_1_section_5", "new_typeid", "==", 0);
+        JSIHelper.SetSectionVisibility("tab_1_section_6", "new_typeid", "==", 0);
+        JSIHelper.SetSectionVisibility("tab_1_section_7", "new_typeid", "==", 0);
+        JSIHelper.SetSectionVisibility("tab_1_section_8", "new_typeid", "==", 0);
+
+
+        if (typeId != null) {
+
+            typeId = typeId[0].name.toUpperCase();
+
+            //RG045
+            if (typeId == PRESTATION_TYPE_TRANSPORT) {
+                JSIHelper.SetSectionVisibility("tab_1_section_3", "new_typeid", "!=", 0);
+                XrmConciergerie.Scripts.FormPrestation.SetTransportFieldsVisibilityBasedOnSubType();
+            } else {
+                JSIHelper.SetSectionVisibility("tab_1_section_3", "new_typeid", "==", 0);
+            }
+
+            //RG053
+            if (typeId == PRESTATION_TYPE_BILLETERIE) {
+                JSIHelper.SetSectionVisibility("tab_1_section_4", "new_typeid", "!=", 0);
+            } else {
+                JSIHelper.SetSectionVisibility("tab_1_section_4", "new_typeid", "==", 0);
+            }
+
+            //RG054
+            if (typeId == PRESTATION_TYPE_LIVRAISON) {
+                JSIHelper.SetSectionVisibility("tab_1_section_5", "new_typeid", "!=", 0);
+            } else {
+                JSIHelper.SetSectionVisibility("tab_1_section_5", "new_typeid", "==", 0);
+            }
+
+            //RG057
+            if (typeId == PRESTATION_TYPE_GASTRONOMIE) {
+                JSIHelper.SetSectionVisibility("tab_1_section_6", "new_typeid", "!=", 0);
+            } else {
+                JSIHelper.SetSectionVisibility("tab_1_section_6", "new_typeid", "==", 0);
+            }
+
+            //RG058
+            if (typeId == PRESTATION_TYPE_VOYAGES) {
+                JSIHelper.SetSectionVisibility("tab_1_section_7", "new_typeid", "!=", 0);
+            } else {
+                JSIHelper.SetSectionVisibility("tab_1_section_7", "new_typeid", "==", 0);
+            }
+
+            //RG062
+            /*if (typeId == PRESTATION_TYPE_EXCEPTIONNEL) {
+                JSIHelper.SetSectionVisibility("tab_1_section_8", "new_typeid", "!=", 0);
+            } else {
+                JSIHelper.SetSectionVisibility("tab_1_section_8", "new_typeid", "==", 0);
+            }*/
+
+        }
+    },
+
+    //RG058-RG062
+    // CCR - 16/10/2014 : RG062 : Section « Exceptionnel » : cette section s’affichera uniquement si le sous-type est égal à « "recherche d'un bien ou d'une prestation" ; "Organisation de mariage" ; Organisation d'anniversaire" et "Autres demandes" » (Mantis 1124)
+    //Parametre : rien
+    //Retour : rien
+    SetVisibilitySectionForSSType: function() {
+
+        var blnVisibility = false;
+
+        var subtypeId = JSIHelper.GetAttributeValue("new_subtypeid");
+
+        JSIHelper.SetSectionVisibility("tab_1_section_7", "new_subtypeid", "==", 0);
+        JSIHelper.SetSectionVisibility("tab_1_section_8", "new_subtypeid", "==", 0);
+
+
+        if (subtypeId != null) {
+
+            subtypeId = subtypeId[0].name.toUpperCase();
+
+            //RG058
+            /*if (subtypeId == PRESTATION_SSTYPE_BILLETTRAIN ||
+                subtypeId == PRESTATION_SSTYPE_BILLETAVION ||
+                subtypeId == PRESTATION_SSTYPE_BILLETBATEAU ||
+                subtypeId == PRESTATION_SSTYPE_BILLETAUTRE) {
+                JSIHelper.SetSectionVisibility("tab_1_section_7", "new_subtypeid", "!=", 0);
+                blnVisibility = true;
+            } else {
+                JSIHelper.SetSectionVisibility("tab_1_section_7", "new_subtypeid", "==", 0);
+            }*/
+
+            //RG062
+
+            if (subtypeId == PRESTATION_SSTYPE_AUTRESDEMANDES ||
+                subtypeId == PRESTATION_SSTYPE_ORGAANNI ||
+                subtypeId == PRESTATION_SSTYPE_ORGAMARIAGE ||
+                subtypeId == PRESTATION_SSTYPE_RECHERCHEPRESTA) {
+                JSIHelper.SetSectionVisibility("tab_1_section_8", "new_subtypeid", "!=", 0);
+                blnVisibility = true;
+            } else {
+                JSIHelper.SetSectionVisibility("tab_1_section_8", "new_subtypeid", "==", 0);
+            }
+        }
+
+        //On appelle la règle d'affichage des onglets en fonction du type seulement s'il n'y a eu aucune règle d'affichage en fonction du sous-type
+        if (blnVisibility == false) {
+            var typeId = JSIHelper.GetParentLookup("new_subtypeid", "new_typeid");
+            XrmConciergerie.Scripts.FormPrestation.SetVisibilitySectionForType(typeId);
+        }
+
+    },
+
+
+    //RG036                       
+    //Alimenter la catégorie par la catégorie de la demande
+    //Parametre : rien
+    //Retour : rien
+    SetCategorie: function() {
+
+        JSIHelper.GetParentLookup("new_demandid", "new_demandcategorylist", "new_categoryid");
+        Xrm.Page.getAttribute("new_categoryid").setSubmitMode("always");
+
+    },
+
+
+    //RG043                       
+    //Section masquée si catégorie de la demande est Transfert d'appel
+    //Parametre : rien
+    //Retour : rien
+    //Mis en commentaire suite au Mantis 1172
+    /*SetSectionVisibilityInformations: function() {
+
+        var categoryId = JSIHelper.GetAttributeValue("new_categoryid");
+
+        if (categoryId != null) {
+
+            categoryId = categoryId[0].name.toUpperCase();
+
+            if (categoryId == PRESTATION_CATEGORIE_TRANSFERTAPPEL) {
+                JSIHelper.SetSectionVisibility("tab_1_section_2", "new_categoryid", "==", 0);
+            } else {
+                JSIHelper.SetSectionVisibility("tab_1_section_2", "new_categoryid", "!=", 0);
+            }
+        }
+
+    },*/
+
+
+    //RG047                       
+    //Type de véhicule ne s’affichera pas si le sous-type de la prestation est égal à « Voiture de location ».
+    //RG048                     
+    //Catégorie de véhicule s’affichera uniquement si le sous-type de la prestation est égal à « Voiture de location ».
+    //RG049                     
+    //Immatriculation du taxi ne s’affichera pas si le sous-type de la prestation est égal à « Voiture de location ».
+    //Parametre : rien
+    //Retour : rien
+    SetTransportFieldsVisibilityBasedOnSubType: function() {
+
+        //Voir Meir : comparedValue = comparedValue.toLowerCase(); si compared value qui est une lookup est un objet tolowercase marche aps
+        //Si fait remplacer le code non commenté par celui commenté
+
+        //if (subtypeId != null)
+        //if (subtypeId == PRESTATION_SSTYPE_VOITURELOCATION) {
+
+        //    JSIHelper.SetControlVisibility("new_vehicletype", "new_subtypeid", "==", 0);
+        //    JSIHelper.SetControlVisibility("new_vehiclecategorylist", "new_subtypeid", "!=", 0);
+        //    JSIHelper.SetControlVisibility("new_matriculation", "new_subtypeid", "==", 0);
+        //} else {
+        //    JSIHelper.SetControlVisibility("new_vehicletype", "new_subtypeid", "!=", 0);
+        //    JSIHelper.SetControlVisibility("new_vehiclecategorylist", "new_subtypeid", "==", 0);
+        //    JSIHelper.SetControlVisibility("new_matriculation", "new_subtypeid", "!=", 0);
+        //}
+
+        var typeId = JSIHelper.GetAttributeValue("new_typeid");
+
+        if (typeId != null) {
+
+            typeId = typeId[0].name.toUpperCase();
+
+            //RG045
+            if (typeId == PRESTATION_TYPE_TRANSPORT) {
+
+                var subtypeId = JSIHelper.GetAttributeValue("new_subtypeid");
+
+                if (subtypeId != null) {
+                    subtypeId = subtypeId[0].name.toUpperCase();
+
+                    if (subtypeId == PRESTATION_SSTYPE_VOITURELOCATION) {
+
+                        Xrm.Page.ui.controls.get("new_vehicletype").setVisible(false);
+                        Xrm.Page.ui.controls.get("new_vehiclecategorylist").setVisible(true);
+                        Xrm.Page.ui.controls.get("new_matriculation").setVisible(false);
+
+
+                    } else {
+                        Xrm.Page.ui.controls.get("new_vehicletype").setVisible(true);
+                        Xrm.Page.ui.controls.get("new_vehiclecategorylist").setVisible(false);
+                        Xrm.Page.ui.controls.get("new_matriculation").setVisible(true);
+                    }
+                }
+            }
+        }
+    },
+
+
+//RG055
+    //Calcul le nombre total de places
+    //Parametre : rien
+    //Retour : rien
+    SetNumbreTotalPlaces: function() {
+
+        var nbAdults = JSIHelper.GetAttributeValue("new_numberadults");
+        var nbSeniors = JSIHelper.GetAttributeValue("new_numbersenior");
+        var nbChilds = JSIHelper.GetAttributeValue("new_numberchildren");
+
+        var nbTotal = 0;
+
+        if (nbAdults != null)
+            nbTotal += nbAdults;
+
+        if (nbSeniors != null)
+            nbTotal += nbSeniors;
+
+        if (nbChilds != null)
+            nbTotal += nbChilds;
+
+        JSIHelper.SetAttributeValue("new_numberpeople", nbTotal);
+
+        Xrm.Page.getAttribute("new_numberpeople").setSubmitMode("always");
+    },
+
+
+//RG056                       
+    //Alimenter le téléphone du destinataire par le téléphone principal du champ Nom de destinataire
+    //Parametre : rien
+    //Retour : rien
+    SetRecipientTel: function() {
+
+        var typeId = JSIHelper.GetAttributeValue("new_typeid");
+        var recipientId = JSIHelper.GetLookupValue("new_recipientname");
+        if (typeId != null) {
+
+            typeId = typeId[0].name.toUpperCase();
+
+            if (typeId == PRESTATION_TYPE_LIVRAISON && recipientId != null) {
+
+                //récupérer le tél principal du contact
+                SDK.REST.retrieveMultipleRecordsSync(
+                    "new_phoneschedule",
+                    "$select=new_phonenumber&" +
+                    "$filter=new_mainphone eq " + true + " and new_contactid/Id eq (guid'" + recipientId + "')",
+                    function(results) {
+                        if (results && results.length == 1) {
+                            JSIHelper.SetAttributeValue("new_recipientphone", results[0].new_phonenumber);
+                        }
+                    },
+                    function(error) {
+                    },
+                    function() {
+                        // OnComplete handler
+                    }
+                );
+
+            }
+        }
+    },
+
+
+//RG050                       
+    //Si le champ Presta pour un bénéficiare est à oui, afficher Bénéficaire concerné
+    //Parametre : rien
+    //Retour : rien
+    SetBeneficiaryContactLookUp: function() {
+
+        var typeId = JSIHelper.GetAttributeValue("new_typeid");
+
+        if (typeId != null) {
+
+            typeId = typeId[0].name.toUpperCase();
+
+
+            if (typeId == PRESTATION_TYPE_TRANSPORT) {
+                //Si Presta bénéficiaire
+                if (JSIHelper.GetAttributeValue("new_beneficiaryis")) {
+
+                    //Afficher Bénéficiaire concerné
+                    Xrm.Page.ui.controls.get("new_beneficiaryid").setVisible(true);
+                    Xrm.Page.getControl("new_beneficiaryid").addPreSearch(XrmConciergerie.Scripts.FormPrestation.PreFilterContactsOnBeneficiaries);
+
+                    //Si bénéficaire contient des données
+                    if (JSIHelper.GetAttributeValue("new_beneficiaryid") != null) {
+                        Xrm.Page.ui.controls.get("new_beneficiarylist").setVisible(true);
+                        Xrm.Page.ui.controls.get("new_beneficiarydateofbirth").setVisible(true);
+
+                    }
+
+                } else {
+
+                    //Si presta pas pour bénéficiaire masquer les champs
+                    Xrm.Page.ui.controls.get("new_beneficiaryid").setVisible(false);
+                    Xrm.Page.ui.controls.get("new_beneficiarylist").setVisible(false);
+                    Xrm.Page.ui.controls.get("new_beneficiarydateofbirth").setVisible(false);
+
+                }
+            }
+
+        }
+
+    },
+
+
+    //RG050 Suite         
+    //Préfiltre les contacts sur les bénéficiaires
+    //Préfiltre la popup
+    //Parametre : rien
+    //Retour : rien
+    PreFilterContactsOnBeneficiaries: function() {
+        Xrm.Page.getControl("new_beneficiaryid").addPreSearch(XrmConciergerie.Scripts.FormPrestation.PreSearchContactsOnBeneficiaries);
+    },
+
+
+    //RG050 Suite
+    ////Préfiltre l'Intellisense
+    //Préfiltre les contacts sur les bénéficiaires
+    //Parametre : rien
+    //Retour : rien
+    PreSearchContactsOnBeneficiaries: function() {
+        fetchXml = "<filter type='and'><condition attribute='new_typeofcontactlist' operator='eq' value='" + CONTACT_TYPEOFCONTACT_BENEFICIAIRE + "' /></filter>";
+        Xrm.Page.getControl("new_beneficiaryid").addCustomFilter(fetchXml);
+    },
+
+
+    //RG052                  
+    //Si le bénéficiaire est renseigné, afficher le champ dob et le renseigner
+    //Parametre : rien
+    //Retour : rien
+    SetBeneficiaryDoB: function() {
+
+        var typeId = JSIHelper.GetAttributeValue("new_typeid");
+
+        if (typeId != null) {
+
+            typeId = typeId[0].name.toUpperCase();
+
+            if (typeId == PRESTATION_TYPE_TRANSPORT) {
+                var beneficiaryId = JSIHelper.GetAttributeValue("new_beneficiaryid");
+                if (beneficiaryId != null) {
+                    Xrm.Page.ui.controls.get("new_beneficiarydateofbirth").setVisible(true);
+                    var dob_ = JSIHelper.GetParentAttribute("new_beneficiaryid", "BirthDate");
+                    if (dob_) {
+                        dob_ = new Date(parseInt(dob_.replace("/Date(", "").replace(")/", ""), 10));
+                        JSIHelper.SetAttributeValue("new_beneficiarydateofbirth", dob_);
+                    }
+
+                    // CCR - 16/10/2014 : RG051 : le champ type de bénéficiaire sera automatiquement alimenté avec la valeur du même champ dans le fiche du contact de type « Bénéficiaire ».
+                    Xrm.Page.ui.controls.get("new_beneficiarylist").setVisible(true);
+                    var contactid = JSIHelper.GetLookupValue("new_beneficiaryid");
+
+                    SDK.REST.retrieveMultipleRecordsSync(
+                        "Contact",
+                        "$select=new_beneficiarylist&" +
+                        "$filter=ContactId eq (guid'" + contactid + "')",
+                        function(results) {
+                            if (results) {
+                                JSIHelper.GetAttribute("new_beneficiarylist").setValue(results[0].new_beneficiarylist.Value);
+                            } else {
+                                JSIHelper.GetAttribute("new_beneficiarylist").setValue(null);
+                            }
+                        },
+                        function(error) {
+                            Xrm.Page.ui.setFormNotification(error, "ERROR", "ERROR_ODATA_CITY");
+                        },
+                        function() {
+                            // OnComplete handler
+                        }
+                    );
+                } else {
+                    JSIHelper.SetAttributeValue("new_beneficiarydateofbirth", null);
+                    Xrm.Page.ui.controls.get("new_beneficiarydateofbirth").setVisible(false);
+                }
+            }
+        }
+    },
+
+
+//RG039
+    // CCR - 17/10/2014 : Le champ « Sujet de la prestation » sera en lecture seule et automatiquement alimenté 
+    //                    par la CRM par une concaténation des champs suivant : 
+    //                    Nom complet du contact appelant – Type – Date et heure de création de la prestation. 
+    //                    Ce champ sera alimenté lors de l’enregistrement de la prestation.
+    //                    Exemple : Paul DUPONT – Renseignement – 12/08/2014 – 10:25"
+    //Parametre : rien
+    //Retour : rien
+    SetPrestation: function() {
+
+        if (Xrm.Page.ui.getFormType() == FORM_TYPE_CREATE) {
+
+            var sujetPrestation = null;
+            var nomAppelant = null;
+            var typePrestation = null;
+
+            //Appelant
+            var quickViewDemandeCallerId = JSIHelper.GetControl("apercudemande_apercudemande_incident_new_callerid");
+
+            if (quickViewDemandeCallerId != null) {
+                var lookup = quickViewDemandeCallerId.getAttribute().getValue();
+                if (lookup != null) {
+                    nomAppelant = lookup[0].name;
+                }
+
+            }
+
+            //Type
+            var typeId = JSIHelper.GetLookupValue("new_typeid");
+
+            if (typeId != null) {
+                SDK.REST.retrieveRecordSync(
+                    typeId,
+                    "new_type",
+                    "new_type",
+                    null,
+                    function(result) {
+                        if (result != null) {
+                            typePrestation = result.new_type;
+                        }
+                    },
+                    function(error) {
+                    },
+                    function() {
+                    }
+                );
+            }
+
+            if (nomAppelant != null) {
+                if (typePrestation != null) {
+                    sujetPrestation = nomAppelant + " - " + typePrestation + " - ";
+                } else {
+                    sujetPrestation = nomAppelant + " - ";
+                }
+            } else if (typePrestation != null) {
+                sujetPrestation = typePrestation + " - ";
+            }
+
+            var dateCreatePrestation = new Date();
+
+            //Date
+            sujetPrestation = sujetPrestation + dateCreatePrestation.getDate() + "/" + ('0' + (dateCreatePrestation.getMonth() + 1)).slice(-2) + "/" + dateCreatePrestation.getFullYear();
+
+            //Heure
+            sujetPrestation = sujetPrestation + " - " + dateCreatePrestation.getHours() + ":" + dateCreatePrestation.getMinutes();
+
+            JSIHelper.SetAttributeValue("new_name", sujetPrestation);
+        }
+
+    },
+
+    //RG064
+    // CCR - 28/10/2014 : 
+    //Si le pays est égal à France alors la ville française est affichée et la ville étrangère est masquée
+    //Si le pays est différent de France alors la ville française est masquée et la ville étrangère est affichée
+    //Parametre : rien
+    //Retour : rien
+    SetCitiesVisibility: function() {
+
+        var quickViewPrestatairePays = JSIHelper.GetControl("apercuprestataire_apercuprestataire_account_new_countryid");
+
+        if (quickViewPrestatairePays != null) {
+            var lookup = quickViewPrestatairePays.getAttribute().getValue();
+            if (lookup != null && lookup[0].name.toLowerCase() == DEFAULT_COUNTRYNAME.toLowerCase()) {
+                //on masque la ville étrangère et on affiche la ville française
+                JSIHelper.GetControl("apercuprestataire_apercuprestataire_account_new_cityid").setVisible(true);
+                JSIHelper.GetControl("apercuprestataire_apercuprestataire_account_new_othercity").setVisible(false);
+            } else {
+                //on affiche la ville étrangère et on masque la ville française
+                JSIHelper.GetControl("apercuprestataire_apercuprestataire_account_new_cityid").setVisible(false);
+                JSIHelper.GetControl("apercuprestataire_apercuprestataire_account_new_othercity").setVisible(true);
+            }
+
+        }
+
+    },
+
+    // RG075: génère un bouton puis une page de recherche de services pour la prestation
+    //Paramètre : -
+    //Retour : -
+    BuildServiceButton: function() {
+        $(document).ready(function() {
+            // Check if it's the 1st time we load the page (when we create the record, the page is refreshed and execute the code a 2nd time => 2 exec [bug])
+            if ($("#btnSearchService").length > 0)
+                return;
+
+            // Loading css from jQuery UI site (doesn't work for https)
+            $("head").append("<link>");
+            var css = $("head").children(":last");
+            css.attr({
+                rel: "stylesheet",
+                type: "text/css",
+                href: "http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"
+                //href: Xrm.Page.context.getClientUrl() + "/WebResources/new_jqueryui"
+            });
+
+            // Build the HTML components (button + dialog)
+            $("#new_selectedserviceid_c").prepend("<button id='btnSearchService' style='float: left; margin-right: 5px;'></button><div id='dlgSearchService' title=''><table id='tblSearchService' style='width: 100%;'><thead><tr><th style='width: 30px;'>&nbsp;</th><th>Service</th><th>Prestataire</th><th>Mots-clés</th><th>Priorité</th></tr></thead><tbody></tbody></table></div>");
+            $("#tblSearchService th").css({
+                color: "black",
+                fontWeight: "bold"
+            });
+
+            // Button search service
+            $("#btnSearchService").button({
+                icons: {
+                    primary: "ui-icon-search"
+                },
+                text: false
+            }).click(function() {
+                var new_subtypeid = JSIHelper.GetLookupValue("new_subtypeid");
+                var customerid;
+                try {
+                    customerid = Xrm.Page.getControl("apercudemande_apercudemande_incident_customerid").getAttribute().getValue()[0].id;
+                } catch (e) {
+                    customerid = null;
+                }
+                // S'il y a un sous-type et en client
+                //if (new_subtypeid) {
+                if (JSIHelper.GetLookupValue("new_subtypeid") && customerid) {
+                    $("#dlgSearchService").dialog("open");
+                    XrmConciergerie.Scripts.FormPrestation.GetRecordServices();
+                }
+// Sinon
+                else {
+                    alert("Veuillez saisir un sous-type et un client avant de rechercher les services concernés.");
+                }
+            });
+
+
+            // Dialog search service
+            $("#dlgSearchService").dialog({
+                autoOpen: false,
+                width: 900,
+                height: 500,
+                modal: true,
+                buttons:
+                {
+                    "Valider": function() {
+                        // S'il y a un seul service sélectionné, on le met le met dans la lookup
+                        if ($("#tblSearchService img.selectRow[isselected='true']").length == 1) {
+                            var lookup = new Array();
+                            lookup[0] = new Object();
+                            lookup[0].id = $("#tblSearchService img.selectRow[isselected='true']").attr("new_serviceId");
+                            lookup[0].name = unescape($("table img.selectRow[isselected='true']").attr("new_service"));
+                            lookup[0].entityType = "new_service";
+                            Xrm.Page.getAttribute("new_selectedserviceid").setValue(lookup);
+
+                            // Close the dialog box
+                            $(this).dialog("close");
+
+                            Xrm.Page.getAttribute("new_selectedserviceid").fireOnChange();
+                        }
+                        // Sinon, on affiche une alert
+                        else {
+                            alert("Aucun service sélectionné.");
+                            return;
+                        }
+                    },
+                    "Annuler": function() {
+                        $(this).dialog("close");
+                    }
+                },
+                close: function() {
+                    $("#tblSearchService>tbody").html("");
+                }
+            });
+
+
+// Select a service row
+            $("#tblSearchService img.selectRow").live("click", function() {
+                // Alternative row color
+                $("#tblSearchService tr:even").children("td, th").css("background-color", "#eeeeee");
+                $("#tblSearchService tr:odd").children("td, th").css("background-color", "#ffffff");
+
+                // Put a marker on the selected row only
+                $("#tblSearchService img.selectRow").attr("isselected", "false");
+                $(this).attr("isselected", "true").closest("tr").children("td, th").css("background-color", "#99CCFF");
+            });
+        });
+    },
+
+
+    // Récupère 50 services via oData
+    // On boucle sur le callback pour rapatrier tous les services (si 50+)
+    //Paramètre : -
+    //Retour : -
+    //GetRecordServices: function (url) {
+    GetRecordServices: function() {
+        var customerid;
+        try {
+            customerid = Xrm.Page.getControl("apercudemande_apercudemande_incident_customerid").getAttribute().getValue()[0].id;
+        } catch (e) {
+            customerid = null;
+        }
+
+        $.support.cors = true;
+
+        $.ajax({
+            dataType: "json",
+            async: false,
+            crossDomain: true,
+            cache: false,
+            //url: url,
+            url: JSIHelper.GetCRMParamterValue("BaseUrlWS") + "SearchServices/" + customerid + "/" + JSIHelper.GetLookupValue("new_subtypeid"),
+            success: function(data) {
+                try {
+                    // S'il y a des records
+                    if (data.errorCode == 0) {
+                        var new_service, new_account, priorityCdo, priorityClient, priorityPrestataire;
+                        // On place tous les services dans le tableau de recherche
+                        $.each(data.services, function(index, item) {
+                            new_service = "<a target='_blank' href='" + Xrm.Page.context.getClientUrl() + "/main.aspx?etn=new_service&pagetype=entityrecord&id={" + item.new_serviceid + "}'><div class='ms-crm-Inline-Value ms-crm-Inline-Lookup' style='display: block;'><span class='ms-crm-Lookup-Item'>" + item.new_service + "</span></div></a>";
+
+                            new_account = "";
+                            // S'il y a un prestataire
+                            if (item.new_accountid)
+                                new_account = "<a target='_blank' href='" + Xrm.Page.context.getClientUrl() + "/main.aspx?etn=account&pagetype=entityrecord&id={" + item.new_accountid + "}'><div class='ms-crm-Inline-Value ms-crm-Inline-Lookup' style='display: block;'><span class='ms-crm-Lookup-Item'>" + item.new_accountname + "</span></div></a>";
+
+                            priority = "";
+                            // Gestion de la priorité
+                            switch (item.priority) {
+                                // Distributeur imposé
+                            case 1:
+                                priority = "<div class='icon-center'><span class='ui-icon inline ui-icon-bookmark'></span><span class='ui-icon inline ui-icon-bookmark'></span><div>";
+                                break;
+
+                            // Distributeur favori
+                            case 2:
+                                priority = "<div class='icon-center'><span class='ui-icon inline ui-icon-heart'></span><span class='ui-icon inline ui-icon-heart'></span><div>";
+                                break;
+
+                            // Prestataire contractualisé
+                            case 4:
+                                priority = "Contractualisé";
+                                break;
+
+                            // Prestataire ponctuel
+                            case 5:
+                                priority = "Ponctuel";
+                                break;
+
+                            // Prestataire vide
+                            case 6:
+                                priority = "";
+                                break;
+                            // Client imposé
+                            case 7:
+                                priority = "<span class='ui-icon ui-icon-bookmark'></span>";
+                                break;
+
+                            // Client favori
+                            case 8:
+                                priority = "<span class='ui-icon ui-icon-heart'></span>";
+                                break;
+
+                            }
+
+                            $("<tr><td style='width: 30px;'><img class='selectRow' src='/WebResources/onil_/Styles/images/page_next_gray.gif' new_serviceId='" + item.new_serviceid + "' new_service='" + escape(item.new_service) + "' /></td><td>" + new_service + "</td><td>" + new_account + "</td><td>" + ((item.new_keywords) ? item.new_keywords : "") + "</td><td>" + priority + "</td></tr>").appendTo("#tblSearchService tbody");
+                        });
+
+                        // Nombre de records trouvés
+                        $("#dlgSearchService").dialog("option", "title", (data.services.length) + " services trouvés");
+
+                        // Image cursor is a pointer
+                        $(".selectRow").css("cursor", "pointer");
+                        //$("#tblSearchService span.ui-icon").css("margin", "auto");
+                        $("#tblSearchService .icon-center").css("text-align", "center");
+                        $("#tblSearchService .ui-icon.inline").css("display", "inline-block");
+
+                        // Alternative row color
+                        $("#tblSearchService tr:even").css("background-color", "#eeeeee");
+                        $("#tblSearchService tr:odd").css("background-color", "#ffffff");
+                    }
+                } catch (e) {
+                    throw e;
+                }
+            },
+            error: function(e) {
+                throw e;
+            }
+        });
+    },
+
+
+    // RG046: génère un bouton puis une page de recherche d'adresses du client
+    //Paramètre : -
+    //Retour : -
+    BuildAddressButton: function() {
+        $(document).ready(function() {
+            // Check if it's the 1st time we load the page (when we create the record, the page is refreshed and execute the code a 2nd time => 2 exec [bug])
+            if ($("#dlgSearchAddress").length > 0)
+                return;
+
+            $("body").prepend("<div id='dlgSearchAddress' title=''><input id='addressField' type='hidden' /><table id='tblSearchAddress' style='width: 100%;'><thead><tr><th style='width: 30px;'>&nbsp;</th><th>Adresse 1</th><th>Adresse 2</th><th>Adresse 3</th><th>Code postal</th><th>Ville</th><th>Pays</th></tr></thead><tbody></tbody></table></div>");
+            $("#tblSearchAddress th").css({
+                color: "black",
+                fontWeight: "bold"
+            });
+
+            // Remplace les champs par des boutons
+            // Transport
+            $("#new_selectaddress1list_c").replaceWith("<td colspan='2'><button id='btnSearchAddressSource' style='float: left; margin-right: 5px; width: 290px; height: 25px; font-size: 11px;'>Rechercher une adresse de prise en charge</button></td>");
+            $("#new_selectaddress2list_c").replaceWith("<td colspan='2'><button id='btnSearchAddressDestination' style='float: left; margin-right: 5px; width: 300px; height: 25px;  font-size: 11px;'>Rechercher une adresse de retour</button></td>");
+
+            // Voyage
+            $("#new_departureaddresslist_c").replaceWith("<td colspan='2'><button id='btnSearchAddressSource' style='float: left; margin-right: 5px; width: 230px; height: 25px; font-size: 11px;'>Rechercher une adresse de départ</button></td>");
+            $("#new_returnaddresslist_c").replaceWith("<td colspan='2'><button id='btnSearchAddressDestination' style='float: left; margin-right: 5px; width: 260px; height: 25px;  font-size: 11px;'>Rechercher une adresse de destination</button></td>");
+
+            // Livraison
+            $("#new_selectaddress1list1_c").replaceWith("<td colspan='2'><button id='btnSearchAddressSource' style='float: left; margin-right: 5px; width: 250px; height: 25px; font-size: 11px;'>Rechercher une adresse de livraison</button></td>");
+
+            // Cache les champs natifs
+            $("#new_selectaddress1list_d, #new_selectaddress2list_d, #new_departureaddresslist_d, #new_returnaddresslist_d, #new_selectaddress1list1_d").css("display", "none");
+
+
+            // Button search address
+            $("#btnSearchAddressSource, #btnSearchAddressDestination").button({
+                icons: {
+                    primary: "ui-icon-search"
+                }
+            }).click(function() {
+                var customerid;
+                try {
+                    customerid = Xrm.Page.getControl("apercudemande_apercudemande_incident_customerid").getAttribute().getValue()[0].id;
+                } catch (e) {
+                    customerid = null;
+                }
+                // S'il y a un client
+                if (customerid) {
+                    $("#addressField").val($(this).attr("id"));
+                    $("#dlgSearchAddress").dialog("open");
+                    XrmConciergerie.Scripts.FormPrestation.GetRecordAddresses();
+                }
+// Sinon
+                else {
+                    alert("Veuillez saisir un client avant de rechercher parmi ses adresses.");
+                }
+            });
+
+
+            // Dialog search address
+            $("#dlgSearchAddress").dialog({
+                autoOpen: false,
+                width: 900,
+                height: 500,
+                modal: true,
+                buttons:
+                {
+                    "Valider": function() {
+                        var img = $("table#tblSearchAddress img.selectRow[isselected='true']");
+                        // S'il y a une seule addresse sélectionnée, on copie ses informations
+                        if (img.length == 1) {
+                            // Adresse de prise en charge
+                            if ($("#addressField").val() == "btnSearchAddressSource") {
+                                JSIHelper.SetAttributeValue("new_address1", unescape(img.attr("address1_line1")));
+                                JSIHelper.SetAttributeValue("new_address2", unescape(img.attr("address1_line2")));
+                                JSIHelper.SetAttributeValue("new_address3", unescape(img.attr("address1_line3")));
+                                JSIHelper.SetAttributeValue("new_zipcode", unescape(img.attr("address1_postalcode")));
+                                JSIHelper.SetAttributeValue("new_city", unescape(img.attr("city")));
+                                JSIHelper.SetAttributeValue("new_country", unescape(img.attr("country")));
+                                JSIHelper.SetAttributeValue("new_longitude", unescape(img.attr("address1_longitude")));
+                                JSIHelper.SetAttributeValue("new_latitude", unescape(img.attr("address1_latitude")));
+                            }
+// Adresse de destination/retour
+                            else if ($("#addressField").val() == "btnSearchAddressDestination") {
+                                JSIHelper.SetAttributeValue("new_draddress1", unescape(img.attr("address1_line1")));
+                                JSIHelper.SetAttributeValue("new_draddress2", unescape(img.attr("address1_line2")));
+                                JSIHelper.SetAttributeValue("new_draddress3", unescape(img.attr("address1_line3")));
+                                JSIHelper.SetAttributeValue("new_drzipcode", unescape(img.attr("address1_postalcode")));
+                                JSIHelper.SetAttributeValue("new_drcity", unescape(img.attr("city")));
+                                JSIHelper.SetAttributeValue("new_drcountry", unescape(img.attr("country")));
+                                JSIHelper.SetAttributeValue("new_drlongitude", unescape(img.attr("address1_longitude")));
+                                JSIHelper.SetAttributeValue("new_drlatitude", unescape(img.attr("address1_latitude")));
+                            }
+
+                            // Close the dialog box
+                            $(this).dialog("close");
+                        }
+                        // Sinon, on affiche une alert
+                        else {
+                            alert("Aucune adresse sélectionnée.");
+                            return;
+                        }
+                    },
+                    "Annuler": function() {
+                        $(this).dialog("close");
+                    }
+                },
+                close: function() {
+                    $("#tblSearchAddress>tbody").html("");
+                }
+            });
+
+
+            // Select an address row
+            $("#tblSearchAddress img.selectRow").live("click", function() {
+                // Alternative row color
+                $("#tblSearchAddress tr:even").children("td, th").css("background-color", "#eeeeee");
+                $("#tblSearchAddress tr:odd").children("td, th").css("background-color", "#ffffff");
+
+                // Put a marker on the selected row only
+                $("#tblSearchAddress img.selectRow").attr("isselected", "false");
+                $(this).attr("isselected", "true").closest("tr").children("td, th").css("background-color", "#99CCFF");
+            });
+        });
+    },
+
+    // RG046: Récupère 50 adresses via oData
+    // On boucle sur le callback pour rapatrier toutes les adresses (si 50+)
+    //Paramètre : -
+    //Retour : -
+    GetRecordAddresses: function() {
+        var customerid;
+        try {
+            customerid = Xrm.Page.getControl("apercudemande_apercudemande_incident_customerid").getAttribute().getValue()[0].id;
+        } catch (e) {
+            customerid = null;
+        }
+
+        // Si le client est null, on ne fait rien
+        if (!customerid) {
+            alert("Veuillez saisir un client avant de rechercher parmi ses adresses.");
+            return;
+        }
+
+
+        // Adresses principale et secondaires du client
+        $.ajax({
+            dataType: "json",
+            async: true,
+            url: Xrm.Page.context.getClientUrl() + "/XRMServices/2011/OrganizationData.svc/CustomerAddressSet?$filter=ParentId/Id eq (guid'" + customerid + "') and AddressNumber ne 2&$select=Line1,Line2,Line3,PostalCode,City,new_city,Country,Latitude,Longitude,AddressNumber&$orderby=AddressNumber",
+            success: function(data) {
+                try {
+                    $.each(data.d.results, function(index, item) {
+                        var mainAddress = (item.AddressNumber == 1) ? "*" : "";
+                        var address1_line1 = (item.Line1) ? item.Line1 : "";
+                        var address1_line2 = (item.Line2) ? item.Line2 : "";
+                        var address1_line3 = (item.Line3) ? item.Line3 : "";
+                        var address1_postalcode = (item.PostalCode) ? item.PostalCode : "";
+                        var city = (item.City) ? item.City : "";
+                        if (city == "")
+                            city = (item.new_city) ? item.new_city : "";
+                        var country = (item.Country) ? item.Country : "";
+                        var address1_longitude = (item.Longitude) ? item.Longitude : "";
+                        var address1_latitude = (item.Latitude) ? item.Latitude : "";
+                        $("<tr><td style='width: 30px;'><img class='selectRow' src='/WebResources/onil_/Styles/images/page_next_gray.gif' address1_line1='" + escape(address1_line1) + "' address1_line2='" + escape(address1_line2) + "' address1_line3='" + escape(address1_line3) + "' address1_postalcode='" + escape(address1_postalcode) + "' city='" + escape(city) + "' country='" + escape(country) + "' address1_longitude='" + escape(address1_longitude) + "' address1_latitude='" + escape(address1_latitude) + "' />" + mainAddress + "</td><td>" + address1_line1 + "</td><td>" + address1_line2 + "</td><td>" + address1_line3 + "</td><td>" + address1_postalcode + "</td><td>" + city + "</td><td>" + country + "</td></tr>").appendTo("#tblSearchAddress tbody");
+
+                    });
+
+                    // Nombre de records trouvés
+                    $("#dlgSearchAddress").dialog("option", "title", (data.d.results.length) + " adresses trouvées");
+                } catch (e) {
+                    throw e;
+                }
+            },
+            error: function(e) {
+                throw e;
+            }
+        });
+    },
+
+
+    //RG064
+    //Alimente le champ Prestataire et ses champs associés
+    //Paramètre : rien
+    //Retour : rien
+    SetPrestataireSection: function() {
+
+        if (JSIHelper.GetAttribute("new_selectedserviceid") != null) {
+            //Prestataire
+            JSIHelper.GetParentLookup("new_selectedserviceid", "new_accountid", "new_selectedsupplierid");
+            Xrm.Page.getAttribute("new_selectedsupplierid").fireOnChange();
+        }
+
+    },
+
+
+    //CCR - 07/11/2014
+    //RG0133 : Récupérer les code pays en fonction du pays
+    //Paramètre : rien
+    //Retour : rien
+    SetCountryCode: function() {
+
+        var country = JSIHelper.GetAttributeValue("new_country");
+
+        SDK.REST.retrieveMultipleRecordsSync(
+            "new_country",
+            "$select=new_countrycode&"
+            + "$filter=new_countryname eq '" + country + "'",
+            function(results) {
+                if (results && results.length == 1) {
+                    var country = results[0];
+                    Xrm.Page.getAttribute("new_countrycode").setValue(country.new_countrycode);
+                } else {
+                    Xrm.Page.getAttribute("new_countrycode").setValue(null);
+                }
+            },
+            function(error) {
+                Xrm.Page.ui.setFormNotification(error, "ERROR", "ERROR_ODATA_CITY");
+            },
+            function() {
+                // OnComplete handler
+            }
+        );
+
+    },
+
+    /*
+    http://jqueryui.com/autocomplete/
+    //COM - JS - 01
+    SuggestData
+    //retrieve entity
+        //if data are found...
+        //build list...
+        //get DOM field using jQuery...
+            //set suggestions
+            //define what happens when selecting an item in the list, i.e. set CRM field
+    //attention mettre dans fields en premiere position le champ sur lequel le filtre est applique
+    */
+    SuggestData: function(autoCompleteTextInputHTMLid, crmFieldName, nameOfEntity, fields) {
+        var startsWith = $("#" + autoCompleteTextInputHTMLid).val();
+
+        //retrieve pays
+        SDK.REST.retrieveMultipleRecords(
+            nameOfEntity,
+            String.format2("$select=" + fields.join(",") + "&$top=20&$orderby=" + fields[0] + "&$filter=startswith(" + fields[0] + ",'{0}')", startsWith),
+            function(results) {
+                //if countries are found...
+                if (results && results.length > 0) {
+                    var suggestions = [];
+                    //build list...
+                    for (var i = 0; i < results.length; i++) {
+                        var name = "";
+                        for (var j = 0; j < fields.length; j++) {
+                            if (j > 0)
+                                name += " ";
+                            name += results[i][fields[j]];
+                        }
+                        suggestions.push(name);
+                    }
+                    //get DOM field using jQuery...
+                    $("#" + autoCompleteTextInputHTMLid).autocomplete({
+                        //set suggestions
+                        source: suggestions,
+                        //define what happens when selecting an item in the list, i.e. set CRM field
+                        select: function(event, ui) {
+                            if (ui != null && ui.item != null) {
+                                var value = "";
+                                if (fields.length > 1)
+                                    value = ui.item.value.substring(0, ui.item.value.lastIndexOf(" "));
+                                else
+                                    value = ui.item.value;
+                                this.value = value;
+                                //this.val(value);
+                                Xrm.Page.getAttribute(crmFieldName).setValue(value);
+                                Xrm.Page.getAttribute(crmFieldName).fireOnChange();
+
+                                if (crmFieldName == "new_city")
+                                    Xrm.Page.getAttribute("new_zipcode").setValue(ui.item.value.substring(ui.item.value.lastIndexOf(" ")));
+
+                                //CLEAR NOTIFICATIONS ONCE CORRECT SELECTION IS MADE
+                                Xrm.Page.ui.clearFormNotification("formlevelnotification");
+                                Xrm.Page.getControl(crmFieldName).clearNotification();
+                            }
+                            return false;
+                        },
+                    });
+                } else {
+                    var suggestions = [];
+                    $("#" + autoCompleteTextInputHTMLid).autocomplete({
+                        //set suggestions
+                        source: suggestions
+                    });
+                    console.warn(String.format2(XrmConciergerie.Scripts.FormPrestation.NoStartingWithLog, startsWith));
+
+                    //SET ERROR NOTIFICATIONS AND PREVENT SAVE WITH FIELD NOTIFICATIONS
+                    Xrm.Page.getControl(crmFieldName).setNotification(XrmConciergerie.Scripts.FormPrestation.NoStartingWith);
+                    Xrm.Page.ui.setFormNotification(String.format2(XrmConciergerie.Scripts.FormPrestation.NoStartingWithLog, startsWith), "WARNING", "formlevelnotification");
+                }
+            },
+            function(error) {
+                console.error(String.format2(XrmConciergerie.Scripts.FormPrestation.RetrieveErrorLog, error.message));
+            },
+            function() {
+                //OnComplete handler
+            }
+        );
+    },
+
+    OnTypeCountry: function() {
+        //COM - JS - 01
+        XrmConciergerie.Scripts.FormPrestation.SuggestData("new_country1_i", "new_country", "new_country", ["new_countryname"]);
+    },
+
+    OnTypeCity: function() {
+        //COM - JS - 01
+        XrmConciergerie.Scripts.FormPrestation.SuggestData("new_city1_i", "new_city", "new_city", ["new_cityname", "new_zip"]);
+    },
+
+    SetCity: function() {
+
+        var zip = JSIHelper.GetAttributeValue("new_zipcode");
+
+        if (zip != null) {
+            SDK.REST.retrieveMultipleRecords(
+                "new_city",
+                "$select=new_cityname,new_cityId&"
+                + "$filter=new_zip eq '" + zip + "'",
+                function(results) {
+                    if (results && results.length == 1) {
+                        var city = results[0];
+                        if (JSIHelper.GetAttributeValue("new_city") == null)
+                            Xrm.Page.getAttribute("new_city").setValue(city.new_cityname);
+                    } else {
+                        Xrm.Page.getAttribute("new_city").setValue(null);
+                    }
+                },
+                function(error) {
+                    Xrm.Page.ui.setFormNotification(error, "ERROR", "ERROR_ODATA_CITY");
+                },
+                function() {
+                }
+            );
+        }
+    },
+
+    // Affiche/Cache les champs du header en fonction du type de client
+    CleanHeader: function ()
+    {
+        // Réajuste la taille du div parent
+        $(".ms-crm-HeaderTileElement ").css("width", "180px");
+        $(".ms-crm-HeaderTilesWrapperElement").css("min-width", "");
+    },
+
+
+    _namespace: true
+};

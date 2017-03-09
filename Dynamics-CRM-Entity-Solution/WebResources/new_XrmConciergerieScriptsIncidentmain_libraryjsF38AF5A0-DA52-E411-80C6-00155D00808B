@@ -1,0 +1,312 @@
+﻿//Créateur : CC
+//Date : 13/10/2014
+//Fichier JS contenant les fonctionnalités permettant de gérer l'entité Appel téléphonique 
+
+//On référence les bibliothèques nécessaires
+/// <reference path="../Generics/JSIHelper.js" />
+/// <reference path="../Generics/SDK.REST.js" />
+/// <reference path="../Generics/global_variables.js" />
+
+//On utilisera les namespaces pour avoir plus d'organisation dans le code
+if (typeof (XrmConciergerie) == "undefined")
+{ XrmConciergerie = { __namespace: true }; }
+if (typeof (XrmConciergerie.Scripts) == "undefined")
+{ XrmConciergerie.Scripts = { __namespace: true }; }
+
+//On crée le namespace du fichier 
+XrmConciergerie.Scripts.FormIncident = {
+
+    //Fonction qui sera appelé au chargement du formulaire
+    Form_OnLoad: function () {
+
+        if (Xrm.Page.getAttribute("customerid").getValue() != null && Xrm.Page.getAttribute("customerid").getValue()[0].entityType != "contact")
+            Xrm.Page.getAttribute("customerid").setValue(null);
+        //RG028
+        //XrmConciergerie.Scripts.FormIncident.SetCallerId();
+        //JSIHelper.GetAttribute("customerid").addOnChange(XrmConciergerie.Scripts.FormIncident.SetCallerId);
+        Xrm.Page.data.entity.addOnSave(XrmConciergerie.Scripts.FormIncident.SetCallerId);
+
+        //RG133
+        XrmConciergerie.Scripts.FormIncident.SetCountryCode();
+        JSIHelper.GetAttribute("customerid").addOnChange(XrmConciergerie.Scripts.FormIncident.SetCountryCode);
+
+        JSIHelper.HackPhones();
+
+        //RG120 
+        XrmConciergerie.Scripts.FormIncident.SetCategoryReadOnly();
+
+        //RG034
+        //Le sujet n'est plus concaténé >> Mantis 1187
+        //Xrm.Page.data.entity.addOnSave(XrmConciergerie.Scripts.FormIncident.ConcatSubject);
+
+        //RG040
+        //XrmConciergerie.Scripts.FormIncident.SetCallerContactLookUp();
+
+        JSIHelper.GetAttribute("new_callerid").addOnChange(XrmConciergerie.Scripts.FormIncident.SetCustomerLookUp);
+
+        //RG035
+        XrmConciergerie.Scripts.FormIncident.SetCancellation();
+
+        //forcer customerid a uniquement des contacts        
+        document.getElementById("customerid_i").setAttribute("defaulttype", "2");
+        document.getElementById("customerid_i").setAttribute("lookuptypes", "2");
+        //filtre sur uniquement contact client
+        XrmConciergerie.Scripts.FormIncident.preFilterLookup();
+
+        //RG105
+        setInterval(function () { XrmConciergerie.Scripts.FormIncident.SetTreatmentduration() }, INTERVALLE*1000);        
+
+        Xrm.Page.data.entity.addOnSave(XrmConciergerie.Scripts.FormIncident.SetReadOnly);
+
+        XrmConciergerie.Scripts.FormIncident.SetClient();
+
+        JSIHelper.HackPhonesGrid("apercucontact_apercucontact_contact_telephones");
+
+        // Améliore le header
+        XrmConciergerie.Scripts.FormIncident.CleanHeader();
+
+        XrmConciergerie.Scripts.FormIncident.SubgridHideButtonAdd("apercucontact_apercucontact_contact_telephones");
+    },
+
+    //rg105
+    SetTreatmentduration: function () {
+        var d = XrmConciergerie.Scripts.Generics.RetrieveEntityField("Incident", Xrm.Page.data.entity.getId(), "new_treatmentdurationseconde");
+        if(d!=null)
+            Xrm.Page.getAttribute("new_treatmentdurationseconde").setValue(d.new_treatmentdurationseconde + INTERVALLE);
+        else
+            Xrm.Page.getAttribute("new_treatmentdurationseconde").setValue(INTERVALLE);
+        Xrm.Page.getAttribute("new_treatmentdurationseconde").setSubmitMode("never");
+        var incident = {};        
+        incident.new_treatmentdurationseconde = Xrm.Page.getAttribute("new_treatmentdurationseconde").getValue();
+        incident.new_treatmentduration = XrmConciergerie.Scripts.FormIncident.FormatTime();
+        SDK.REST.updateRecord(
+            Xrm.Page.data.entity.getId(),
+            incident,
+            "Incident",
+            function(){},
+            function () { });
+    },
+
+    //rg105 format the time in hms
+    FormatTime: function () {
+        var time = Xrm.Page.getAttribute("new_treatmentdurationseconde").getValue();
+        var hours = parseInt(time / 3600) % 24;
+        var minutes = parseInt(time / 60) % 60;
+        var seconds = time % 60;
+        var formatTime = hours + "h " + minutes + "m " + seconds + "s";
+        /*Xrm.Page.getAttribute("new_treatmentduration").setValue(formatTime);
+        Xrm.Page.getAttribute("new_treatmentduration").setSubmitMode("dirty");
+        Xrm.Page.data.entity.save();*/
+        return formatTime;
+    },
+
+
+    //RG028
+    //CCR - 13/10/2014 : Si lors de l’enregistrement de la demande, le champ « Appelant » est vide,
+    //                   alors il sera automatiquement alimenté par la valeur présente dans le champ « client ».
+    //Parametre : rien
+    //Retour : rien
+    SetCallerId: function () {
+        if (JSIHelper.GetAttribute("new_callerid").getValue() == null) {
+            JSIHelper.GetAttribute("new_callerid").setValue(JSIHelper.GetAttribute("customerid").getValue());
+        }
+    },
+
+    //RG133
+    //CCR - 16/10/2014 : Alimente le champ code pays par le code pays du cdo 
+    //Paramètre : rien
+    //Retour : rien
+    SetCountryCode: function () {
+
+        JSIHelper.SetAttributeValue("new_countrycode", null);
+
+        var lookupCountry = JSIHelper.GetParentLookup("customerid", "new_countryid");
+
+        if (lookupCountry != null && lookupCountry.length > 0) {
+            SDK.REST.retrieveRecordSync(
+                lookupCountry[0].id,
+                        "new_country",
+                        "new_countrycode",
+                        null,
+                        function (result) {
+                            if (result != null) {
+                                JSIHelper.SetAttributeValue("new_countrycode", result.new_countrycode);
+                            }
+                        },
+                        function (error) {
+                        },
+                        function () {
+                        }
+                );
+        }
+
+    },
+
+
+    //RG120
+    //Paramètre : rien
+    //Retour : rien
+    SetCategoryReadOnly: function () {
+
+        //CCR - 27/11/2014 - Modif suite an mantis 1135
+        if (Xrm.Page.ui.getFormType() != FORM_TYPE_CREATE && Xrm.Page.getAttribute("new_demandcategorylist").getValue() != null) {
+            Xrm.Page.getControl("new_demandcategorylist").setDisabled(true);
+        }
+    },
+
+    ////RG034
+    ////Alimentation automatique du sujet par la concaténation des champs suivants :
+    ////Nom complet du contact client - Catégorie de demande – Date et heure de création (JJ/MM/AAAA HH:MM:SS) 
+    ////en majuscules et lecture seule. L’alimentation se fera lors de l’enregistrement du formulaire.
+    //ConcatSubject: function () {
+
+    //    if (Xrm.Page.ui.getFormType() == FORM_TYPE_CREATE) {
+
+    //        var nameClient = Xrm.Page.getAttribute("customerid").getValue() == null ? null : Xrm.Page.getAttribute("customerid").getValue()[0].name;
+    //        var categorie = Xrm.Page.getAttribute("new_demandcategorylist").getValue() == null ? null : Xrm.Page.getAttribute("new_demandcategorylist").getValue()[0].name;
+    //        //JJ/MM/AAAA HH:MM:SS
+    //        var actualDate = new Date();
+    //        var currentDate = "";
+
+    //        if (actualDate.getDate() <= 9)
+    //            currentDate += "0" + actualDate.getDate();
+    //        else
+    //            currentDate += actualDate.getDate();
+    //        currentDate += "/";
+
+    //        if (actualDate.getMonth() + 1 <= 9)
+    //            currentDate += "0" + actualDate.getMonth() + 1;
+    //        else
+    //            currentDate += actualDate.getMonth() + 1;
+    //        currentDate += "/";
+
+    //        currentDate += actualDate.getFullYear();
+    //        currentDate += " ";
+
+    //        if (actualDate.getHours() <= 9)
+    //            currentDate += "0" + actualDate.getHours();
+    //        else
+    //            currentDate += actualDate.getHours();
+    //        currentDate += ":";
+    //        if (actualDate.getMinutes() <= 9)
+    //            currentDate += "0" + actualDate.getMinutes();
+    //        else
+    //            currentDate += actualDate.getMinutes();
+    //        currentDate += ":";
+    //        if (actualDate.getSeconds() <= 9)
+    //            currentDate += "0" + actualDate.getSeconds();
+    //        else
+    //            currentDate += actualDate.getSeconds();
+
+    //        var subjet = nameClient + " - " + categorie + " - " + currentDate;
+
+    //        JSIHelper.SetAttributeValue("title", subjet.toUpperCase());
+    //        Xrm.Page.getAttribute("title").setSubmitMode("always");
+    //    } else {
+    //        var subjet = JSIHelper.GetAttributeValue("title");
+    //        var categorie = Xrm.Page.getAttribute("new_demandcategorylist").getValue() == null ? null : Xrm.Page.getAttribute("new_demandcategorylist").getValue()[0].name;
+
+    //        subjet = subjet.replace(" - NULL - ", " - " + categorie + " - ");
+
+    //        JSIHelper.SetAttributeValue("title", subjet.toUpperCase());
+    //        Xrm.Page.getAttribute("title").setSubmitMode("always");
+    //    }
+    //},
+
+    //RG040                       
+    //Préfiltre les contacts du champ Appelant sur les « client, bénéficiaire ou tiers »
+    //Parametre : rien
+    //Retour : rien
+    /*SetCallerContactLookUp: function () {
+        JSIHelper.GetControl("new_callerid").addPreSearch(XrmConciergerie.Scripts.FormIncident.PreSearchCallerContact);
+    },*/
+
+
+    //RG040
+    //Préfiltre l'Intellisense
+    //Préfiltre les contacts du champ Appelant sur les « client bénéficiaire ou tiers »
+    //Parametre : rien
+    //Retour : rien
+    /*PreSearchCallerContact: function () {
+        fetchXml = "<filter type='and'>";
+        if (JSIHelper.GetLookupValue("customerid"))
+            fetchXml += "<condition attribute='new_contactcustomerid' operator='eq' value='" + JSIHelper.GetLookupValue("customerid") + "' />";
+        fetchXml += "<condition attribute='statecode' operator='eq' value='0' />";
+        fetchXml += "<filter type='or'>";
+        fetchXml += "<condition attribute='new_typeofcontactlist' operator='eq' value='" + CONTACT_TYPEOFCONTACT_BENEFICIAIRE + "' />";
+        fetchXml += "<condition attribute='new_typeofcontactlist' operator='eq' value='" + CONTACT_TYPEOFCONTACT_TIERS + "' />";
+        fetchXml += "</filter>";
+        fetchXml += "</filter>";
+        JSIHelper.GetControl("new_callerid").addCustomFilter(fetchXml);
+    },*/
+
+    //RG035
+    //Décocher la case annulation de demande et le modif lors d'une réactivation
+    //Parametre : rien
+    //Retour : rien
+    SetCancellation: function () {
+        if (Xrm.Page.ui.getFormType() != FORM_TYPE_DISABLED || JSIHelper.GetAttributeValue("statuscode") != 6) {
+            JSIHelper.SetAttributeValue("new_cancellationreason", null);
+            JSIHelper.GetAttribute("new_cancellationreason").setRequiredLevel("none");
+            JSIHelper.GetControl("new_cancellationreason").setVisible(false);
+            JSIHelper.SetAttributeValue("new_cancelincident", false);
+            if (Xrm.Page.ui.getFormType() != FORM_TYPE_CREATE)
+                Xrm.Page.data.entity.save();
+        }
+    },
+
+    //filtre de la lookup customerid
+    preFilterLookup: function () {
+        Xrm.Page.getControl("customerid").addPreSearch(function () {
+            XrmConciergerie.Scripts.FormIncident.addLookupFilter();
+        });
+    },
+
+    addLookupFilter: function () {
+        fetchXml = "<filter type='and'><condition attribute='new_typeofcontactlist' operator='eq' value='" + CONTACT_TYPEOFCONTACT_CLIENT + "' /></filter>";
+        Xrm.Page.getControl("customerid").addCustomFilter(fetchXml);
+    },
+
+    // Si on choisit un appelant sans avoir de contact client, on met celui de l'appelant
+    SetCustomerLookUp: function() {
+        if (JSIHelper.GetLookupValue("new_callerid") && !JSIHelper.GetLookupValue("customerid"))
+            JSIHelper.GetParentLookup("new_callerid", "new_contactcustomerid", "customerid");
+    },
+
+    // Après une sauvegarde, le client passe en lecture seule
+    SetReadOnly: function() {
+        Xrm.Page.getControl("customerid").setDisabled(true);
+    },
+
+    //remplissage du client lors de la creation d'une demande a partir d'un contact ben ou tiers
+    SetClient: function () {
+        if (Xrm.Page.ui.getFormType() == FORM_TYPE_CREATE && Xrm.Page.getAttribute("new_callerid").getValue() != null &&
+            (JSIHelper.GetParentAttribute("new_callerid", "new_typeofcontactlist").Value == CONTACT_TYPEOFCONTACT_BENEFICIAIRE || JSIHelper.GetParentAttribute("new_callerid", "new_typeofcontactlist").Value == CONTACT_TYPEOFCONTACT_TIERS))
+        {
+            JSIHelper.GetParentLookup("new_callerid", "new_contactcustomerid", "customerid");
+        }
+    },
+
+    // Affiche/Cache les champs du header en fonction du type de client
+    CleanHeader: function ()
+    {
+        // Réajuste la taille du div parent
+        $(".ms-crm-HeaderTileElement ").css("width", "180px");
+        $(".ms-crm-HeaderTilesWrapperElement").css("min-width", "");
+    },
+
+
+    // Cache le bouton "+" d'une sous-grille
+    SubgridHideButtonAdd: function (gridname_)
+    {
+        if ($("#" + gridname_).length == 0)
+        {
+            setTimeout("XrmConciergerie.Scripts.FormIncident.SubgridHideButtonAdd('" + gridname_ + "')", 1000);
+            return;
+        }
+        $("#" + gridname_ + "_addImageButton").hide();
+    },
+
+    _namespace: true
+
+}

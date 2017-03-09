@@ -1,0 +1,380 @@
+<ImportExportXml version="6.0.0001.0061" SolutionPackageVersion="6.0" languagecode="1033" generatedBy="OnPremise" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SolutionManifest>
+    <UniqueName>A3COMCOM</UniqueName>
+    <LocalizedNames>
+      <LocalizedName description="A3COMCOM" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Solution Contenant les modifications pour la partie Commercial" languagecode="1033" />
+    </Descriptions>
+    <Version>2.14.0702.1</Version>
+    <Managed>0</Managed>
+    <Publisher>
+      <UniqueName>DefaultPublisherA3COMCOM</UniqueName>
+      <LocalizedNames>
+        <LocalizedName description="Default Publisher for A3COMCOM" languagecode="1033" />
+      </LocalizedNames>
+      <Descriptions>
+        <Description description="Default publisher for this organization" languagecode="1033" />
+      </Descriptions>
+      <EMailAddress xsi:nil="true"></EMailAddress>
+      <SupportingWebsiteUrl xsi:nil="true"></SupportingWebsiteUrl>
+      <CustomizationPrefix>a3com</CustomizationPrefix>
+      <CustomizationOptionValuePrefix>13129</CustomizationOptionValuePrefix>
+      <Addresses>
+        <Address>
+          <AddressNumber>1</AddressNumber>
+          <AddressTypeCode xsi:nil="true"></AddressTypeCode>
+          <City xsi:nil="true"></City>
+          <County xsi:nil="true"></County>
+          <Country xsi:nil="true"></Country>
+          <Fax xsi:nil="true"></Fax>
+          <FreightTermsCode xsi:nil="true"></FreightTermsCode>
+          <ImportSequenceNumber xsi:nil="true"></ImportSequenceNumber>
+          <Latitude xsi:nil="true"></Latitude>
+          <Line1 xsi:nil="true"></Line1>
+          <Line2 xsi:nil="true"></Line2>
+          <Line3 xsi:nil="true"></Line3>
+          <Longitude xsi:nil="true"></Longitude>
+          <Name xsi:nil="true"></Name>
+          <PostalCode xsi:nil="true"></PostalCode>
+          <PostOfficeBox xsi:nil="true"></PostOfficeBox>
+          <PrimaryContactName xsi:nil="true"></PrimaryContactName>
+          <ShippingMethodCode xsi:nil="true"></ShippingMethodCode>
+          <StateOrProvince xsi:nil="true"></StateOrProvince>
+          <Telephone1 xsi:nil="true"></Telephone1>
+          <Telephone2 xsi:nil="true"></Telephone2>
+          <Telephone3 xsi:nil="true"></Telephone3>
+          <TimeZoneRuleVersionNumber xsi:nil="true"></TimeZoneRuleVersionNumber>
+          <UPSZone xsi:nil="true"></UPSZone>
+          <UTCOffset xsi:nil="true"></UTCOffset>
+          <UTCConversionTimeZoneCode xsi:nil="true"></UTCConversionTimeZoneCode>
+        </Address>
+        <Address>
+          <AddressNumber>2</AddressNumber>
+          <AddressTypeCode xsi:nil="true"></AddressTypeCode>
+          <City xsi:nil="true"></City>
+          <County xsi:nil="true"></County>
+          <Country xsi:nil="true"></Country>
+          <Fax xsi:nil="true"></Fax>
+          <FreightTermsCode xsi:nil="true"></FreightTermsCode>
+          <ImportSequenceNumber xsi:nil="true"></ImportSequenceNumber>
+          <Latitude xsi:nil="true"></Latitude>
+          <Line1 xsi:nil="true"></Line1>
+          <Line2 xsi:nil="true"></Line2>
+          <Line3 xsi:nil="true"></Line3>
+          <Longitude xsi:nil="true"></Longitude>
+          <Name xsi:nil="true"></Name>
+          <PostalCode xsi:nil="true"></PostalCode>
+          <PostOfficeBox xsi:nil="true"></PostOfficeBox>
+          <PrimaryContactName xsi:nil="true"></PrimaryContactName>
+          <ShippingMethodCode xsi:nil="true"></ShippingMethodCode>
+          <StateOrProvince xsi:nil="true"></StateOrProvince>
+          <Telephone1 xsi:nil="true"></Telephone1>
+          <Telephone2 xsi:nil="true"></Telephone2>
+          <Telephone3 xsi:nil="true"></Telephone3>
+          <TimeZoneRuleVersionNumber xsi:nil="true"></TimeZoneRuleVersionNumber>
+          <UPSZone xsi:nil="true"></UPSZone>
+          <UTCOffset xsi:nil="true"></UTCOffset>
+          <UTCConversionTimeZoneCode xsi:nil="true"></UTCConversionTimeZoneCode>
+        </Address>
+      </Addresses>
+    </Publisher>
+    <RootComponents>
+      <RootComponent type="1" schemaName="activitymimeattachment" />
+      <RootComponent type="1" schemaName="activitypointer" />
+      <RootComponent type="1" schemaName="campaign" />
+      <RootComponent type="1" schemaName="campaignresponse" />
+      <RootComponent type="1" schemaName="competitor" />
+      <RootComponent type="1" schemaName="connection" />
+      <RootComponent type="1" schemaName="contact" />
+      <RootComponent type="1" schemaName="email" />
+      <RootComponent type="1" schemaName="fax" />
+      <RootComponent type="1" schemaName="incident" />
+      <RootComponent type="1" schemaName="lead" />
+      <RootComponent type="1" schemaName="letter" />
+      <RootComponent type="1" schemaName="opportunity" />
+      <RootComponent type="1" schemaName="phonecall" />
+      <RootComponent type="1" schemaName="service" />
+      <RootComponent type="1" schemaName="task" />
+      <RootComponent type="9" schemaName="a3com_categorie" />
+      <RootComponent type="9" schemaName="a3com_formule" />
+      <RootComponent type="9" schemaName="a3com_motif" />
+      <RootComponent type="9" schemaName="a3com_source" />
+      <RootComponent type="9" schemaName="a3com_souscatgorieancientclient" />
+      <RootComponent type="9" schemaName="a3com_souscatgorieprospect" />
+      <RootComponent type="9" schemaName="a3com_souscatgoriesuspect" />
+      <RootComponent type="9" schemaName="a3com_souscatgorievente" />
+      <RootComponent type="9" schemaName="a3com_specialite" />
+      <RootComponent type="9" schemaName="a3com_tempsoperateur" />
+      <RootComponent type="9" schemaName="a3com_titre" />
+      <RootComponent type="9" schemaName="a3com_typecontact" />
+      <RootComponent type="9" schemaName="a3com_volumesappels" />
+      <RootComponent type="9" schemaName="budgetstatus" />
+      <RootComponent type="9" schemaName="connectionrole_category" />
+      <RootComponent type="9" schemaName="initialcommunication" />
+      <RootComponent type="9" schemaName="need" />
+      <RootComponent type="9" schemaName="processstage_category" />
+      <RootComponent type="9" schemaName="purchaseprocess" />
+      <RootComponent type="9" schemaName="purchasetimeframe" />
+      <RootComponent type="20" id="{a3fd7fb2-ec8b-e211-9999-001ec9e29c94}" />
+      <RootComponent type="20" parentId="{119f245c-3cc8-4b62-b31c-d1a046ced15d}" />
+      <RootComponent type="29" id="{36b085b5-2ba5-4b8c-b6cd-4814d70a7b55}" />
+      <RootComponent type="29" id="{36d32389-052d-4213-b150-59846ec1af70}" />
+      <RootComponent type="60" id="{bb2bce45-0a9b-e311-9401-001ec9e29c94}" />
+      <RootComponent type="61" schemaName="a3com_Activite.js" />
+      <RootComponent type="61" schemaName="a3com_contact.js" />
+      <RootComponent type="61" schemaName="a3com_filter_Activity_Views" />
+    </RootComponents>
+    <MissingDependencies>
+      <MissingDependency>
+        <Required key="0" type="2" schemaName="exa3_typesexa3" displayName="Types Exa3" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="1" type="60" parentDisplayName="Contact" id="{99ddafa3-b6cc-477d-a792-e7af5ce9266e}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="2" schemaName="exa3_typesexa3" displayName="Types Exa3" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="2" type="60" parentDisplayName="Contact" id="{894cc46a-b0cb-4ab0-8bf6-200544e46a2d}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="2" schemaName="exa3_typesexa3" displayName="Types Exa3" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="3" type="26" schemaName="Contacts Com Désactivés" displayName="Contacts Com Désactivés" parentSchemaName="contact" parentDisplayName="Contact" id="{e505fa29-0d92-e211-9999-001ec9e29c94}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="2" schemaName="exa3_typesexa3" displayName="Types Exa3" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="4" type="26" schemaName="Contacts perdus" displayName="Contacts perdus" parentSchemaName="contact" parentDisplayName="Contact" id="{971786fd-139b-e311-9401-001ec9e29c94}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="2" schemaName="exa3_typesexa3" displayName="Types Exa3" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="5" type="60" parentDisplayName="Contact" id="{7ed5005f-4fc2-44fa-bcac-263895996e75}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="2" schemaName="exa3_typesexa3" displayName="Types Exa3" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="6" type="60" parentDisplayName="Contact" id="{927cf480-3549-4e8a-bf81-bdb85b5b1ada}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="2" schemaName="exa3_typesexa3" displayName="Types Exa3" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="7" type="26" schemaName="Tous les contacts Importes" displayName="Tous les contacts Importes" parentSchemaName="contact" parentDisplayName="Contact" id="{9e21645a-3401-e411-9402-001ec9e29c94}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="2" schemaName="exa3_typesexa3" displayName="Types Exa3" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="8" type="26" schemaName="Contacts Lookup View" displayName="Contacts Lookup View" parentSchemaName="contact" parentDisplayName="Contact" id="{a2d479c5-53e3-4c69-addd-802327e67a0d}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="2" schemaName="exa3_typesexa3" displayName="Types Exa3" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="9" type="60" parentDisplayName="Contact" id="{9fff6e59-7b58-4766-8281-e8374743ef35}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="2" schemaName="exa3_typesexa3" displayName="Types Exa3" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="10" type="26" schemaName="Contacts Com" displayName="Contacts Com" parentSchemaName="contact" parentDisplayName="Contact" id="{c5445ab7-0c92-e211-9999-001ec9e29c94}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="2" schemaName="exa3_typesexa3" displayName="Types Exa3" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="11" type="26" schemaName="Active Contacts" displayName="Active Contacts" parentSchemaName="contact" parentDisplayName="Contact" id="{00000000-0000-0000-00aa-000010001004}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="0" type="2" schemaName="exa3_typesexa3" displayName="Types Exa3" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="12" type="26" schemaName="Quick Find Contacts" displayName="Quick Find Contacts" parentSchemaName="contact" parentDisplayName="Contact" id="{8df19b44-a073-40c3-9d6d-ee1355d8c4ba}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="13" type="2" schemaName="exa3_tlphonestransferes" displayName="Téléphone" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="7" type="26" schemaName="Tous les contacts Importes" displayName="Tous les contacts Importes" parentSchemaName="contact" parentDisplayName="Contact" id="{9e21645a-3401-e411-9402-001ec9e29c94}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="14" type="2" schemaName="exa3_typesclient" displayName="Types Client" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="1" type="60" parentDisplayName="Contact" id="{99ddafa3-b6cc-477d-a792-e7af5ce9266e}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="14" type="2" schemaName="exa3_typesclient" displayName="Types Client" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="4" type="26" schemaName="Contacts perdus" displayName="Contacts perdus" parentSchemaName="contact" parentDisplayName="Contact" id="{971786fd-139b-e311-9401-001ec9e29c94}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="14" type="2" schemaName="exa3_typesclient" displayName="Types Client" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="2" type="60" parentDisplayName="Contact" id="{894cc46a-b0cb-4ab0-8bf6-200544e46a2d}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="14" type="2" schemaName="exa3_typesclient" displayName="Types Client" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="3" type="26" schemaName="Contacts Com Désactivés" displayName="Contacts Com Désactivés" parentSchemaName="contact" parentDisplayName="Contact" id="{e505fa29-0d92-e211-9999-001ec9e29c94}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="14" type="2" schemaName="exa3_typesclient" displayName="Types Client" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="12" type="26" schemaName="Quick Find Contacts" displayName="Quick Find Contacts" parentSchemaName="contact" parentDisplayName="Contact" id="{8df19b44-a073-40c3-9d6d-ee1355d8c4ba}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="14" type="2" schemaName="exa3_typesclient" displayName="Types Client" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="11" type="26" schemaName="Active Contacts" displayName="Active Contacts" parentSchemaName="contact" parentDisplayName="Contact" id="{00000000-0000-0000-00aa-000010001004}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="14" type="2" schemaName="exa3_typesclient" displayName="Types Client" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="10" type="26" schemaName="Contacts Com" displayName="Contacts Com" parentSchemaName="contact" parentDisplayName="Contact" id="{c5445ab7-0c92-e211-9999-001ec9e29c94}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="14" type="2" schemaName="exa3_typesclient" displayName="Types Client" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="7" type="26" schemaName="Tous les contacts Importes" displayName="Tous les contacts Importes" parentSchemaName="contact" parentDisplayName="Contact" id="{9e21645a-3401-e411-9402-001ec9e29c94}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="14" type="2" schemaName="exa3_typesclient" displayName="Types Client" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="6" type="60" parentDisplayName="Contact" id="{927cf480-3549-4e8a-bf81-bdb85b5b1ada}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="14" type="2" schemaName="exa3_typesclient" displayName="Types Client" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="5" type="60" parentDisplayName="Contact" id="{7ed5005f-4fc2-44fa-bcac-263895996e75}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="14" type="2" schemaName="exa3_typesclient" displayName="Types Client" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="9" type="60" parentDisplayName="Contact" id="{9fff6e59-7b58-4766-8281-e8374743ef35}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="14" type="2" schemaName="exa3_typesclient" displayName="Types Client" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="8" type="26" schemaName="Contacts Lookup View" displayName="Contacts Lookup View" parentSchemaName="contact" parentDisplayName="Contact" id="{a2d479c5-53e3-4c69-addd-802327e67a0d}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="15" type="2" schemaName="exa3_adwhenchanged" displayName="AD When Changed" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="10" type="26" schemaName="Contacts Com" displayName="Contacts Com" parentSchemaName="contact" parentDisplayName="Contact" id="{c5445ab7-0c92-e211-9999-001ec9e29c94}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="15" type="2" schemaName="exa3_adwhenchanged" displayName="AD When Changed" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="4" type="26" schemaName="Contacts perdus" displayName="Contacts perdus" parentSchemaName="contact" parentDisplayName="Contact" id="{971786fd-139b-e311-9401-001ec9e29c94}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="15" type="2" schemaName="exa3_adwhenchanged" displayName="AD When Changed" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="3" type="26" schemaName="Contacts Com Désactivés" displayName="Contacts Com Désactivés" parentSchemaName="contact" parentDisplayName="Contact" id="{e505fa29-0d92-e211-9999-001ec9e29c94}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="16" type="2" schemaName="exa3_telephonestransferes" displayName="Téléphones transférés" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="5" type="60" parentDisplayName="Contact" id="{7ed5005f-4fc2-44fa-bcac-263895996e75}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="16" type="2" schemaName="exa3_telephonestransferes" displayName="Téléphones transférés" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="6" type="60" parentDisplayName="Contact" id="{927cf480-3549-4e8a-bf81-bdb85b5b1ada}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="16" type="2" schemaName="exa3_telephonestransferes" displayName="Téléphones transférés" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="9" type="60" parentDisplayName="Contact" id="{9fff6e59-7b58-4766-8281-e8374743ef35}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="16" type="2" schemaName="exa3_telephonestransferes" displayName="Téléphones transférés" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="2" type="60" parentDisplayName="Contact" id="{894cc46a-b0cb-4ab0-8bf6-200544e46a2d}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="16" type="2" schemaName="exa3_telephonestransferes" displayName="Téléphones transférés" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="7" type="26" schemaName="Tous les contacts Importes" displayName="Tous les contacts Importes" parentSchemaName="contact" parentDisplayName="Contact" id="{9e21645a-3401-e411-9402-001ec9e29c94}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="16" type="2" schemaName="exa3_telephonestransferes" displayName="Téléphones transférés" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="1" type="60" parentDisplayName="Contact" id="{99ddafa3-b6cc-477d-a792-e7af5ce9266e}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="17" type="2" schemaName="exa3_numerosda" displayName="Numero SDA" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="10" type="26" schemaName="Contacts Com" displayName="Contacts Com" parentSchemaName="contact" parentDisplayName="Contact" id="{c5445ab7-0c92-e211-9999-001ec9e29c94}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="17" type="2" schemaName="exa3_numerosda" displayName="Numero SDA" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="12" type="26" schemaName="Quick Find Contacts" displayName="Quick Find Contacts" parentSchemaName="contact" parentDisplayName="Contact" id="{8df19b44-a073-40c3-9d6d-ee1355d8c4ba}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="17" type="2" schemaName="exa3_numerosda" displayName="Numero SDA" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="9" type="60" parentDisplayName="Contact" id="{9fff6e59-7b58-4766-8281-e8374743ef35}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="17" type="2" schemaName="exa3_numerosda" displayName="Numero SDA" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="5" type="60" parentDisplayName="Contact" id="{7ed5005f-4fc2-44fa-bcac-263895996e75}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="17" type="2" schemaName="exa3_numerosda" displayName="Numero SDA" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="8" type="26" schemaName="Contacts Lookup View" displayName="Contacts Lookup View" parentSchemaName="contact" parentDisplayName="Contact" id="{a2d479c5-53e3-4c69-addd-802327e67a0d}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="17" type="2" schemaName="exa3_numerosda" displayName="Numero SDA" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="6" type="60" parentDisplayName="Contact" id="{927cf480-3549-4e8a-bf81-bdb85b5b1ada}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="17" type="2" schemaName="exa3_numerosda" displayName="Numero SDA" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="7" type="26" schemaName="Tous les contacts Importes" displayName="Tous les contacts Importes" parentSchemaName="contact" parentDisplayName="Contact" id="{9e21645a-3401-e411-9402-001ec9e29c94}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="17" type="2" schemaName="exa3_numerosda" displayName="Numero SDA" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="1" type="60" parentDisplayName="Contact" id="{99ddafa3-b6cc-477d-a792-e7af5ce9266e}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="17" type="2" schemaName="exa3_numerosda" displayName="Numero SDA" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="2" type="60" parentDisplayName="Contact" id="{894cc46a-b0cb-4ab0-8bf6-200544e46a2d}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="17" type="2" schemaName="exa3_numerosda" displayName="Numero SDA" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="3" type="26" schemaName="Contacts Com Désactivés" displayName="Contacts Com Désactivés" parentSchemaName="contact" parentDisplayName="Contact" id="{e505fa29-0d92-e211-9999-001ec9e29c94}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="17" type="2" schemaName="exa3_numerosda" displayName="Numero SDA" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="18" type="26" schemaName="Contacts Advanced Find View" displayName="Contacts Advanced Find View" parentSchemaName="contact" parentDisplayName="Contact" id="{00000000-0000-0000-00aa-000000666400}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="17" type="2" schemaName="exa3_numerosda" displayName="Numero SDA" parentSchemaName="contact" parentDisplayName="Contact" solution="SolutionEXA3 (1.12.0913.1)" />
+        <Dependent key="4" type="26" schemaName="Contacts perdus" displayName="Contacts perdus" parentSchemaName="contact" parentDisplayName="Contact" id="{971786fd-139b-e311-9401-001ec9e29c94}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="19" type="9" schemaName="contact_address1_addresstypecode" displayName="Address 1: Address Type" solution="System" />
+        <Dependent key="19" type="9" schemaName="contact_address1_addresstypecode" displayName="Address 1: Address Type" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="20" type="9" schemaName="contact_leadsourcecode" displayName="Lead Source" solution="System" />
+        <Dependent key="20" type="9" schemaName="contact_leadsourcecode" displayName="Lead Source" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="20" type="9" schemaName="contact_leadsourcecode" displayName="Lead Source" solution="System" />
+        <Dependent key="20" type="9" schemaName="contact_leadsourcecode" displayName="Lead Source" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="20" type="9" schemaName="contact_leadsourcecode" displayName="Lead Source" solution="System" />
+        <Dependent key="20" type="9" schemaName="contact_leadsourcecode" displayName="Lead Source" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="20" type="9" schemaName="contact_leadsourcecode" displayName="Lead Source" solution="System" />
+        <Dependent key="20" type="9" schemaName="contact_leadsourcecode" displayName="Lead Source" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="20" type="9" schemaName="contact_leadsourcecode" displayName="Lead Source" solution="System" />
+        <Dependent key="20" type="9" schemaName="contact_leadsourcecode" displayName="Lead Source" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="20" type="9" schemaName="contact_leadsourcecode" displayName="Lead Source" solution="System" />
+        <Dependent key="20" type="9" schemaName="contact_leadsourcecode" displayName="Lead Source" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="20" type="9" schemaName="contact_leadsourcecode" displayName="Lead Source" solution="System" />
+        <Dependent key="20" type="9" schemaName="contact_leadsourcecode" displayName="Lead Source" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="20" type="9" schemaName="contact_leadsourcecode" displayName="Lead Source" solution="System" />
+        <Dependent key="20" type="9" schemaName="contact_leadsourcecode" displayName="Lead Source" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="20" type="9" schemaName="contact_leadsourcecode" displayName="Lead Source" solution="System" />
+        <Dependent key="20" type="9" schemaName="contact_leadsourcecode" displayName="Lead Source" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="20" type="9" schemaName="contact_leadsourcecode" displayName="Lead Source" solution="System" />
+        <Dependent key="20" type="9" schemaName="contact_leadsourcecode" displayName="Lead Source" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="20" type="9" schemaName="contact_leadsourcecode" displayName="Lead Source" solution="System" />
+        <Dependent key="20" type="9" schemaName="contact_leadsourcecode" displayName="Lead Source" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="20" type="9" schemaName="contact_leadsourcecode" displayName="Lead Source" solution="System" />
+        <Dependent key="20" type="9" schemaName="contact_leadsourcecode" displayName="Lead Source" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="21" type="9" schemaName="contact_address1_shippingmethodcode" displayName="Address 1: Shipping Method" solution="System" />
+        <Dependent key="21" type="9" schemaName="contact_address1_shippingmethodcode" displayName="Address 1: Shipping Method" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="22" type="1" schemaName="campaignactivity" displayName="Campaign Activity" solution="System" />
+        <Dependent key="23" type="22" id="{c46cb025-f397-e311-9400-001ec9e29c94}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required key="22" type="1" schemaName="campaignactivity" displayName="Campaign Activity" solution="System" />
+        <Dependent key="24" type="22" id="{e90da92b-f397-e311-9400-001ec9e29c94}" />
+      </MissingDependency>
+    </MissingDependencies>
+  </SolutionManifest>
+</ImportExportXml>

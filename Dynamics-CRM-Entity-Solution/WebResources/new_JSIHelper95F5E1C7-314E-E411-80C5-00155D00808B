@@ -1,0 +1,807 @@
+﻿//Créateur : MK
+//Date : 01/10/2014
+//Fichier JS contenant des fonctionnalités générales
+
+//On utilisera les namespaces pour avoir plus d'organisation dans le code
+if (typeof (JSIHelper) == "undefined") {
+    JSIHelper = { __namespace: true };
+}
+
+//On crée le namespace du fichier 
+JSIHelper = {
+    // Récupère l'adresse de base des services web
+    //Paramètre : -
+    //Retour : -
+    GetCRMParamterValue: function(parameterName) {
+        var result;
+            $.ajax({
+                dataType: "json",
+                async: false,
+                url: Xrm.Page.context.getClientUrl() + "/XRMServices/2011/OrganizationData.svc/new_parameterSet?$select=new_value&$filter=new_name eq '" + parameterName + "'",
+                success: function(data) {
+                    try {
+                        if (data.d && data.d.results && data.d.results[0]) 
+                            result = data.d.results[0].new_value;
+
+                        // No or 2+ results
+                        else
+                            result = null;
+                    } catch (e) {
+                        throw e;
+                    }
+                },
+                error: function(e) {
+                    throw e;
+                }
+            });
+            return result;
+    },
+	
+	
+// Get un onglet
+    // Paramètre :
+    // - tabName_   => nom de l'onglet
+    // Retour : onglet CRM
+    GetTab: function(tabName_) {
+        try {
+            return Xrm.Page.ui.tabs.get(tabName_);
+        } catch (e) {
+            throw e;
+        }
+    },
+
+// Get un contrôle
+    // Paramètre :
+    // - controlName_   => nom du contrôle
+    // Retour : contrôle CRM
+    GetControl: function(controlName_) {
+        try {
+            return Xrm.Page.ui.controls.get(controlName_);
+        } catch (e) {
+            throw e;
+        }
+    },
+
+
+// Get un attribut
+    // Paramètre :
+    // - attributeName_   => nom de l'attribut
+    // Retour : attribut CRM sous forme d'objet
+    GetAttribute: function(attributeName_) {
+        try {
+            return Xrm.Page.getAttribute(attributeName_);
+        } catch (e) {
+            throw e;
+        }
+    },
+
+
+// Get une valeur d'attribut
+    // Paramètre :
+    // - attributeName_   => attribute name
+    // Retour : attribut CRM sous forme d'objet
+    GetAttributeValue: function(attributeName_) {
+        try {
+            return JSIHelper.GetAttribute(attributeName_).getValue();
+        } catch (e) {
+            throw e;
+        }
+    },
+
+// Get le id d'une lookup
+    // Paramètre :
+    // - attributeName_   => attribute name
+    // Retour : attribut CRM sous forme d'objet
+    GetLookupValue: function(attributeName_) {
+        try {
+            var lookup = JSIHelper.GetAttribute(attributeName_).getValue();
+            if (lookup == null)
+                return null;
+            else
+                return lookup[0].id;
+        } catch (e) {
+            throw e;
+        }
+    },
+
+// Get le type de l'attribut
+    // Paramètre :
+    // - attributeName_   => attribute name
+    // Retour : type de l'attribut
+    GetAttributeType: function(attributeName_) {
+        try {
+            return JSIHelper.GetAttribute(attributeName_).getAttributeType();
+        } catch (e) {
+            throw e;
+        }
+    },
+
+
+// Set une valeur d'attribut
+    // Paramètre :
+    // - attributeName_   => nom de l'attribut
+    // - attributeValue_  => valeur de l'attribut
+    // Retour : attribut CRM sous forme d'objet
+    SetAttributeValue: function(attributeName_, attributeValue_) {
+        try {
+            JSIHelper.GetAttribute(attributeName_).setValue(attributeValue_);
+        } catch (e) {
+            throw e;
+        }
+    },
+
+
+
+    // LIB001: Get une lookup de l'entité parente pour la mettre sur le formulaire ou la retourner
+    // Note: case sensitive + SYNCHRONE
+    // Paramètre :
+    // - sourceAttributeName_   => nom de la lookup source (enfant)
+    // - parentAttributeName_   => parent attribute name that we need to return
+    // - ?targetAttributeName_  => nom de la lookup destinataire (parent). Si spécifié, on affiche l'attribut du parent dans la lookup, sinon on retourne la lookup elle-même
+    // Retour : Soit void, soit la lookup
+    GetParentLookup: function(sourceAttributeName_, parentAttributeName_, targetAttributeName_) {
+        try {
+            var parentEntityName;
+
+            // On vérifie que le champ source est bien une lookup
+            if (JSIHelper.GetAttributeType(sourceAttributeName_) != "lookup") {
+                if (targetAttributeName_)
+                    JSIHelper.SetAttributeValue(targetAttributeName_, null);
+                return;
+            }
+
+
+            // Si la lookup enfant est vide, on supprime la lookup parente
+            var parentEntityId = JSIHelper.GetLookupValue(sourceAttributeName_);
+            if (parentEntityId == null)
+            {
+                if (targetAttributeName_)
+                    JSIHelper.SetAttributeValue(targetAttributeName_, null);
+                return;
+            }
+
+            // On récupère le nom de schéma de l'entité parente
+            parentEntityName = JSIHelper.GetEntitySchemaName($("#" + sourceAttributeName_).attr("entitylogicalname"));
+
+            var result;
+            $.ajax({
+                dataType: "json",
+                async: false,
+                url: Xrm.Page.context.getClientUrl() + "/XRMServices/2011/OrganizationData.svc/" + parentEntityName + "Set(guid'" + parentEntityId + "')?$select=" + parentAttributeName_,
+                success: function(data) {
+                    try {
+                        if (data.d) {
+                            var lookup;
+                            if (data.d[parentAttributeName_].Id != null) {
+                                lookup = new Array();
+                                lookup[0] = new Object();
+                                lookup[0].id = data.d[parentAttributeName_].Id;
+                                lookup[0].name = data.d[parentAttributeName_].Name;
+                                lookup[0].entityType = data.d[parentAttributeName_].LogicalName;
+                            } else
+                                lookup = null;
+
+                            if (targetAttributeName_)
+                                JSIHelper.SetAttributeValue(targetAttributeName_, lookup);
+                            else
+                                result = lookup;
+                        }
+                        // No or 2+ results
+                        else
+                            JSIHelper.SetAttributeValue(targetAttributeName_, null);
+                    } catch (e) {
+                        throw e;
+                    }
+                },
+                error: function(e) {
+                    throw e;
+                }
+            });
+            return result;
+        } catch (e) {
+            throw e;
+        }
+    },
+
+
+// LIB002: Get un champ de l'entité parente pour le mettre sur le formulaire ou le retourner
+    // Note: case sensitive + SYNCHRONE
+    // Paramètre :
+    // - sourceAttributeName_   => nom de la lookup source (enfant)
+    // - parentAttributeName_   => parent attribute name that we need to return
+    // - ?targetAttributeName_  => nom du champ destinataire. Si spécifié, on affiche l'attribut du parent dans le champ, sinon on retourne la valeur elle-même
+    // Retour : Soit void, soit la lookup
+    GetParentAttribute: function(sourceAttributeName_, parentAttributeName_, targetAttributeName_) {
+        try {
+            var parentEntityName;
+
+            // On vérifie que le champ source est bien une lookup
+            if (JSIHelper.GetAttributeType(sourceAttributeName_) != "lookup") {
+                if (targetAttributeName_)
+                    JSIHelper.SetAttributeValue(targetAttributeName_, null);
+                return;
+            }
+
+
+            // Si la lookup enfant est vide, on supprime la lookup parente
+            var parentEntityId = JSIHelper.GetLookupValue(sourceAttributeName_);
+            if (parentEntityId == null)
+            {
+                if (targetAttributeName_)
+                    JSIHelper.SetAttributeValue(targetAttributeName_, null);
+                return;
+            }
+
+            // On récupère le nom de schéma de l'entité parente
+            parentEntityName = JSIHelper.GetEntitySchemaName($("#" + sourceAttributeName_).attr("entitylogicalname"));
+
+            var result;
+            $.ajax({
+                dataType: "json",
+                async: false,
+                url: Xrm.Page.context.getClientUrl() + "/XRMServices/2011/OrganizationData.svc/" + parentEntityName + "Set(guid'" + parentEntityId + "')?$select=" + parentAttributeName_,
+                success: function(data) {
+                    try {
+                        if (data.d) {
+                            if (targetAttributeName_)
+                                JSIHelper.SetAttributeValue(targetAttributeName_, data.d[parentAttributeName_]);
+                            else
+                                result = data.d[parentAttributeName_];
+                        }
+                        // No or 2+ results
+                        else
+                            JSIHelper.SetAttributeValue(targetAttributeName_, null);
+                    } catch (e) {
+                        throw e;
+                    }
+                },
+                error: function(e) {
+                    throw e;
+                }
+            });
+            return result; // synchrone
+        } catch (e) {
+            throw e;
+        }
+    },
+
+
+// LIB003: Affiche un onglet si la condition est vraie, sinon on le cache
+    // Paramètre :
+    // - tabName_              => name of the tab we show/hide
+    // - attributeName_        => name of the attribute we check
+    // - value_                => value of the attribute we check against
+    // - operator_             => javascript operator (==, !=, <...)
+    // - ?isValueAnAttribute_   => true => we compare an attribute value; false => we compare a value
+    // Retour : -
+    SetTabVisibility: function(tabName_, attributeName_, operator_, value_, isValueAnAttribute_) {
+        try {
+            // Default parameter
+            if (typeof (isValueAnAttribute_) === "undefined")
+                isValueAnAttribute_ = false;
+
+            // If value_ is the name of an attribute, we check for its value
+            if (isValueAnAttribute_)
+                value_ = JSIHelper.GetAttributeValue(value_);
+
+            var currentTab = JSIHelper.GetTab(tabName_);
+            if (currentTab != null) {
+                // pro but security breach
+                //currentSection.setVisible(eval(GetAttributeValue(attributeName_) + "" + operator_ + "" + (isValueAnAttribute_ ? GetAttributeValue(value_) : value_)));
+
+                switch (operator_) {
+                case "==":
+                    currentTab.setVisible(JSIHelper.GetAttributeValue(attributeName_) == value_);                    
+                    break;
+
+                case "!=":
+                    currentTab.setVisible(JSIHelper.GetAttributeValue(attributeName_) != value_);
+                    break;
+
+                case "<":
+                    currentTab.setVisible(JSIHelper.GetAttributeValue(attributeName_) < value_);
+                    break;
+
+                case "<=":
+                    currentTab.setVisible(JSIHelper.GetAttributeValue(attributeName_) <= value_);
+                    break;
+
+                case ">=":
+                    currentTab.setVisible(JSIHelper.GetAttributeValue(attributeName_) >= value_);
+                    break;
+
+                case ">":
+                    currentTab.setVisible(JSIHelper.GetAttributeValue(attributeName_) > value_);
+                    break;
+                }
+                if (currentTab.getVisible()) currentTab.setDisplayState("expanded");
+            }
+        } catch (e) {
+            throw e;
+        }
+    },
+
+
+    // LIB004: Affiche une section si la condition est vraie, sinon on la cache
+    // Paramètre :
+    // - sectionName_          => name of the section we show/hide
+    // - attributeName_        => name of the attribute we check
+    // - value_                => value of the attribute we check against
+    // - operator_             => javascript operator (==, !=, <...)
+    // - ?isValueAnAttribute_   => true => we compare an attribute value; false => we compare a value
+    // Retour : -
+    SetSectionVisibility: function(sectionName_, attributeName_, operator_, value_, isValueAnAttribute_) {
+        try {
+            // Default parameter
+            if (typeof (isValueAnAttribute_) === "undefined")
+                isValueAnAttribute_ = false;
+
+            // If value_ is the name of an attribute, we check for its value
+            if (isValueAnAttribute_)
+                value_ = JSIHelper.GetAttributeValue(value_);
+
+            var tabs = Xrm.Page.ui.tabs.get();
+            for (var i in tabs) {
+                var currentSection = tabs[i].sections.get(sectionName_);
+                if (currentSection != null) {
+                    switch (operator_) {
+                    case "==":
+                        currentSection.setVisible(JSIHelper.GetAttributeValue(attributeName_) == value_);
+                        break;
+
+                    case "!=":
+                        currentSection.setVisible(JSIHelper.GetAttributeValue(attributeName_) != value_);
+                        break;
+
+                    case "<":
+                        currentSection.setVisible(JSIHelper.GetAttributeValue(attributeName_) < value_);
+                        break;
+
+                    case "<=":
+                        currentSection.setVisible(JSIHelper.GetAttributeValue(attributeName_) <= value_);
+                        break;
+
+                    case ">=":
+                        currentSection.setVisible(JSIHelper.GetAttributeValue(attributeName_) >= value_);
+                        break;
+
+                    case ">":
+                        currentSection.setVisible(JSIHelper.GetAttributeValue(attributeName_) > value_);
+                        break;
+                    }
+                }
+            }
+        } catch (e) {
+            throw e;
+        }
+    },
+
+
+    // LIB005: Affiche un contrôle si la condition est vraie, sinon on le cache
+    // Paramètre :
+    // - controlName_          => name of the control we show/hide
+    // - attributeName_        => name of the attribute we check
+    // - value_                => value of the attribute we check against
+    // - operator_             => javascript operator (==, !=, <...)
+    // - ?isValueAnAttribute_   => true => we compare an attribute value; false => we compare a value
+    // Retour : -
+    SetControlVisibility: function(controlName_, attributeName_, operator_, value_, isValueAnAttribute_) {
+        try {
+            // Default parameter
+            if (typeof (isValueAnAttribute_) === "undefined")
+                isValueAnAttribute_ = false;
+
+            // If value_ is the name of an attribute, we check for its value
+            if (isValueAnAttribute_)
+                value_ = JSIHelper.GetAttributeValue(value_);
+
+            if ((value_ != null) && isNaN(value_))
+                value_ = value_.toLowerCase();
+
+            var comparedValue = JSIHelper.GetAttributeValue(attributeName_);
+            if ((comparedValue != null) && isNaN(comparedValue))
+                comparedValue = comparedValue.toLowerCase();
+
+            var currentControl = JSIHelper.GetControl(controlName_);
+            if (currentControl != null) {
+                switch (operator_) {
+                case "==":
+                    currentControl.setVisible(comparedValue == value_);
+                    break;
+
+                case "like":
+                    currentControl.setVisible(comparedValue.indexOf(value_) != -1);
+
+                case "!=":
+                    currentControl.setVisible(comparedValue != value_);
+                    break;
+
+                case "<":
+                    currentControl.setVisible(comparedValue < value_);
+                    break;
+
+                case "<=":
+                    currentControl.setVisible(comparedValue <= value_);
+                    break;
+
+                case ">=":
+                    currentControl.setVisible(comparedValue >= value_);
+                    break;
+
+                case ">":
+                    currentControl.setVisible(comparedValue > value_);
+                    break;
+                }
+            }
+        } catch (e) {
+            throw e;
+        }
+    },
+
+
+    // LIB006: Get le nom de schéma d'une entité via son nom logique (oData)
+    // Paramètre :
+    // - entityLogicalName_  => nom logique de l'entité
+    // Retour : Le nom de schéma de l'entité
+    // Note: Le dataType de retour est volontairement du html et non du xml afin de ne pas instancier un objet XML automatique sous IE (qui ne fonctionne pas bien)
+    GetEntitySchemaName: function (entityLogicalName_)
+    {
+        var request = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\">";
+        request += "	<soapenv:Header>";
+        request += "		<a:SdkClientVersion xmlns:a=\"http://schemas.microsoft.com/xrm/2011/Contracts\">6.0</a:SdkClientVersion>";
+        request += "	</soapenv:Header>";
+        request += "	<soapenv:Body>";
+        request += "		<Execute xmlns=\"http://schemas.microsoft.com/xrm/2011/Contracts/Services\" xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\">";
+        request += "			<request i:type=\"a:RetrieveEntityRequest\" xmlns:a=\"http://schemas.microsoft.com/xrm/2011/Contracts\">";
+        request += "				<a:Parameters xmlns:b=\"http://schemas.datacontract.org/2004/07/System.Collections.Generic\">";
+        request += "					<a:KeyValuePairOfstringanyType>";
+        request += "						<b:key>EntityFilters</b:key>";
+        request += "						<b:value i:type=\"c:EntityFilters\" xmlns:c=\"http://schemas.microsoft.com/xrm/2011/Metadata\">Entity</b:value>";
+        request += "					</a:KeyValuePairOfstringanyType>";
+        request += "					<a:KeyValuePairOfstringanyType>";
+        request += "						<b:key>MetadataId</b:key>";
+        request += "						<b:value i:type=\"ser:guid\"  xmlns:ser=\"http://schemas.microsoft.com/2003/10/Serialization/\">00000000-0000-0000-0000-000000000000</b:value>";
+        request += "					</a:KeyValuePairOfstringanyType>";
+        request += "					<a:KeyValuePairOfstringanyType>";
+        request += "						<b:key>RetrieveAsIfPublished</b:key>";
+        request += "						<b:value i:type=\"c:boolean\" xmlns:c=\"http://www.w3.org/2001/XMLSchema\">false</b:value>";
+        request += "					</a:KeyValuePairOfstringanyType>";
+        request += "					<a:KeyValuePairOfstringanyType>";
+        request += "						<b:key>LogicalName</b:key>";
+        request += "						<b:value i:type=\"c:string\" xmlns:c=\"http://www.w3.org/2001/XMLSchema\">" + entityLogicalName_ + "</b:value>";
+        request += "					</a:KeyValuePairOfstringanyType>";
+        request += "				</a:Parameters>";
+        request += "				<a:RequestId i:nil=\"true\" />";
+        request += "				<a:RequestName>RetrieveEntity</a:RequestName>";
+        request += "			</request>";
+        request += "		</Execute>";
+        request += "	</soapenv:Body>";
+        request += "</soapenv:Envelope>";
+
+        var result;
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            async: false,
+            url: Xrm.Page.context.getClientUrl() + "/XRMServices/2011/Organization.svc/web",
+            beforeSend: function (XMLHttpRequest)
+            {
+                XMLHttpRequest.setRequestHeader("Accept", "application/xml, text/xml, */*");
+                XMLHttpRequest.setRequestHeader("Content-Type", "text/xml; charset=utf-8");
+                XMLHttpRequest.setRequestHeader("SOAPAction", "http://schemas.microsoft.com/xrm/2011/Contracts/Services/IOrganizationService/Execute");
+            },
+            data: request,
+            success: function (data)
+            {
+                try {
+                    //result = $(data).children().find("SchemaName")[0].textContent; // Ne fonctionne pas sous IE
+                    result = data.substring(data.indexOf("<c:SchemaName>") + 14, data.indexOf("</c:SchemaName>"));
+
+                } catch (e) {
+                    result = null;
+                    throw e;
+                }
+            },
+            error: function (e)
+            {
+                throw e;
+            }
+        });
+        return result; // synchrone
+    },
+
+
+    // Créé un enregistrement CRM en oData
+    CreateRecord: function(entityObject, odataSetName, successCallback, errorCallback) {
+        var jsonEntity = window.JSON.stringify(entityObject);
+        $.ajax({
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: jsonEntity,
+            type: "POST",
+            url: Xrm.Page.context.getClientUrl() + "/XRMServices/2011/OrganizationData.svc/" + odataSetName,
+            beforeSend: function(XMLHttpRequest) {
+                XMLHttpRequest.setRequestHeader("Accept", "application/json");
+            },
+            success: function(data) {
+                if (successCallback)
+                    successCallback(data);
+            },
+            error: function (e) {
+                if (errorCallback)
+                    errorCallback(e);
+
+                else {
+                    throw e;
+                }
+            }
+        });
+    },
+    // RGI001
+    // - Hack les numéros de téléphones d'une sous-grille
+    // Paramètre : nom de la sous-grille
+    // Retour : -
+    HackPhonesGrid: function (gridname_) {
+        if ($("#" + gridname_).length == 0) {
+            setTimeout("JSIHelper.HackPhonesGrid('" + gridname_ + "')", 1000);
+            return;
+        }
+
+        if (document.getElementById(gridname_).control == null) {
+            setTimeout("JSIHelper.HackPhonesGrid('" + gridname_ + "')", 1000);
+            return;
+        }
+
+        document.getElementById(gridname_).control.add_onRefresh(function () {
+            JSIHelper.HackPhonesGridLoaded(gridname_);
+        });
+
+        JSIHelper.HackPhonesGridLoaded(gridname_);
+    },
+
+    HackPhonesGridLoaded: function (gridname_) {
+        // On parcourt la sous-grille pour trouver les colonnes e164
+        $("table#" + gridname_ + "_gridBar th").each(function (indexColumn) {
+            if ($(this).attr("field").indexOf("e164") > -1) {
+                try {
+                    // MK power :-)
+                    var div;
+                    $.each(document.getElementById(gridname_).control.GetRecordsFromInnerGrid(), function (indexRow, value) {
+                        // div contient le texte du e164
+                        div = $($("td", document.getElementById(gridname_).control.GetRecordsFromInnerGrid()[indexRow][3])[indexColumn + 1]).find("div");
+
+                        if (div.text() != "") {
+                            div.css({
+                                "cursor": "pointer",
+                                "text-decoration": "underline"
+                            }).attr("onclick", "JSIHelper.ClickToCall('" + div.text() + "')");
+                        }
+                    });
+                }
+                catch (e) {
+                    throw e;
+                }
+            }
+        });
+    },
+
+
+    // RGI001
+    // - Hack les numéros de téléphones de la page pour appeler une fonction custo et empêcher l'action par défaut (skype)
+    // Paramètre : -
+    // Retour : -
+    HackPhones: function () {
+        try {
+            // Empêche Skype
+            Mscrm.ReadFormUtilities.handlePhoneNumberClick = function (evt) {
+                // On récupère le téléphone E164
+                var phoneFieldName = $(evt).parent().parent().parent().attr("data-attributename");
+                phoneFieldName = phoneFieldName.replace("new_", "").replace("e164", "");
+                phoneFieldName = "new_" + phoneFieldName + "e164";
+                //var phoneE164 = $("#" + phoneFieldName + " div span").text();
+                var phoneE164 = $("div[data-attributename='" + phoneFieldName + "'] span:first").text();
+				JSIHelper.ClickToCall(phoneE164);
+                return false;
+            };
+        } catch (e) {
+            throw e;
+        }
+    },
+	
+	
+	// RGI001
+    // - Lors d'un click sur un téléphone:
+    // - Créé une activité téléphonique et l'attribue à l'entité courante
+    // - Ouvre une nouvelle page contenant l'activité téléphonique
+    // Paramètre : téléphone E164
+    // Retour : -
+	ClickToCall: function(phoneE164_) {
+		// On créer une activité téléphonique (sauf si on est déjà dessus)
+		if (Xrm.Page.data.entity.getEntityName() != "phonecall")
+		{
+			var phonecall = new Object();
+			phonecall.PhoneNumber = phoneE164_;  // Input caché contenant le téléphone E164
+			phonecall.new_phonenumbere164 = phoneE164_;
+
+			// Regarding
+			switch (Xrm.Page.data.entity.getEntityName())
+			{
+			    case "incident":
+			        phonecall.RegardingObjectId = {
+			            Id: Xrm.Page.data.entity.getId(),
+			            LogicalName: Xrm.Page.data.entity.getEntityName()
+			        };
+
+			    case "new_prestation":
+			        phonecall.RegardingObjectId = {
+			            Id: Xrm.Page.data.entity.getId(),
+			            LogicalName: Xrm.Page.data.entity.getEntityName()
+			        };
+
+				default:
+					break;
+			}
+
+			// Création d'une activité téléphonique
+			JSIHelper.CreateRecord(phonecall, "PhoneCallSet", JSIHelper.PhoneCallCallBack);
+		}
+	
+		// arg1:
+		// - 1 = Call
+		// - 2 = phoneE164
+		//var myWidow = window.open("MutuaidebandeauMulticanal:// arg1=call arg2=" + phoneE164_);
+		var myWidow = window.open("MutuaidebandeauMulticanal:// Call " + phoneE164_);
+		var timer = setInterval(function () {
+			if (myWidow != null)
+			{
+				myWidow.close();
+				clearInterval(timer);
+			}
+		}, 50);
+	},
+
+
+    // Après avoir créé une activité téléphonique, il faut lui attribuer ses partylist
+    PhoneCallCallBack: function(data) {
+        try {
+            var toId, toLogicalName, activityParty;
+
+            // Gestion des activitypartylist (from + to)
+            switch (Xrm.Page.data.entity.getEntityName()) {
+                case "incident":
+                    // On récupère le concernant de la demande
+                    var customerid = JSIHelper.GetAttributeValue("customerid");
+                    if ((customerid != null) && (customerid[0] != null))
+                    {
+                        toLogicalName = customerid[0].typename;
+                        toId = customerid[0].id;
+                    }
+                    break;
+					
+
+                case "new_prestation":
+                    // On récupère le prestataire
+                    var prestataireid = JSIHelper.GetAttributeValue("new_selectedsupplierid");
+                    if ((prestataireid != null) && (prestataireid[0] != null)) {
+                        toLogicalName = prestataireid[0].typename;
+                        toId = prestataireid[0].id;
+                    }
+                    break;
+
+				case "new_phoneschedule":
+                    // On récupère le contact du téléphone/horaire
+                    var customerid = JSIHelper.GetAttributeValue("new_contactid");
+                    if ((customerid != null) && (customerid[0] != null))
+                    {
+                        toLogicalName = customerid[0].typename;
+                        toId = customerid[0].id;
+                    }
+                    break;
+
+            default:
+                toLogicalName = Xrm.Page.data.entity.getEntityName();
+                toId = Xrm.Page.data.entity.getId();
+                break;
+            }
+
+            // http://msdn.microsoft.com/en-us/library/cc151230.aspx
+            /* FROM */
+            activityParty = new Object();
+            // Activité téléphonique précédement créée
+            activityParty.ActivityId =
+            {
+                Id: data.d.ActivityId,
+                LogicalName: "phonecall"
+            };
+            // Champ "Origine de l'appel" de l'activité téléphonique
+            activityParty.PartyId =
+            {
+                Id: Xrm.Page.context.getUserId(),
+                LogicalName: "systemuser"
+            };
+            activityParty.ParticipationTypeMask = { Value: 1 }; // 1 => Sender
+            JSIHelper.CreateRecord(activityParty, "ActivityPartySet");
+            /* FROM */
+
+            /* TO */
+            // Activité téléphonique précédement créée
+            activityParty = new Object();
+            activityParty.ActivityId =
+            {
+                Id: data.d.ActivityId,
+                LogicalName: "phonecall"
+            };
+            // Champ "contact" de l'activité téléphonique
+            activityParty.PartyId =
+            {
+                Id: toId,
+                LogicalName: toLogicalName
+            };
+            activityParty.ParticipationTypeMask = { Value: 2 }; // 2 => ToRecipients
+            JSIHelper.CreateRecord(activityParty, "ActivityPartySet", JSIHelper.ActivityPartyCallBack);
+            /* TO */
+        } catch (e) {
+            throw e;
+        }
+    },
+
+
+    // Après avoir créé une activitypartylist, on ouvre la page de l'activité téléphonique
+    ActivityPartyCallBack: function (data)
+    {
+        try {
+            window.open(Xrm.Page.context.getClientUrl() + "/main.aspx?etn=phonecall&pagetype=entityrecord&id=%7B" + data.d.ActivityId.Id + "%7D", "_blank", "height=500,width=1000,resizable=yes");
+        } catch (e)
+        {
+            throw e;
+        }
+    },
+
+
+    /* REG EXP */
+    // Vérifie si une valeur est de type décimal
+    // value_   => value to test
+    IsDecimalValue: function(value_) {
+        return /^\d+([\.\,]\d+)?$/.test(value_);
+    },
+
+
+    // Vérifie si une valeur est de type entier
+    IsIntValue: function(value_) {
+        return /^\d+$/.test(value_);
+    },
+
+    // Vérifie si une valeur est de type date xx/xx/xxxx
+    IsDateValue: function(value_) {
+        return /^\d{2}\/\d{2}\/\d{4}$/.test(value_);
+    },
+    /* REG EXP */
+
+
+    //Permet de retourner un GUID
+    //http://slavik.meltser.info/the-efficient-way-to-create-guid-uuid-in-javascript-with-explanation/
+    GenerateGUID: function () {
+        return JSIHelper.p8() + JSIHelper.p8(true) + JSIHelper.p8(true) + JSIHelper.p8();
+
+    },
+
+    //Permet de retourner un GUID
+    p8: function (s) {
+        var p = (Math.random().toString(16) + "000000000").substr(2, 8);
+        return s ? "-" + p.substr(0, 4) + "-" + p.substr(4, 4) : p;
+    },
+
+
+    // Permet de faire un alert sur les champs modifiés avant la sauvegarde
+    CheckDirtyFields: function() {
+        var attributes = Xrm.Page.data.entity.attributes.get();
+        for (var i in attributes)
+        {
+            var attribute = attributes[i];
+            if (attribute.getIsDirty())
+                alert(attribute.getName() + "  " + attribute.getSubmitMode());
+        }
+    },
+
+    _namespace: true,
+};

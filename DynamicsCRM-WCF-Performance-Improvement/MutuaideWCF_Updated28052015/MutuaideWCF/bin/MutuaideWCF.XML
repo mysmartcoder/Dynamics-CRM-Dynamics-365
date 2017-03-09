@@ -1,0 +1,665 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MutuaideWCF</name>
+    </assembly>
+    <members>
+        <member name="T:MutuaideWCF.DAL.Activity">
+            <exclude/>
+        </member>
+        <member name="M:MutuaideWCF.DAL.Activity.GetEmailById(System.String,MutuaideWCF.XRM.XrmServices)">
+            <summary>
+            Retourne l'identifiant unique du mail à partir de l'id Exchange unique en paramétre
+            </summary>
+            <param name="messageId">Id exchange</param>
+            <param name="crmServices">CRM Services</param>
+            <returns></returns>
+        </member>
+        <member name="M:MutuaideWCF.DAL.Activity.GetEmail(System.String,MutuaideWCF.XRM.XrmServices)">
+            <summary>
+            Renvoi l'enregistrement Email de CRM
+            </summary>
+            <param name="messageId">identifiant Exchange</param>
+            <param name="crmServices">CRM Services</param>
+            <returns></returns>
+        </member>
+        <member name="M:MutuaideWCF.DAL.Activity.ReopenActivity(Microsoft.Xrm.Sdk.EntityReference,MutuaideWCF.XRM.XrmServices)">
+            <summary>
+            Réouvre une activité fermé.
+            </summary>
+            <param name="activity">Activité à ouvrir</param>
+            <param name="crmServices"></param>
+        </member>
+        <member name="M:MutuaideWCF.DAL.Activity.CloseActivity(Microsoft.Xrm.Sdk.EntityReference,MutuaideWCF.XRM.XrmServices,System.Int32,System.Int32)">
+            <summary>
+            Ferme une activité avec le statut Terminé par defaut.
+            </summary>
+            <param name="activity">Activité à fermer</param>
+            <param name="crmServices">Service CRM</param>
+            <param name="statecode">Statut de l'activité (1 si valeur null)</param>
+            <param name="statuscode">Raison du statut (2 si valeur null)</param>
+        </member>
+        <member name="T:MutuaideWCF.DAL.Compte">
+            <exclude/>
+        </member>
+        <member name="T:MutuaideWCF.DAL.Contact">
+            <exclude/>
+            <exclude/>
+        </member>
+        <member name="M:MutuaideWCF.DAL.Contact.GetContactById(System.String,MutuaideWCF.XRM.XrmServices)">
+            <summary>
+            Retourne le contact correspondant à l'id du porteur de carte
+            </summary>
+            <param name="pcidssId">id du porteur de carte</param>
+            <param name="crmServices">CRM Services</param>
+            <returns></returns>
+        </member>
+        <member name="T:MutuaideWCF.DAL.Contrat">
+            <exclude/>
+        </member>
+        <member name="T:MutuaideWCF.DAL.customError">
+            <exclude/>
+        </member>
+        <member name="T:MutuaideWCF.DAL.Demande">
+            <exclude/>
+        </member>
+        <member name="M:MutuaideWCF.DAL.Demande.GetRequestByPhoneNumber(System.String,System.String,MutuaideWCF.XRM.XrmServices)">
+            <summary>
+            Retourne un objet demande à partir du numéro de téléphone
+            </summary>
+            <param name="phoneNumber"></param>
+            <param name="dialNumber"></param>
+            <param name="crmService"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MutuaideWCF.DAL.Prestation">
+            <exclude/>
+        </member>
+        <member name="T:MutuaideWCF.DAL.SystemUser">
+            <exclude/>
+        </member>
+        <member name="M:MutuaideWCF.DAL.SystemUser.GetUserFromLogin(System.String,MutuaideWCF.XRM.XrmServices)">
+            <summary>
+            Retourne l'utilisateur CRM à partir de son login
+            </summary>
+            <param name="login"></param>
+            <param name="crmServices"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MutuaideWCF.DAL.XmlResult">
+            <exclude/>
+        </member>
+        <member name="M:MutuaideWCF.Log.FileLogHelper.doExists(System.String)">
+            <summary>
+            Check if the file exists
+            </summary>
+            <param name="filePath_">Path to the file</param>
+            <returns></returns>
+        </member>
+        <member name="M:MutuaideWCF.Log.FileLogHelper.WriteLine(System.Exception)">
+            <summary>
+            Write a message to a file
+            </summary>
+            <param name="ex_"></param>
+        </member>
+        <member name="M:MutuaideWCF.Log.FileLogHelper.WriteLine(System.Exception,System.String)">
+            <summary>
+            Write a message to a file
+            </summary>
+            <param name="ex_"></param>
+            <param name="message_"></param>
+        </member>
+        <member name="M:MutuaideWCF.Log.FileLogHelper.WriteLine(System.Exception,System.Object)">
+            <summary>
+            Write a message to a file
+            </summary>
+            <param name="ex_"></param>
+            <param name="obj_"></param>
+        </member>
+        <member name="M:MutuaideWCF.Log.FileLogHelper.WriteLine(System.Exception,System.String,System.Object)">
+            <summary>
+            Write a message to a file
+            </summary>
+            <param name="ex_"></param>
+            <param name="message_"></param>
+            <param name="obj_"></param>
+        </member>
+        <member name="M:MutuaideWCF.Log.FileLogHelper._WriteLine(System.Exception,System.String,System.Object,System.String)">
+            <summary>
+            Write a message to a file
+            </summary>
+            <param name="filePath_"></param>
+            <param name="message_"></param>
+        </member>
+        <member name="T:MutuaideWCF.Log.LogLevelL4N">
+            ************************** 5/28/2015 ************************************
+             <summary>
+             Enum for log4net levels
+             </summary>
+        </member>
+        <member name="T:MutuaideWCF.Log.Logfile">
+            <summary>
+            Static class to log error messagesS
+            </summary>
+        </member>
+        <member name="M:MutuaideWCF.Log.Logfile.WriteLog(MutuaideWCF.Log.LogLevelL4N,System.String)">
+            <summary>
+            It resolves module name and writes log in the file 
+            </summary>
+            <param name="logLevel"></param>
+            <param name="log"></param>
+        </member>
+        <member name="T:MutuaideWCF.MutuaideService">
+            <summary>
+            WebService contenant les méthodes implémentées exposées dans l'interface
+            </summary>
+            <exclude/>
+        </member>
+        <member name="T:MutuaideWCF.IMutuaideService">
+            <summary>
+            Interface exposant l'ensemble des méthodes disponibles pour les interactions avec CRM
+            </summary>
+        </member>
+        <member name="M:MutuaideWCF.IMutuaideService.GetEmailByExchangeId(System.String)">
+             <summary>
+             Retourne le mail et eventuellement la demande ou le client auquel il est associé.
+             </summary>
+             <param name="messageId">Id exchange du mail</param>
+             <returns>
+            <para><![CDATA[<error>]]></para>
+            <para><![CDATA[  <value>Code Erreur (1,2,4,5,6,7,8,9)</value>]]></para>
+            <para><![CDATA[  <message>Message de l'erreur</message>]]></para>
+            <para><![CDATA[</error>]]></para>
+            <para><![CDATA[<result>]]></para>
+            <para><![CDATA[  <activityid>Identifiant du mail</activityid>]]></para>
+            <para><![CDATA[  <demandeid>Identifiant de la demande</demandeid>]]></para>
+            <para><![CDATA[  <customerid>Identifiant du client</customerid>]]></para>
+            <para><![CDATA[</result>]]></para>
+             </returns>
+             <remarks>
+             Flux froids, étape 1. (chapitre 5.2.4.5.1 des specs)
+             </remarks>
+        </member>
+        <member name="M:MutuaideWCF.IMutuaideService.UpdateEmailByExchangeId(System.String,System.String,System.String)">
+             <summary>
+             Affecte le mail au concierge passé en paramètre
+             </summary>
+             <param name="messageId">id exchange du mail</param>
+             <param name="domainName">Domaine du concierge</param>
+             <param name="userName">Login du concierge</param>
+             <returns>Retourne le résultat au format XML suivant :
+             <para><![CDATA[<error>]]></para>
+            <para><![CDATA[  <value>Code Erreur (spécifique)</value>]]></para>
+            <para><![CDATA[  <message>Message de l'erreur</message>]]></para>
+            <para><![CDATA[</error>]]></para>
+            <para><![CDATA[<result>]]></para>
+            <para><![CDATA[  <value>True / False</value>]]></para>
+            <para><![CDATA[</result>]]></para>
+             </returns>
+             <remarks>
+             Flux froids, étape 2. (chapitre 5.2.4.5.2 des specs)
+             </remarks>
+        </member>
+        <member name="M:MutuaideWCF.IMutuaideService.GetRequestByPhoneNumber(System.String,System.String,System.String)">
+             <summary>
+             Retourne une demande CRM ou un client à partir d'un numéro de téléphone
+             </summary>
+             <param name="phoneNumber">Numéro de téléphone associé au client</param>
+             <param name="dialNumber">Numéro de téléphone du contrat composé</param>
+             <param name="phoneCallId">Identifiant de l'appel téléphonique</param>
+             <example></example>
+             <returns>Retourne le résultat au format XML suivant :
+             <para><![CDATA[<error>]]></para>
+            <para><![CDATA[  <value>Code Erreur (1,2,3,4,5)</value>]]></para>
+            <para><![CDATA[  <message>Message de l'erreur</message>]]></para>
+            <para><![CDATA[</error>]]></para>
+            <para><![CDATA[<result>]]></para>
+            <para><![CDATA[  <demandeid></demandeid>]]></para>
+            <para><![CDATA[  <conciergeid></conciergeid>]]></para>
+            <para><![CDATA[  <contactid></contactid>]]></para>
+            <para><![CDATA[</result>]]></para>        
+              </returns>
+             <remarks>
+             Flux chauds. (chapitre 5.2.3.2 des specs)
+             </remarks>
+        </member>
+        <member name="M:MutuaideWCF.IMutuaideService.WelcomeCall(System.String,System.String)">
+             <summary>
+             Retourne une partie de l'url de la fiche client et crée automatiquement une activité "Appel Téléphonique" dans la CRM liée au client.
+             </summary>
+             <param name="pcidssId">identifiant client (pcidss)</param>
+             <param name="callerId">identifiant de l'appel téléphonique (Call-id)</param>
+             <returns>Retourne le résultat au format XML suivant :
+             <para><![CDATA[<error>]]></para>
+            <para><![CDATA[  <value>Code Erreur (spécifique)</value>]]></para>
+            <para><![CDATA[  <message>Message de l'erreur</message>]]></para>
+            <para><![CDATA[</error>]]></para>
+            <para><![CDATA[<result>]]></para>
+            <para><![CDATA[  <url></url>]]></para>
+            <para><![CDATA[  <status> 100000001 (Consommateur) / 100000002 (Non intéressé) / 100000000 (Enregistré) / 100000003 (Dormant) </status>]]></para>
+            <para><![CDATA[</result>]]></para>
+             </returns>
+             <remarks>
+             (chapitre 6 des specs)
+             </remarks>
+        </member>
+        <member name="M:MutuaideWCF.IMutuaideService.GetContractByBin(System.String)">
+            <summary>
+            Retourne le code contrat correspondant au BIN
+            </summary>
+            <param name="binCode">Code BIN</param>
+            <returns>Retourne le résultat au format XML suivant :
+            <para><![CDATA[<error>]]></para>
+            <para><![CDATA[  <value>Code Erreur (2)</value>]]></para>
+            <para><![CDATA[  <message>Message de l'erreur</message>]]></para>
+            <para><![CDATA[</error>]]></para>
+            <para><![CDATA[<result>]]></para>
+            <para><![CDATA[  <ContractCode></ContractCode>]]></para>
+            <para><![CDATA[</result>]]></para>
+            </returns>
+            <remarks>
+            PCIDSS. (chapitre 7 des specs)
+            </remarks>
+        </member>
+        <member name="M:MutuaideWCF.IMutuaideService.UpdateCustomerBin(System.String,System.String)">
+            <summary>
+            Permet de modifier le bin d'un client
+            </summary>
+            <param name="pcidssId">Identifiant du client</param>
+            <param name="binCode">Code BIN à modifier</param>
+            <returns>Retourne le résultat au format XML suivant :
+            <para><![CDATA[<error>]]></para>
+            <para><![CDATA[  <value>Code Erreur (spécifique)</value>]]></para>
+            <para><![CDATA[  <message>Message de l'erreur</message>]]></para>
+            <para><![CDATA[</error>]]></para>
+            <para><![CDATA[<result>]]></para>
+            <para><![CDATA[  <resultCode>true / false</resultCode>]]></para>
+            <para><![CDATA[</result>]]></para>
+            </returns>
+            <remarks>
+            PCIDSS. (chapitre 7 des specs)
+            </remarks>
+        </member>
+        <member name="M:MutuaideWCF.IMutuaideService.UpdatePaymentMethod(System.String,System.String)">
+            <summary>
+            Modifie le moyen de paiement d'une demande.
+            </summary>
+            <param name="demandeId">Identifiant unique de la demande CRM</param>
+            <param name="paymentId">Identifiant du paiement à mettre à jour</param>
+            <returns>
+            <para><![CDATA[<error>]]></para>
+            <para><![CDATA[  <value>Code Erreur (spécifique)</value>]]></para>
+            <para><![CDATA[  <message>Message de l'erreur</message>]]></para>
+            <para><![CDATA[</error>]]></para>
+            <para><![CDATA[<result>]]></para>
+            <para><![CDATA[  <resultCode>true / false</resultCode>]]></para>
+            <para><![CDATA[</result>]]></para>
+            </returns>
+            <remarks>
+            PCIDSS. (chapitre 7 des specs)
+            </remarks>
+        </member>
+        <member name="M:MutuaideWCF.IMutuaideService.RetrieveCustomer(System.String,System.String,System.String)">
+            <summary>
+            Retourne le client porteur de la carte
+            </summary>
+            <param name="lastName">Nom du client</param>
+            <param name="firstName">Prénom du client</param>
+            <param name="birthday">Date de naissance du client</param>
+            <returns>Retourne le premier client porteur trouvé au format XML suivant :
+            <para><![CDATA[<error>]]></para>
+            <para><![CDATA[  <value>Code Erreur (1)</value>]]></para>
+            <para><![CDATA[  <message>Message de l'erreur</message>]]></para>
+            <para><![CDATA[</error>]]></para>
+            <para><![CDATA[<result>]]></para>
+            <para><![CDATA[  <cdoid>Identifiant du CDO</cdoid>]]></para>
+            <para><![CDATA[  <firstname>Prénom du client</firstname>]]></para>
+            <para><![CDATA[  <lastname>Nom du client</lastname>]]></para>
+            <para><![CDATA[  <city>Code postal + ville du client</city>]]></para>
+            <para><![CDATA[  <bankcode>30002</bankcode>]]></para>
+            <para><![CDATA[  <id_porteur>Identifiant porteur du client</id_porteur>]]></para>
+            <para><![CDATA[  <pcidssid>Identifiant PCIDSS du client</pcidssid>]]></para>
+            <para><![CDATA[</result>]]></para>
+            </returns>
+            <remarks>
+            Visa Infinite. (chapitre 8.7.1 des specs)
+            </remarks>
+        </member>
+        <member name="M:MutuaideWCF.IMutuaideService.IsCustomerActive(System.String)">
+             <summary>
+             Indique si le client à le statut actif dans la CRM
+             </summary>
+             <param name="pcidssId">identifiant du porteur</param>
+             <returns>Retourne le résultat au format XML suivant :
+             <para><![CDATA[<error>]]></para>
+            <para><![CDATA[  <value>Code Erreur (1)</value>]]></para>
+            <para><![CDATA[  <message>Message de l'erreur</message>]]></para>
+            <para><![CDATA[</error>]]></para>
+            <para><![CDATA[<result>]]></para>
+            <para><![CDATA[  <resultcode>True / False</resultcode>]]></para>
+            <para><![CDATA[</result>]]></para>
+             </returns>
+             <remarks>
+             Visa Infinite. (chapitre 8.7.2 des specs)
+             </remarks>
+        </member>
+        <member name="M:MutuaideWCF.IMutuaideService.GetLastRequest(System.String)">
+            <summary>
+            Retourne une liste des 100 dernières demandes effectuées par un client
+            </summary>
+            <param name="pcidssId">identifiant du porteur (id pcidss)</param>
+            <returns>Retourne le résultat au format XML suivant :
+            <para><![CDATA[<error>]]></para>
+            <para><![CDATA[    <value>Code Erreur (2,10)</value>]]></para>
+            <para><![CDATA[    <message>Message de l'erreur</message>]]></para>
+            <para><![CDATA[</error>]]></para>
+            <para><![CDATA[<result>]]></para>
+            <para><![CDATA[    <request>]]></para>        
+            <para><![CDATA[        <casenumber>Numéro de la demande</casenumber>]]></para>
+            <para><![CDATA[        <prestationtype>]]></para>
+            <para><![CDATA[            <value>Code prestation</value>]]></para>
+            <para><![CDATA[            <text>Libellé prestation</text>]]></para>
+            <para><![CDATA[        </prestationtype>]]></para>
+            <para><![CDATA[        <comments>Commentaire CRM non interprété</comments>]]></para>
+            <para><![CDATA[        <createdon>Date de création de la demande</createdon>]]></para>
+            <para><![CDATA[        <status>Statut de la demande (CREATED, CLOSED, CANCEL)</status>]]></para>
+            <para><![CDATA[    </request>]]></para>
+            <para><![CDATA[    ...]]></para>
+            <para><![CDATA[</result>]]></para>
+            </returns>
+            <remarks>
+            Visa Infinite. (chapitre 8.7.3 des specs)
+            </remarks>
+        </member>
+        <member name="M:MutuaideWCF.IMutuaideService.MailValidation(System.String)">
+            <summary>
+             - INTERNE CRM JSI -
+            Indique si le domaine du mail est valide
+            </summary>
+            <param name="email">email à vérifier</param>
+            <returns>True ou False</returns>
+        </member>
+        <member name="M:MutuaideWCF.IMutuaideService.SearchServices(System.String,System.String)">
+            <summary>
+             - INTERNE CRM JSI -
+            Retourne la liste des Services et prestations.
+            </summary>
+            <param name="clientId">Identifiant du client</param>
+            <param name="subtypeId">Identifiant du sous type de prestation</param>
+            <returns>Liste de services correspondants</returns>
+        </member>
+        <member name="M:MutuaideWCF.MutuaideService.GetEmailByExchangeId(System.String)">
+             <summary>
+             Retourne le mail et eventuellement la demande ou le client auquel il est associé.
+             </summary>
+             <param name="messageId">Id exchange du mail</param>
+             <returns>
+            <para><![CDATA[<error>]]></para>
+            <para><![CDATA[  <value>Code Erreur (1,2,4,5,6,7,8,9)</value>]]></para>
+            <para><![CDATA[  <message>Message de l'erreur</message>]]></para>
+            <para><![CDATA[</error>]]></para>
+            <para><![CDATA[<result>]]></para>
+            <para><![CDATA[  <activityid>Identifiant du mail</activityid>]]></para>
+            <para><![CDATA[  <demandeid>Identifiant de la demande</demandeid>]]></para>
+            <para><![CDATA[  <customerid>Identifiant du client</customerid>]]></para>
+            <para><![CDATA[</result>]]></para>
+             </returns>
+             <remarks>
+             Flux froids, étape 1. (chapitre 5.2.4.5.1 des specs)
+             </remarks>
+        </member>
+        <member name="M:MutuaideWCF.MutuaideService.UpdateEmailByExchangeId(System.String,System.String,System.String)">
+             <summary>
+             Affecte le mail au concierge passé en paramètre
+             </summary>
+             <param name="messageId">id exchange du mail</param>
+             <param name="domainName">Domaine du concierge</param>
+             <param name="userName">Login du concierge</param>
+             <returns>Retourne le résultat au format XML suivant :
+             <para><![CDATA[<error>]]></para>
+            <para><![CDATA[  <value>Code Erreur (spécifique)</value>]]></para>
+            <para><![CDATA[  <message>Message de l'erreur</message>]]></para>
+            <para><![CDATA[</error>]]></para>
+            <para><![CDATA[<result>]]></para>
+            <para><![CDATA[  <value>True / False</value>]]></para>
+            <para><![CDATA[</result>]]></para>
+             </returns>
+             <remarks>
+             Flux froids, étape 2. (chapitre 5.2.4.5.2 des specs)
+             </remarks>
+        </member>
+        <member name="M:MutuaideWCF.MutuaideService.GetRequestByPhoneNumber(System.String,System.String,System.String)">
+             <summary>
+             Retourne une demande CRM ou un client à partir d'un numéro de téléphone
+             </summary>
+             <param name="phoneNumber">Numéro de téléphone associé au client</param>
+             <param name="dialNumber">Numéro de téléphone du contrat composé</param>
+             <param name="phoneCallId">Identifiant de l'appel téléphonique</param>
+             <example></example>
+             <returns>Retourne le résultat au format XML suivant :
+             <para><![CDATA[<error>]]></para>
+            <para><![CDATA[  <value>Code Erreur (1,2,3,4,5)</value>]]></para>
+            <para><![CDATA[  <message>Message de l'erreur</message>]]></para>
+            <para><![CDATA[</error>]]></para>
+            <para><![CDATA[<result>]]></para>
+            <para><![CDATA[  <demandeid></demandeid>]]></para>
+            <para><![CDATA[  <conciergeid></conciergeid>]]></para>
+            <para><![CDATA[  <contactid></contactid>]]></para>
+            <para><![CDATA[</result>]]></para>        
+              </returns>
+             <remarks>
+             Flux chauds. (chapitre 5.2.3.2 des specs)
+             </remarks>
+        </member>
+        <member name="M:MutuaideWCF.MutuaideService.WelcomeCall(System.String,System.String)">
+             <summary>
+             Retourne une partie de l'url de la fiche client et crée automatiquement une activité "Appel Téléphonique" dans la CRM liée au client.
+             </summary>
+             <param name="pcidssId">identifiant client (pcidss)</param>
+             <param name="callerId">identifiant de l'appel téléphonique (Call-id)</param>
+             <returns>Retourne le résultat au format XML suivant :
+             <para><![CDATA[<error>]]></para>
+            <para><![CDATA[  <value>Code Erreur (spécifique)</value>]]></para>
+            <para><![CDATA[  <message>Message de l'erreur</message>]]></para>
+            <para><![CDATA[</error>]]></para>
+            <para><![CDATA[<result>]]></para>
+            <para><![CDATA[  <url></url>]]></para>
+            <para><![CDATA[  <status> 100000001 (Consommateur) / 100000002 (Non intéressé) / 100000000 (Enregistré) / 100000003 (Dormant) </status>]]></para>
+            <para><![CDATA[</result>]]></para>
+             </returns>
+             <remarks>
+             (chapitre 6 des specs)
+             </remarks>
+        </member>
+        <member name="M:MutuaideWCF.MutuaideService.GetContractByBin(System.String)">
+            <summary>
+            Retourne le code contrat correspondant au BIN
+            </summary>
+            <param name="binCode">Code BIN</param>
+            <returns>Retourne le résultat au format XML suivant :
+            <para><![CDATA[<error>]]></para>
+            <para><![CDATA[  <value>Code Erreur (2)</value>]]></para>
+            <para><![CDATA[  <message>Message de l'erreur</message>]]></para>
+            <para><![CDATA[</error>]]></para>
+            <para><![CDATA[<result>]]></para>
+            <para><![CDATA[  <ContractCode></ContractCode>]]></para>
+            <para><![CDATA[</result>]]></para>
+            </returns>
+            <remarks>
+            PCIDSS. (chapitre 7 des specs)
+            </remarks>
+        </member>
+        <member name="M:MutuaideWCF.MutuaideService.UpdateCustomerBin(System.String,System.String)">
+            <summary>
+            Permet de modifier le bin d'un client
+            </summary>
+            <param name="pcidssId">Identifiant du client</param>
+            <param name="binCode">Code BIN à modifier</param>
+            <returns>Retourne le résultat au format XML suivant :
+            <para><![CDATA[<error>]]></para>
+            <para><![CDATA[  <value>Code Erreur (spécifique)</value>]]></para>
+            <para><![CDATA[  <message>Message de l'erreur</message>]]></para>
+            <para><![CDATA[</error>]]></para>
+            <para><![CDATA[<result>]]></para>
+            <para><![CDATA[  <resultCode>true / false</resultCode>]]></para>
+            <para><![CDATA[</result>]]></para>
+            </returns>
+            <remarks>
+            PCIDSS. (chapitre 7 des specs)
+            </remarks>
+        </member>
+        <member name="M:MutuaideWCF.MutuaideService.UpdatePaymentMethod(System.String,System.String)">
+            <summary>
+            Modifie le moyen de paiement d'une demande.
+            </summary>
+            <param name="demandeId">Identifiant unique de la demande CRM</param>
+            <param name="paymentId">Identifiant du paiement à mettre à jour</param>
+            <returns>
+            <para><![CDATA[<error>]]></para>
+            <para><![CDATA[  <value>Code Erreur (spécifique)</value>]]></para>
+            <para><![CDATA[  <message>Message de l'erreur</message>]]></para>
+            <para><![CDATA[</error>]]></para>
+            <para><![CDATA[<result>]]></para>
+            <para><![CDATA[  <resultCode>true / false</resultCode>]]></para>
+            <para><![CDATA[</result>]]></para>
+            </returns>
+            <remarks>
+            PCIDSS. (chapitre 7 des specs)
+            </remarks>
+        </member>
+        <member name="M:MutuaideWCF.MutuaideService.MailValidation(System.String)">
+            <summary>
+             - INTERNE CRM JSI -
+            Indique si le domaine du mail est valide
+            </summary>
+            <param name="email">email à vérifier</param>
+            <returns>True ou False</returns>
+        </member>
+        <member name="M:MutuaideWCF.MutuaideService.RetrieveCustomer(System.String,System.String,System.String)">
+            <summary>
+            RGI008  - La méthode permettra de récupérer une liste de porteurs. 
+            </summary>
+            <param name="lastName"></param>
+            <param name="firstName"></param>
+            <param name="birthday">DDMMYYYY</param>
+            <returns></returns>
+        </member>
+        <member name="M:MutuaideWCF.MutuaideService.IsCustomerActive(System.String)">
+            <summary>
+            RGI009 - Indique si le client à le statut actif dans la CRM 
+            </summary>
+            <param name="pcidssId">BIN du client </param>
+            <returns></returns>
+        </member>
+        <member name="M:MutuaideWCF.MutuaideService.GetLastRequest(System.String)">
+            <summary>
+            RGI010  - La méthode permet de récupérer la liste des 100 dernières demandes effectuées par un client. 
+            </summary>
+            <param name="pcidssId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MutuaideWCF.CustomReturnCode">
+            <summary>
+            Liste des codes d'erreurs spécifiques au webservice et leurs retours.
+            </summary>
+        </member>
+        <member name="F:MutuaideWCF.CustomReturnCode.Unknown">
+            <summary>
+            Erreur non prévue
+            </summary>
+        </member>
+        <member name="F:MutuaideWCF.CustomReturnCode.Success">
+            <summary>
+            Succès
+            </summary>
+        </member>
+        <member name="F:MutuaideWCF.CustomReturnCode.CustomerNotFound">
+            <summary>
+            Aucun client trouvé 
+            </summary>
+        </member>
+        <member name="F:MutuaideWCF.CustomReturnCode.ContractNotFound">
+            <summary>
+            Aucun contrat trouvé
+            </summary>
+        </member>
+        <member name="F:MutuaideWCF.CustomReturnCode.RequestNotFound">
+            <summary>
+            Aucune demande trouvée
+            </summary>
+        </member>
+        <member name="F:MutuaideWCF.CustomReturnCode.RequestFound">
+            <summary>
+            Demande trouvée
+            </summary>
+        </member>
+        <member name="F:MutuaideWCF.CustomReturnCode.MailNotFound">
+            <summary>
+            Mail non trouvé
+            </summary>
+        </member>
+        <member name="F:MutuaideWCF.CustomReturnCode.MailInProgress">
+            <summary>
+            Mail en traitement
+            </summary>
+        </member>
+        <member name="F:MutuaideWCF.CustomReturnCode.MailClosed">
+            <summary>
+            Mail traité
+            </summary>
+        </member>
+        <member name="F:MutuaideWCF.CustomReturnCode.NewRequest">
+            <summary>
+            Nouvelle demande
+            </summary>
+        </member>
+        <member name="F:MutuaideWCF.CustomReturnCode.MultipleRequest">
+            <summary>
+            Contrats multiples
+            </summary>
+        </member>
+        <member name="F:MutuaideWCF.CustomReturnCode.SubTypeNotFound">
+            <summary>
+            Sous-type non trouvé (Interne JSI)
+            </summary>
+        </member>
+        <member name="T:MutuaideWCF.ServiceEntity">
+            <summary>
+            Service helper class
+            </summary>
+        </member>
+        <member name="T:MutuaideWCF.jsonReturn">
+            <summary>
+            Service helper class
+            </summary>
+        </member>
+        <member name="T:MutuaideWCF.XRM.XrmServices">
+            <exclude/>
+        </member>
+        <member name="T:MutuaideWCF.XRM.XrmUtility">
+            <exclude/>
+        </member>
+        <member name="M:MutuaideWCF.XRM.XrmUtility.FormatUrl(System.Guid,System.String)">
+            <summary>
+            Retourne l'url de l'enregistrement CRM.
+            </summary>
+            <param name="id">Guid de l'enregistrement</param>
+            <param name="entityName">Nom de l'entité.</param>
+            <returns>URL enregistremnt CRM</returns>
+        </member>
+        <member name="M:MutuaideWCF.XRM.XrmUtility.GetServeurUrl">
+            <summary>
+            Retourne l'url du serveur CRM sous la forme http://{serverName:Port}/{Organization}/
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MutuaideWCF.XRM.XrmUtility.ChangeOwner(Microsoft.Xrm.Sdk.EntityReference,Microsoft.Xrm.Sdk.EntityReference,MutuaideWCF.XRM.XrmServices)">
+            <summary>
+            Assign un enregistrement à un utilisateur
+            </summary>
+            <param name="entityRef">Entité à assigner</param>
+            <param name="owner">Nouveau propriétaire</param>
+            <param name="crmServices">Service CRM</param>
+        </member>
+    </members>
+</doc>

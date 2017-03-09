@@ -1,0 +1,17 @@
+ function SetViewAct() { 
+			
+			document.getElementById("navActivities").onclick = function () {   
+			Mscrm.Details.loadArea(this, "areaActivities");        
+			document.getElementById("areaActivitiesFrame").onload = function () {   
+			var entityName = Xrm.Page.data.entity.getEntityName();            
+			var entity = entityName.charAt(0).toUpperCase() + entityName.substr(1);    
+			var doc = this.contentWindow.document;          
+			var filterOn = doc.getElementById("crmGrid_" + entity + "_ActivityPointers_datefilter");          
+			filterOn.value = "All"; 
+			
+			var evt = document.createEvent("HTMLEvents");      	
+			evt.initEvent("change", false, true);            
+			filterOn.dispatchEvent(evt);          
+		 };     
+		 }; 
+ }

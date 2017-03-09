@@ -1,0 +1,207 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Application de test des webservices</title>
+    <script src="jquery-1.11.1.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+
+            $("#selectedFunction").change(function () {
+                var value = $("#selectedFunction option:selected").val();
+                var functionName = "";
+                if (value != 0) {
+                    functionName = $("#selectedFunction option:selected").text();
+                    //debugger;
+
+                    $("#formFunction").load(functionName + ".html", function (data) {
+                        $(this).html(data + "<br/><input type='submit' value='envoyer'/>");
+                        $("#result textarea").text("");
+                        // alert(data);
+                    });
+                    functionName = " -<br />" + functionName;
+                    //
+                }
+                $("#functionName").html(functionName);
+            });
+            $("#formFunction").submit(function () {
+                var functionName = $("#selectedFunction option:selected").text();
+                var param = "";
+                if (functionName != "Geocoder") {
+                    jQuery('#formFunction').children('input:text, select, textarea').each(function (key) {
+                        param += "/" + escape(jQuery(this).val());
+                    });
+                    //alert(param);
+                    $("#result textarea").load("../MutuaideService.svc/" + functionName + param);
+                } else {
+
+                    var url = "";
+                    var arg = "";
+                    jQuery('#formFunction').children('input:text, select, textarea').each(function (key) {
+                        if (this.id == "url") {
+                            url = jQuery(this).val();
+                        } else {
+                            arg += '<' + this.id + '>Arg1 Value</' + this.id + '>';
+                        }
+                    });
+                    var soapMessage =
+                    '<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">' +
+                        '<soap:Body>' +
+                            '<Geocoder>' +
+                                 arg +
+                            '</Geocoder>' +
+                        '</soap:Body>' +
+                    '</soap:Envelope>';
+                    jQuery.support.cors = true;
+                    $.ajax({
+                        url: "http://" + url + "/PTV_Services.asmx",
+                        type: "POST",
+                        dataType: "xml",
+                        async: true,
+                        contentType: "text/xml; charset=\"utf-8\"",
+                        crossDomain: true,
+                        headers: {
+                            SOAPAction: "http://tempuri.org/Geocoder"
+                        },
+                        data: soapMessage,
+                        success: function (soapResponse) {
+                            //debugger;
+                            var result = "Success :\n ";
+                            for (var i = 1; i < soapResponse.getElementsByTagName("GeocoderResponse")[0].childNodes.length - 1; i++) {
+                                result += "<" + soapResponse.getElementsByTagName("GeocoderResponse")[0].childNodes[i].tagName + ">";
+                                result += soapResponse.getElementsByTagName("GeocoderResponse")[0].childNodes[i].textContent;
+                                result += "</" + soapResponse.getElementsByTagName("GeocoderResponse")[0].childNodes[i].tagName + ">";
+                            }
+
+                            $("#result textarea").text(result);
+                        },
+                        error: function(status) {
+                            $("#result textarea").text(status.statusText);
+                        }
+                    });
+                }
+                return false;
+            });
+
+        });
+
+    </script>
+    <style>
+        body {
+            min-height: 500px;
+            margin: 0;
+            font-family: Arial;
+        }
+
+        #global {
+            width: 1024px;
+            margin: 0 auto;
+            position: relative;
+            background-color: lightgrey;
+            min-height: 500px;
+        }
+
+        #header {
+            background: #002052;
+            position: relative;
+            width: 100%;
+            min-height: 40px;
+            color: white;
+            font-family: Arial;
+            text-align: center;
+            padding-top: 20px;
+        }
+
+        #menu {
+            margin-top: 0;
+            margin-left: 0;
+            margin-bottom: 20px;
+        }
+
+        .custom-dropdown__select--emerald {
+            background-color: #20b390;
+            color: #fff;
+        }
+
+        .custom-dropdown--emerald::before {
+            background-color: #1aa181;
+        }
+
+        .custom-dropdown {
+            position: relative;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .custom-dropdown__select {
+            padding-right: 2.5em; /* accommodate with the pseudo elements for the dropdown arrow */
+            border: 0;
+            border-radius: 3px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        .custom-dropdown::before,
+        .custom-dropdown::after {
+            content: "";
+            position: absolute;
+            pointer-events: none;
+        }
+
+        .custom-dropdown::after { /*  Custom dropdown arrow */
+            content: "\25BC";
+            height: 1em;
+            font-size: .625em;
+            line-height: 1;
+            right: 1.2em;
+            top: 50%;
+            margin-top: -.5em;
+        }
+    </style>
+</head>
+<body>
+    <div id="global">
+        <div id="header">
+            <label>Application de test des webservices  </label>
+            <br />
+            <label id="functionName"></label>
+        </div>
+
+        <div id="menu">
+            <label>Sélectionnez la méthode :</label><br />
+            <span class="custom-dropdown custom-dropdown--emerald">
+                <select id="selectedFunction" class="custom-dropdown__select custom-dropdown__select--emerald">
+                    <option value="0">Choisissez...</option>
+                    <option>Geocoder</option>
+                    <option>GetContractByBin</option>
+                    <option>GetEmailByExchangeId</option>
+                    <option>GetLastRequest</option>
+                    <option>GetRequestByPhoneNumber</option>
+                    <option>IsCustomerActive</option>
+                    <option>MailValidation</option>
+                    <option>RetrieveCustomer</option>
+                    <option>SearchServices</option>
+                    <option>UpdateCustomerBin</option>
+                    <option>UpdateEmailByExchangeId</option>
+                    <option>UpdatePaymentMethod</option>
+                    <option>WelcomeCall</option>
+                </select>
+            </span>
+        </div>
+
+
+        <form id="formFunction" action="/" method="post">
+        </form>
+        <div id="result">
+            <br />
+            Résultat :
+            <br />
+            <textarea readonly="true" cols="100" rows="10"></textarea>
+        </div>
+    </div>
+
+
+</body>
+</html>

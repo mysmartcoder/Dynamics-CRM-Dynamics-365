@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MutuaideWCF", "MutuaideWCF\MutuaideWCF.csproj", "{2B05BDEA-7BFD-4749-95F2-FD8F0AC759D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WcfTestApplication", "WcfTestApplication\WcfTestApplication.csproj", "{F0E6FE27-2019-42C0-924E-D96A11D9E604}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2B05BDEA-7BFD-4749-95F2-FD8F0AC759D3} = {2B05BDEA-7BFD-4749-95F2-FD8F0AC759D3}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://srv-tfs:8080/tfs/mutuaide
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = MutuaideWCF\\MutuaideWCF.csproj
+		SccProjectName1 = MutuaideWCF
+		SccLocalPath1 = MutuaideWCF
+		SccProjectUniqueName2 = WcfTestApplication\\WcfTestApplication.csproj
+		SccProjectName2 = WcfTestApplication
+		SccLocalPath2 = WcfTestApplication
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2B05BDEA-7BFD-4749-95F2-FD8F0AC759D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B05BDEA-7BFD-4749-95F2-FD8F0AC759D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B05BDEA-7BFD-4749-95F2-FD8F0AC759D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B05BDEA-7BFD-4749-95F2-FD8F0AC759D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0E6FE27-2019-42C0-924E-D96A11D9E604}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0E6FE27-2019-42C0-924E-D96A11D9E604}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0E6FE27-2019-42C0-924E-D96A11D9E604}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0E6FE27-2019-42C0-924E-D96A11D9E604}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

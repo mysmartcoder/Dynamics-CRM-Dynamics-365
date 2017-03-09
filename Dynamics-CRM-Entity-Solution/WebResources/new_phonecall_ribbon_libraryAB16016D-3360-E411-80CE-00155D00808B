@@ -1,0 +1,47 @@
+﻿//Créateur : LB
+//Date : 30/10/2014
+//Fichier JS contenant les fonctionnalités permettant de gérer le ruban de l'entité phonecall
+
+//On référence les bibliothèques nécessaires
+/// <reference path="../Generics/global_functions.js" />
+/// <reference path="../Generics/JSIHelper.js" />
+
+//On utilisera les namespaces pour avoir plus d'organisation dans le code
+if (typeof (XrmConciergerie) == "undefined")
+{ XrmConciergerie = { __namespace: true }; }
+if (typeof (XrmConciergerie.Scripts) == "undefined")
+{ XrmConciergerie.Scripts = { __namespace: true }; }
+
+//On crée le namespace du fichier 
+XrmConciergerie.Scripts.RibbonPhoneCall = {
+
+
+    //RGI027
+    //Paramètre : Rien
+    //Retour : Rien
+    OpenBandeau: function () {
+        if (JSIHelper.GetAttributeValue("new_iswelcomecall") && JSIHelper.GetAttributeValue("to") != null
+            && Xrm.Page.getAttribute("to").getValue()[0].entityType == "contact") {
+
+            var contactId = JSIHelper.GetParentAttribute("to", "new_idcrm");
+
+            if (contactId != null) {
+
+                var callId = JSIHelper.GetAttributeValue("new_callid");
+
+                var callResult = JSIHelper.GetAttributeValue("new_new_welcomecallresult");
+
+                //var url = "MutuaidebandeauMulticanal://" + " " + "arg1=Dialer arg2=" + contactId + " " + "arg3=" + callId + " " + "arg4=" + callResult;
+                var url = "MutuaidebandeauMulticanal:// Dialer " + contactId + " " + callId + " " + callResult;
+
+                myWidow=window.open(url);
+
+                var timer=setInterval(function () { if (myWidow != null) { myWidow.close(); clearInterval(timer); } }, 50);
+
+            }
+        }
+    },
+
+    _namespace: true,
+
+}

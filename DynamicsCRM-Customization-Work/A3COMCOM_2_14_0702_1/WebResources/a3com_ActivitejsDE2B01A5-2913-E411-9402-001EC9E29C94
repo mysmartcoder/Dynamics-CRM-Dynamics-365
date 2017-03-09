@@ -1,0 +1,292 @@
+﻿// Programme codé en JavaScript permettant de gérer l'entité Activite
+// Programmé codé le 02/07/2014 dans le cadre de la mise à jour de l'existant A3COM
+ 
+
+if (typeof (PackageActivite) == "undefined")
+{ PackageActivite = {}; }
+
+PackageActivite.Activite = {
+
+		champsCheckBox: function () {
+		Xrm.Page.data.entity.attributes.forEach(function (attribute) {
+			if (attribute.getAttributeType() == "boolean") {
+				$('#' + attribute.getName()).click(function () {
+					$(this).blur();
+					$(this).focus();
+				});
+			}
+		});
+	},
+
+	getLabel : function (fieldName, value) {
+		var label = "";
+		var attribute = Xrm.Page.getAttribute(fieldName);
+		if (attribute != null && attribute.getAttributeType() == "optionset") {
+			var option = attribute.getOption(value);
+			if (option != null) label = option.text;
+		}
+		return label;
+	},
+
+	minToMaj: function (Nom) {
+		/* Le champ control souhaitée est celui qui est dans le champ; à ne pas confondre avec le libellé*/
+		var valeur = null;
+		if (Nom != null) {
+			valeur = Nom.toUpperCase();
+		}
+		return valeur;
+	},
+	
+	setsubject: function () //PackageActivite.Activite.setsubject
+	{
+		var valueoption = Xrm.Page.data.entity.attributes.get("a3com_categorie").getValue();
+		var min_label = PackageActivite.Activite.getLabel("a3com_categorie",valueoption);
+		//alert("value option est" + valueoption + "le libelle est" + labelCategorie);
+		var labelCategorie = PackageActivite.Activite.minToMaj(min_label);
+		Xrm.Page.data.entity.attributes.get("subject").setValue(labelCategorie);
+	},
+	
+	
+	
+	// Fonction permettant de masquer une section d'un onglet
+	masqueSection: function (TabName, SectionName) {
+		var tab = Xrm.Page.ui.tabs.get(TabName);
+		var section = tab.sections.get(SectionName).setVisible(false);
+	},
+
+	// Fonction permettant d'afficher une section d'un onglet
+	afficheSection: function (TabName, SectionName) {
+		var tab = Xrm.Page.ui.tabs.get(TabName);
+		var section = tab.sections.get(SectionName).setVisible(true);
+	},
+
+	desactiveChamps: function (getAttributes) {
+		var controls = Xrm.Page.data.entity.attributes.get(getAttributes).controls.get();
+		for (var ctrl in controls) {
+			if (!controls[ctrl].getDisabled()) {
+				controls[ctrl].setDisabled(true);
+			}
+		}
+	},
+
+	desactiveToutFormulaire: function () {
+		// désactive tous les controles
+		var controls = Xrm.Page.ui.controls.get();
+		for (var ctrl in controls) {
+			if (!controls[ctrl].getDisabled()) {
+				controls[ctrl].setDisabled(true);
+			}
+		}
+	},
+
+	activeChamps: function (getAttributes) {
+		var controls = Xrm.Page.data.entity.attributes.get(getAttributes).controls.get();
+		for (var ctrl in controls) {
+			controls[ctrl].setDisabled(false);
+		}
+	},
+
+    /* Make a field required */
+	
+	setsNotRequired: function (champDesactive) {
+		var attribute = Xrm.Page.data.entity.attributes.get(champDesactive);
+		attribute.setRequiredLevel("none");
+	},
+
+	/*
+	* Auteur : Gaspard
+	* Date derniere modification : 02/07/2014
+	* Make a field required 
+	*/
+
+	setsRecommended: function (champAmodifier) {
+		var attribute = Xrm.Page.data.entity.attributes.get(champAmodifier);
+		var controls = attribute.controls.get();
+		var champEnabled = false;
+		// controle si le champ est en lecture seule
+		for (var ctrl in controls) {
+			if (!controls[ctrl].getDisabled()) {
+				champEnabled = true;
+			}
+		}
+		// si le champ est en lecture seule, pas besoin de le rendre obligatoire
+		if (champEnabled) {
+			attribute.setRequiredLevel("recommended");
+		}
+	},
+
+	/*
+	* Auteur : GASPARD
+	* Date derniere modification : 02/07/2014
+	* Descriptif : rend obligatoire un champ s'il n'est pas en lecture seule
+	*/
+	
+	setsRequired: function (champDesactive) {
+		var attribute = Xrm.Page.data.entity.attributes.get(champDesactive);
+		var controls = attribute.controls.get();
+		var champEnabled = false;
+		// controle si le champ est en lecture seule
+		for (var ctrl in controls) {
+			if (!controls[ctrl].getDisabled()) {
+				champEnabled = true;
+			}
+		}
+		// si le champ est en lecture seule, pas besoin de le rendre obligatoire
+		if (champEnabled) {
+			attribute.setRequiredLevel("required");
+		}
+	},
+
+	/*
+	 Function to activate all form
+	*/
+	
+	activeToutFormulaire: function () {
+		var controls = Xrm.Page.ui.controls.get();
+		for (var ctrl in controls) {
+			controls[ctrl].setDisabled(false);
+		}
+	},
+
+
+	/*
+	* Auteur : Gaspard 
+	* Date derniere modification : 02/07/2014
+	  Empecher la fermeture suivant conditions 
+	*/
+	
+	checkNumber: function (ExecutionObj) {
+		var numActivite = Xrm.Page.data.entity.attributes.get("address1_telephone1").getValue();
+		var adressemail = Xrm.Page.data.entity.attributes.get("emailaddress1").getValue();
+		
+		if ((numActivite == null) && (adressemail == null)) { // On teste la vacuité.
+			alert("Le champ Activite Voyage ou l'adresse mail du Activite n'est renseigné(e), vous devez renseigner au moins l'un des ces deux champs");
+			ExecutionObj.getEventArgs().preventDefault(); //Permet d'empecher la fermeture du formulaire
+		}
+		
+		//RG_FICHES_Activite_05 
+		
+		var teldom = Xrm.Page.data.entity.attributes.get("telephone2").getValue();  
+		var telpro = Xrm.Page.data.entity.attributes.get("telephone1").getValue();
+		var portable = Xrm.Page.data.entity.attributes.get("mobilephone").getValue();
+		
+		
+		if( teldom == null && telpro== null && portable == null)
+		{
+		   alert("Vous devez renseigner au moins un N° de téléphone (Tél. Port, Tél. dom ou Tél. Port) avant de quitter la FC ».  ");
+		   ExecutionObj.getEventArgs().preventDefault(); //Permet d'empecher la fermeture du formulaire
+		}
+	},
+
+	/*
+	* Auteur : Gaspard 
+	* Date derniere modification : 08/06/2011
+	* Descriptif : Cette fonction permet créer une nouvelle date, en rajoutant 3 mois 
+	* à la date actuelle.
+	*/
+	ajout3Mois: function (date_origine) {
+		newDate = new Date();
+		var time_date = date_origine.getTime();
+		// 3 mois = 7884000000 millisecondes
+		time_date = time_date + 7884000000;
+		newDate.setTime(time_date);
+		return newDate;
+	},
+
+	ajout1Jour: function (date_origine) {
+		newDate = new Date();
+		var time_date = date_origine.getTime();
+		// 1 jour = 86400000 millisecondes
+		time_date = time_date + 86400000;
+		newDate.setTime(time_date);
+		return newDate;
+	},
+	
+	
+	ajout30jours: function (date_origine) {
+		newDate = new Date();
+		var time_date = date_origine.getTime();
+		// 30 jours  = 2592000000 millisecondes
+		time_date = time_date + 2592000000;
+		newDate.setTime(time_date);
+		return newDate;
+	},
+
+
+	/*
+	* Auteur : Gaspard 
+	* Date derniere modification : 02/07/2014
+	* Descriptif : L'objectif de cette fontion est de formater un numéro de téléphone et d'insérer un "-" entre deux 
+	* chiffres, par exemple : 06-14-41-41-14. 
+	* Pour cela on utilise trois fonctions qui ont chacune leur particularité.
+	*/
+
+	/* Fonction 1 : Utilisation d'un Regex poir controler le format et la taille */
+	/* Cette validation s'applique uniquement à la France */
+	validationNumber: function (number) {
+		// Definition du motif a matcher
+		var regex = new RegExp(/^(01|02|03|04|05|06|07|08|09)[0-9]{8}/gi);
+		// {8}, format français, pour que le regex soit complet, il va falloir considérer les autres pays
+		var match = false;
+		// Test sur le motif
+		if (regex.test(number)) {
+			match = true;
+		} else {
+			match = false;
+		}
+		return match;
+	},
+
+	/* 
+	*Fonction 2 : Mettre de "-" entre deux chiffres
+	*Pour cela  au lieu de faire un programme avec des conditions, nous allons plutôt 
+	*faire appel aux expressions régulières 
+	*/
+	mettreTiretEntre2Chiffres: function (ancienNumero, ChampNumero) {
+		var numeroFormate = ancienNumero.replace(/(.{2})(?!$)/g, "$1-");
+		Xrm.Page.data.entity.attributes.get(ChampNumero).setValue(numeroFormate);
+		//On met le numéro de téléphone valide dans le formulaire.
+	},
+
+	mettreTiret: function () {
+
+		var numTel = Xrm.Page.data.entity.attributes.get("address1_telephone1").getValue(); // Numéro de téléphone rentré par le TC
+		if (numTel != null) {
+			var premierChiffre = numTel.substring(0, 1); // On extrait le premier chiffre
+			if (premierChiffre != "+")  // On teste si le premier chiffre est différent de + 
+			{
+				PackageActivite.Activite.mettreTiretEntre2Chiffres(numTel, "address1_telephone1");
+			}
+		}
+	},
+
+	
+	/*
+	* Date derniere modification : 18/07/2011
+	* Fonction 3 : Test de validité, on a alors deux cas possibles:
+	* a) Conforme : On fait les modifications nécessaires
+	* b) Non Conforme: On vide le champ du numéro rentré.
+	*/
+	testNumeroValide: function (numerodetelephone) //PackageActivite.Activite.testNumeroValide 
+	{
+		var numTel = Xrm.Page.data.entity.attributes.get(numerodetelephone).getValue(); // Numéro de téléphone rentré par le TC
+		if (numTel != null) {
+			var premierChiffre = numTel.substring(0, 1); // On extrait le premier chiffre
+			if (premierChiffre != "+")  // On teste si le premier chiffre est différent de + 
+			{
+				/*
+				alert("avant +" " +numTel);
+				numTel = numTel.replace(array('-'), '');
+				alert("après" +" " +numTel);*/
+				if (PackageActivite.Activite.validationNumber(numTel) == true && numTel.length == 10) {
+					PackageActivite.Activite.mettreTiretEntre2Chiffres(numTel, numerodetelephone);
+				} else {
+					alert('Le numéro de téléphone saisi n\'est pas valide, veuillez réessayer svp!');
+					//Xrm.Page.data.entity.attributes.get(numerodetelephone).setValue(" "); // On vide le numéro invalide.
+				}
+			} else {
+				// Insèrer le code pour le traitement d'un numéro venant de l'etranger.
+			}
+		}
+	}
+}
